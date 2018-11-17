@@ -24,6 +24,7 @@
   "homepage": "https://github.com/d3dc/flying-saucer#readme",
   "dependencies": {
     "commander": "^2.19.0",
+    "create-react-app": "^2.1.1",
     "mrm-core": "^3.3.0"
   }
 }

@@ -1,16 +1,17 @@
-import commander from 'commander'
-import pkg from '../package.json'
+#!/usr/bin/env node
+const path = require('path')
+const execSync = require('child_process').execSync
 
-require('create-react-app')
+const args = process.argv.slice(2).join(' ')
 
-let projectName
+const craPath = path.resolve(
+  __dirname,
+  '../node_modules/create-react-app/index.js'
+)
 
-const program = new commander.Command(pkg.name)
-  .version(pkg.version)
-  .arguments('<project-directory>')
-  .action(name => {
-    projectName = name
-  })
-  .parse(process.argv)
+const codemodPath = path.resolve(__dirname, './codemod.js')
 
-require('./codemod')(projectName)
+try {
+  execSync(`${craPath} ${args}`, { stdio: 'inherit' })
+  execSync(`${codemodPath} ${args}`, { stdio: 'inherit' })
+} catch (e) {}

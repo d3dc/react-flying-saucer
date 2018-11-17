@@ -1,55 +1,74 @@
-import { packageJson, uninstall, install, copyFiles, makeDirs } from 'mrm-core'
+#!/usr/bin/env node
+const path = require('path')
+const commander = require('commander')
+const {
+  packageJson,
+  uninstall,
+  install,
+  deleteFiles,
+  copyFiles,
+  makeDirs,
+  template,
+} = require('mrm-core')
 
-export default function codemod(projectName) {
-  // Execute in-order
-  process.chdir(projectName)
-  replaceScripts()
-  replaceDependencies()
-  addTemplates()
+const clone = (to, from) =>
+  template(to, path.join(__dirname, '../templates', from))
+    .apply()
+    .save()
 
-  function replaceScripts() {
-    const file = packageJson()
+const cloneLocal = (to, from) =>
+  template(to, path.join(process.cwd(), from))
+    .apply()
+    .save()
 
-    if (!file.exists()) {
-      console.error('package.json not found!')
-      return
-    }
+const projectName = process.argv[2]
 
-    file.setScript('start', 'flying-saucer start')
-    file.setScript('build', 'flying-saucer build')
-    file.setScript('test', 'flying-saucer test')
+process.chdir(projectName)
+// Execute in-order
+replaceDependencies()
+replaceScripts()
+addDotfiles()
+addTemplates()
 
-    file.set(
-      'config-overrides-path',
-      'node_modules/flying-saucer/config-overrides'
-    )
+function replaceScripts() {
+  const file = packageJson()
 
-    file.save()
+  if (!file.exists()) {
+    console.error('package.json not found!')
+    return
   }
 
-  function replaceDependencies() {
-    install('flying-saucer')
-    uninstall('react-scripts')
-  }
+  file.setScript('start', 'flying-saucer start')
+  file.setScript('build', 'flying-saucer build')
+  file.setScript('test', 'flying-saucer test')
+  file.removeScript('eject')
 
-  function addTemplates() {
-    makeDirs(['src/modules', 'src/modules/Main'])
-    copyFiles('src/App.jsx', 'src/modules/Main/Hello.jsx')
-    copyFiles('src/App.test.jsx', 'src/modules/Main/Hello.test.jsx')
-    copyFiles('node_modules/flying-saucer/templates/src/App.jsx', 'src/App.jsx')
-    copyFiles(
-      'node_modules/flying-saucer/templates/src/module-main/index.js',
-      'src/modules/Main/index.js'
-    )
-    copyFiles(
-      'node_modules/flying-saucer/templates/src/module-main/Main.jsx',
-      'src/modules/Main/Main.jsx'
-    )
-    copyFiles(
-      'node_modules/flying-saucer/templates/src/module-main/routes.js',
-      'src/modules/Main/routes.js'
-    )
-    copyFiles('node_modules/flying-saucer/templates/babelrc.json', '.babelrc')
-    copyFiles('node_modules/flying-saucer/templates/eslintrc.json', '.eslintrc')
-  }
+  file.set(
+    'config-overrides-path',
+    'node_modules/flying-saucer/config-overrides'
+  )
+
+  file.save()
+}
+
+function replaceDependencies() {
+  install('flying-saucer', { dev: true })
+  uninstall('react-scripts', { dev: false })
+}
+
+function addDotfiles() {
+  clone('.babelrc', 'babelrc.json')
+  clone('.eslintrc', 'eslintrc.json')
+}
+
+function addTemplates() {
+  makeDirs(['src/modules', 'src/modules/Main'])
+  cloneLocal('src/modules/Main/App.css', 'src/App.css')
+  deleteFiles('src/App.css')
+  cloneLocal('src/modules/Main/App.js', 'src/App.js')
+  cloneLocal('src/modules/Main/App.test.js', 'src/App.test.js')
+  clone('src/App.js', 'src/App.js')
+  clone('src/modules/Main/index.js', 'src/module-main/index.js')
+  clone('src/modules/Main/Main.js', 'src/module-main/Main.js')
+  clone('src/modules/Main/routes.js', 'src/module-main/routes.js')
 }

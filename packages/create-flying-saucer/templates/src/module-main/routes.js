@@ -1,9 +1,9 @@
-import Hello from './Hello'
+import App from './App'
 
 export default [
   {
-    name: 'hello',
+    name: 'app',
     path: '/',
-    component: Hello,
+    component: App,
   },
 ]
