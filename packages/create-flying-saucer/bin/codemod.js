@@ -52,7 +52,7 @@ function replaceScripts() {
 }
 
 function replaceDependencies() {
-  install('flying-saucer', { dev: true })
+  install('flying-saucer', { dev: false })
   uninstall('react-scripts', { dev: false })
 }
 
