@@ -5,14 +5,15 @@
   "bin": {
     "flying-saucer": "./node_modules/react-app-rewired/bin/index.js"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "files": [
-    "/config-overrides.js",
-    "./eslint-config.js",
-    "./babel-preset.js"
+    "lib/",
+    "config-overrides.js",
+    "eslint-config.js",
+    "babel-preset.js"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "flying-saucer test"
   },
   "repository": {
     "type": "git",
