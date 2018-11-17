@@ -1,6 +1,6 @@
 import { Mothership, createApp } from 'flying-saucer'
 
-import Main from './modules/Main'
+import Main from '@/modules/Main'
 
 const app = createApp()
 
