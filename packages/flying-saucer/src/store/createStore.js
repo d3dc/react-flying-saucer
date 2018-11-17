@@ -1,13 +1,8 @@
 import { init } from '@rematch/core'
-import preset from './rematch-preset'
+import preset from './rematchPreset'
 
-export default function(config, app) {
-  const store = init({
+export default config =>
+  init({
     preset,
     ...config,
   })
-
-  app.store = store
-
-  return store
-}

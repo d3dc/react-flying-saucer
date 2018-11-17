@@ -2,11 +2,11 @@ import { Suspense, Component } from 'react'
 
 export default class Boundary extends Component {
   state = {
-    hasError: false
+    hasError: false,
   }
 
   static getDerivedStateFromError = error => ({
-    hasError: true
+    hasError: true,
   })
 
   render() {

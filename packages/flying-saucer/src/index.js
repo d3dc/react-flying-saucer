@@ -1,3 +1,3 @@
-export createApp from './createApp'
+export * from './app'
 export * from './module'
 export * from './store'

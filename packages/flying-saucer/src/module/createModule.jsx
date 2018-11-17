@@ -1,30 +1,34 @@
 import { memo } from 'react'
 import { withRouter } from 'react-router'
+import { useHooks, useEffect, useContext } from 'use-react-hooks'
 import createRoutes from './createRoutes'
 import Boundary from './Boundary'
+import context from '../context'
 
-export default function createModule(module = {}, app = {}) {
-  if (app.store && module.models) {
-    module.models.forEach(app.store.model)
-  }
-
-  const Routes = createRoutes(module.routes, app)
+export default function createModule(config = {}) {
+  const Routes = createRoutes(config.routes)
 
   return Base => {
-    const name = module.name || Base.displayName || Base.name
+    const name = config.name || Base.displayName || Base.name
 
-    function module({ match }) {
+    const component = useHooks(function Module({ match }) {
+      const app = useContext(context)
+
+      useEffect(() => {
+        app.registerModels(config.models)
+      })
+
       return (
         <Base>
-          <Boundary fallback={module.placeholder} recovery={module.recovery}>
+          <Boundary fallback={config.placeholder} recovery={config.recovery}>
             <Routes baseUrl={match?.url || ''} />
           </Boundary>
         </Base>
       )
-    }
+    })
 
-    module.displayName = `Module(${name})`
+    component.displayName = `Module(${name})`
 
-    return withRouter(memo(module))
+    return withRouter(memo(component))
   }
 }
