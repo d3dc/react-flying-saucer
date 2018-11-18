@@ -11,7 +11,7 @@ export default function createModule(config = {}) {
   return Base => {
     const name = config.name || Base.displayName || Base.name
 
-    const component = useHooks(function Module({ match }) {
+    const component = useHooks(function Module({ match, children }) {
       const app = useContext(context)
 
       useEffect(() => {

@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const path = require('path')
-const commander = require('commander')
 const {
   packageJson,
   uninstall,
@@ -23,12 +22,16 @@ const cloneLocal = (to, from) =>
 
 const projectName = process.argv[2]
 
-process.chdir(projectName)
 // Execute in-order
+process.chdir(projectName)
 replaceDependencies()
 replaceScripts()
-addDotfiles()
 addTemplates()
+
+function replaceDependencies() {
+  install('react-flying-saucer', { dev: false })
+  uninstall('react-scripts', { dev: false })
+}
 
 function replaceScripts() {
   const file = packageJson()
@@ -38,37 +41,30 @@ function replaceScripts() {
     return
   }
 
-  file.setScript('start', 'flying-saucer start')
-  file.setScript('build', 'flying-saucer build')
-  file.setScript('test', 'flying-saucer test')
+  file.setScript(
+    'toolkit',
+    'react-flying-saucer --config node_modules/react-flying-saucer/craco-config.js'
+  )
+  file.setScript('start', 'npm run toolkit -- start')
+  file.setScript('build', 'npm run toolkit -- build')
+  file.setScript('test', 'npm run toolkit -- test')
   file.removeScript('eject')
 
-  file.set(
-    'config-overrides-path',
-    'node_modules/flying-saucer/config-overrides'
-  )
+  file.unset('eslintConfig')
 
   file.save()
 }
 
-function replaceDependencies() {
-  install('flying-saucer', { dev: false })
-  uninstall('react-scripts', { dev: false })
-}
-
-function addDotfiles() {
-  clone('.babelrc', 'babelrc.json')
-  clone('.eslintrc', 'eslintrc.json')
-}
-
 function addTemplates() {
   makeDirs(['src/modules', 'src/modules/Main'])
-  cloneLocal('src/modules/Main/App.css', 'src/App.css')
-  deleteFiles('src/App.css')
-  cloneLocal('src/modules/Main/App.js', 'src/App.js')
-  cloneLocal('src/modules/Main/App.test.js', 'src/App.test.js')
-  clone('src/App.js', 'src/App.js')
   clone('src/modules/Main/index.js', 'src/module-main/index.js')
   clone('src/modules/Main/Main.js', 'src/module-main/Main.js')
   clone('src/modules/Main/routes.js', 'src/module-main/routes.js')
+  cloneLocal('src/modules/Main/App.js', 'src/App.js')
+  cloneLocal('src/modules/Main/App.test.js', 'src/App.test.js')
+  cloneLocal('src/modules/Main/App.css', 'src/App.css')
+  deleteFiles('src/App.css')
+  cloneLocal('src/modules/Main/logo.svg', 'src/logo.svg')
+  deleteFiles('src/logo.svg')
+  clone('src/App.js', 'src/App.js')
 }

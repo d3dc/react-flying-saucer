@@ -1,4 +1,4 @@
-# flying-saucer
+# react-techno-jargon
 
 A zero-config way to write functional react apps that scale.
 
@@ -12,7 +12,7 @@ A zero-config way to write functional react apps that scale.
 
 ## Packages
 
-- [create-flying-saucer](packages/create-flying-saucer)
+- [create-react-techno-jargon](packages/create-react-techno-jargon)
   - Create a create-react-app app and then codemod it to outerspace!
-- [flying-saucer](packages/flying-saucer)
+- [react-techno-jargon](packages/react-techno-jargon)
   - npm scripts and runtime dependencies for a functional react that's out of this world!

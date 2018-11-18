@@ -1,9 +1,9 @@
 {
-  "name": "flying-saucer",
-  "version": "1.0.0",
-  "description": "A rewired create-react-app with opinionated syntax, feature modules, and functional flow.",
+  "name": "react-flying-saucer",
+  "version": "0.0.0",
+  "description": "A zero-config way to write functional react apps that scale.",
   "bin": {
-    "flying-saucer": "./node_modules/react-app-rewired/bin/index.js"
+    "react-flying-saucer": "./node_modules/@craco/craco/bin/craco.js"
   },
   "main": "lib/index.js",
   "files": [
@@ -13,36 +13,39 @@
     "babel-preset.js"
   ],
   "scripts": {
-    "test": "flying-saucer test"
+    "test": "react-flying-saucer test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/d3dc/flying-saucer.git"
+    "url": "git+https://github.com/d3dc/react-flying-saucer.git"
   },
   "author": "@d3dc",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/d3dc/flying-saucer/issues"
+    "url": "https://github.com/d3dc/react-flying-saucer/issues"
   },
-  "homepage": "https://github.com/d3dc/flying-saucer#readme",
+  "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
+    "@craco/craco": "^3.0.1",
     "@rematch/core": "^1.0.6",
     "@rematch/select": "^2.0.3",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-react-require": "^3.0.1",
     "babel-preset-react-app": "^6.1.0",
     "babel-preset-techno-babel": "^1.0.1",
-    "customize-cra": "^0.2.5",
     "mrm-core": "^3.3.0",
     "react": "^16.6.3",
-    "react-app-rewired": "^2.0.0",
     "react-redux": "^5.1.1",
     "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.1",
     "redux": "^4.0.1",
     "use-react-hooks": "^1.0.7"
   },
   "peerDependencies": {
-    "lodash": "^4.17.11"
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "lodash": "^4.17.11",
+    "use-react-hooks": "^1.0.7"
   }
 }

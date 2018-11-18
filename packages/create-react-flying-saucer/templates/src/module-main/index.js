@@ -1,4 +1,4 @@
-import { createModule } from 'flying-saucer'
+import { createModule } from 'react-flying-saucer'
 import routes from './routes'
 import Main from './Main'
 

@@ -14,4 +14,6 @@ const codemodPath = path.resolve(__dirname, './codemod.js')
 try {
   execSync(`${craPath} ${args}`, { stdio: 'inherit' })
   execSync(`${codemodPath} ${args}`, { stdio: 'inherit' })
-} catch (e) {}
+} catch (e) {
+  /*stderr is inherited*/
+}

@@ -1,9 +1,9 @@
 {
-  "name": "create-flying-saucer",
-  "version": "1.0.0",
+  "name": "create-react-flying-saucer",
+  "version": "0.0.0",
   "description": "Create a create-react-app app and then codemod it to outerspace!",
   "bin": {
-    "create-flying-saucer": "./bin/create.js"
+    "create-react-flying-saucer": "./bin/create.js"
   },
   "files": [
     "./bin/create.js",
@@ -14,16 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/d3dc/flying-saucer.git"
+    "url": "git+https://github.com/d3dc/react-flying-saucer.git"
   },
   "author": "@d3dc",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/d3dc/flying-saucer/issues"
+    "url": "https://github.com/d3dc/react-flying-saucer/issues"
   },
-  "homepage": "https://github.com/d3dc/flying-saucer#readme",
+  "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
-    "commander": "^2.19.0",
     "create-react-app": "^2.1.1",
     "mrm-core": "^3.3.0"
   }
