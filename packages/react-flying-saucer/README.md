@@ -1,8 +1,8 @@
-# flying-saucer
+# react-flying-saucer
 
-The main package. Takes the place of `react-scripts` as well as exporting opinionated boilerplate.
+An all-in-one react app toolkit. Provides customized [react-scripts](https://github.com/facebook/create-react-app#readme) as well as abstractions and HOCs for truly modular react applications.
 
-_Note_: exports are written in `techno-babel` and expect to be compiled by `flying-saucer`
+_Note_: lib is uncompiled `techno-babel` and expects to be run by this tool
 
 ## npm scripts
 
@@ -20,9 +20,9 @@ _Note_: exports are written in `techno-babel` and expect to be compiled by `flyi
 - `{ connect }` from [react-redux] (WIP: [react-rematch])
 - `{ Switch, Route }` from [react-router]
 
-## "src/" alias
+## Import Aliases
 
-You can always link to the root of your project with the `@` alias. This is useful for linking between modules.
+You can always link to the source root of your project with the `@` alias. This is useful for linking between modules.
 
 ```js
 import Sidebar from '@/modules/sidebar'
