@@ -1,4 +1,6 @@
 export * from './app'
 export * from './module'
 export * from './store'
-export context from './context'
+export { useProvided } from './Scope'
+// its like a polyfill
+export * from 'use-react-hooks'

@@ -5,7 +5,6 @@ const {
   uninstall,
   install,
   deleteFiles,
-  copyFiles,
   makeDirs,
   template,
 } = require('mrm-core')
@@ -30,7 +29,6 @@ addTemplates()
 
 function replaceDependencies() {
   install('react-flying-saucer', { dev: false })
-  uninstall('react-scripts', { dev: false })
 }
 
 function replaceScripts() {
@@ -41,13 +39,9 @@ function replaceScripts() {
     return
   }
 
-  file.setScript(
-    'toolkit',
-    'react-flying-saucer --config node_modules/react-flying-saucer/craco-config.js'
-  )
-  file.setScript('start', 'npm run toolkit -- start')
-  file.setScript('build', 'npm run toolkit -- build')
-  file.setScript('test', 'npm run toolkit -- test')
+  file.setScript('start', 'react-flying-saucer start')
+  file.setScript('build', 'react-flying-saucer build')
+  file.setScript('test', 'react-flying-saucer test')
   file.removeScript('eject')
 
   file.unset('eslintConfig')

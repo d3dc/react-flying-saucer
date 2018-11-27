@@ -2,7 +2,7 @@
 
 An all-in-one react app toolkit. Provides customized [react-scripts](https://github.com/facebook/create-react-app#readme) as well as abstractions and HOCs for truly modular react applications.
 
-_Note_: lib is uncompiled `techno-babel` and expects to be run by this tool
+_Note_: lib uses es6+ features and needs to be compiled
 
 ## npm scripts
 
@@ -14,18 +14,18 @@ _Note_: lib is uncompiled `techno-babel` and expects to be run by this tool
 
 - [`createApp` to keep singletons around](#createApp)
 - [`createModel` to create encapsulated redux logic](#createModel)
-- [`createModule` to declaratively configure routes and models for a feature](#createModule)
-- [`Mothership` to hold your flying saucer](#Mothership)
+- [`createFeature` to declaratively configure views and models for a feature](#createModule)
+- [`Mothership` to assemble your feature fleet](#Mothership)
 - [`Link` and `NavLink` that can create anchors to named routes](#Link)
 - `{ connect }` from [react-redux] (WIP: [react-rematch])
 - `{ Switch, Route }` from [react-router]
 
 ## Import Aliases
 
-You can always link to the source root of your project with the `@` alias. This is useful for linking between modules.
+You can always link to the source root of your project with the `@` alias. This is useful for linking to features.
 
 ```js
-import Sidebar from '@/modules/sidebar'
+import Sidebar from '@/features/sidebar'
 ```
 
 ## API
@@ -65,11 +65,11 @@ Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/
 createModel(config: ModelConfig): Model
 ```
 
-### `createModule`
+### `createFeature`
 
 Decorate a React component at the root of a feature module. When mounted, it registers its dependencies with the context. Acts as a boundary for errors and suspense.
 
-Modules should be mounted inside a `Mothership`.
+Features are declaratively composed inside a `Mothership`.
 
 ```ts
 createModule({
@@ -93,20 +93,19 @@ interface RouteConfig {
 
 ### `Mothership`
 
-Sets up the environment for the passed `app`.
+Sets up the environment, optionally using the passed `app`.
 
-Modules from `createModule` should be mounted as children of a `Mothership` - e.g. by routing or directly.
+Features should be mounted as children of a `Mothership`.
 
 ```ts
-<Mothership app={app}>
-  <MyModule />
+<Mothership>
+  <BrandChrome>
+    <FeatureOne />
+    <FeatureTwo />
+  </BrandChrome>
 </Mothership>
 ```
 
 ## dot files
 
-Because babel resolves `.babelrc` from the file being compiled, it'll need to exist in the root of your project to properly work for both `create-react-app` and `jest`.
-
-The same applies to `.eslintrc`
-
-Any additional configuration your project needs can be added these files as well.
+`react-flying-saucer` respects any `.babelrc` and `.eslintrc` configuration files. Any additional configuration your project needs can be added directly to these files.

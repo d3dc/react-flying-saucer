@@ -1,15 +1,15 @@
 import { createStore } from '../store'
 
-function enhance(model, store, inject) {
+function enhance(model, inject) {
   return {
     ...model,
     effects:
       typeof model.effects === 'function'
-        ? (...args) => model.effects(...args, store, inject)
+        ? (...args) => model.effects(...args, inject)
         : model.effects,
     selectors:
       typeof model.selectors === 'function'
-        ? (...args) => model.selectors(...args, store, inject)
+        ? (...args) => model.selectors(...args, inject)
         : model.selectors,
   }
 }
@@ -27,12 +27,11 @@ export default function createApp({ inject, rematch } = {}) {
       dispatch,
       getState,
     },
-    routing: {},
-    registerModels(models) {
+    registerModels(models = []) {
       models.forEach(model => {
-        if (registeredModels[model.name] != model) {
+        if (registeredModels[model.name] !== model) {
           registeredModels[model.name] = model
-          store.model(enhance(model, store, inject))
+          store.model(enhance(model, inject))
         }
       })
     },

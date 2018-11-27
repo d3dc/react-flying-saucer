@@ -1,13 +1,10 @@
-import { Mothership, createApp } from 'react-flying-saucer'
+import { Mothership } from '@@'
 
-import Main from '@/modules/Main'
-
-export const app = createApp()
-export const { store, inject, routing } = app
+import Main from '@/features/Main'
 
 export default function App() {
   return (
-    <Mothership app={app}>
+    <Mothership>
       <Main />
     </Mothership>
   )

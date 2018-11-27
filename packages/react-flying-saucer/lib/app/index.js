@@ -1,4 +1,3 @@
-export createApp from './createApp'
 export Mothership from './Mothership'
-
-export { connect } from 'react-redux'
+export createApp from './createApp'
+export { useApp } from './context'
