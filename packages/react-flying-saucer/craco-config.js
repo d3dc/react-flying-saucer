@@ -76,7 +76,11 @@ const eslint = {
     // extends: [require('eslint-config-techno-babel')],
     rules: {
       semi: ['error', 'never'],
+      'no-unused-expressions': 'off',
       'react/react-in-jsx-scope': 'off',
+    },
+    globals: {
+      _: true,
     },
   },
   loaderOptions: { useEslintrc: true },
@@ -94,8 +98,8 @@ const jest = config => {
 
 const webpack = {
   alias: {
-    '@': path.resolve('src'),
     '@@': 'react-flying-saucer',
+    '@': path.resolve('src'),
   },
 }
 
