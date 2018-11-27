@@ -1,10 +1,10 @@
-import { $ } from '@@'
+import { $$ } from '@@'
 
 import Footer from './components/Footer'
 import Header from './components/Header'
 import List from './components/List'
 
-const enhance = $(select => ({
+const enhance = $$(select => ({
   list: select.todos.list,
 }))
 

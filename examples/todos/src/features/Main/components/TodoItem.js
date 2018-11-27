@@ -1,5 +1,6 @@
 import { $$ } from '@@'
 import { Component, findDOMNode } from 'react'
+import classNames from 'classnames'
 
 const ESCAPE_KEY = 27
 const ENTER_KEY = 13

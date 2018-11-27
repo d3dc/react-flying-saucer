@@ -12,7 +12,7 @@ const initialState = {
   editing: null,
 }
 
-const changeReducers = {
+const reducers = {
   filter(state, { filter }) {
     return {
       ...state,
@@ -83,7 +83,7 @@ const selectors = (slice, createSelector) => ({
     return slice(_.allTodos.filter(!_.completed).length)
   },
   completedCount() {
-    return createSelector(count, activeCount, _ - _)
+    return createSelector(this.count, this.activeCount, _ - _)
   },
   list() {
     return slice(state =>
@@ -105,10 +105,7 @@ const selectors = (slice, createSelector) => ({
 const todos = createModel({
   name: 'main',
   state: initialState,
-  reducers: {
-    ...changeReducers,
-    ...loopReducers,
-  },
+  reducers,
   selectors,
 })
 
