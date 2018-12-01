@@ -6,7 +6,8 @@
     "create-react-flying-saucer": "./bin/create.js"
   },
   "files": [
-    "bin/"
+    "bin/",
+    "templates/"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
