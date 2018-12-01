@@ -1,17 +1,17 @@
-# react-flying-saucer
+# react-flying-saucer 🛸
 
-> The aliens aren't in the bikeshed.
+> The 👾 aren't in the bikeshed.
 
 A zero-config way to write functional react apps that scale.
 
 **features:**
 
-- All the batteries are included
-- Compose feature modules as declarative React components
-- [Routing](https://github.com/ReactTraining/react-router) and other common components are provided and overloaded through the context API
-- opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel)
-- dispatch changes through redux to encapsulated [rematch models](https://rematch.gitbooks.io/rematch/docs/api.html#models)
-- memoize updating from your redux state using [rematch selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
+- 🔋 All the batteries are included
+- 🔗 Compose feature modules as declarative React components
+- 📍[Routing](https://github.com/ReactTraining/react-router) and other common components are provided and overloaded through the context API
+- 🕳 opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel)
+- 📬 dispatch changes through redux to encapsulated [rematch models](https://rematch.gitbooks.io/rematch/docs/api.html#models)
+- 📝 memoize updating from your redux state using [rematch selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
 
 ## Packages
 
