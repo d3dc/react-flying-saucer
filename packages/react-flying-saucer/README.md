@@ -53,7 +53,7 @@ Top-level features should be mounted as children of a `Mothership`.
 <Mothership>
   <BrandChrome>
     <FeatureOne />
-    <FeatureTwo />
+    <FeatureTwo path='/two' />
   </BrandChrome>
 </Mothership>
 ```
@@ -107,11 +107,11 @@ config: {
 }
 ```
 
-** returns **
+**returns**
 
 `FeatureComponent`
 
-** props **
+**props**
 
 ```
 (Optional) path: string
