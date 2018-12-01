@@ -1,5 +1,7 @@
 # react-flying-saucer
 
+[About](https://github.com/d3dc/react-flying-saucer)
+
 An all-in-one react app toolkit. Provides customized [react-scripts](https://github.com/facebook/create-react-app#readme) as well as abstractions and HOCs for truly modular react applications.
 
 _Note_: lib uses es6+ features and needs to be compiled
@@ -53,7 +55,7 @@ Top-level features should be mounted as children of a `Mothership`.
 <Mothership>
   <BrandChrome>
     <FeatureOne />
-    <FeatureTwo path='/two' />
+    <FeatureTwo path="/two" />
   </BrandChrome>
 </Mothership>
 ```
@@ -124,7 +126,6 @@ Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/
 Create a model to be used in the store. Models encapsulate state logic. Calling this is optional, as models are plain objects.
 
 When first mounted, the model will be constructed, receiving the mothership's injectors as the final argument in any factory functions.
-
 
 **arguments:**
 
