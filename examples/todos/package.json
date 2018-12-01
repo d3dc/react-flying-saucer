@@ -1,6 +1,6 @@
 {
   "name": "todos",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",

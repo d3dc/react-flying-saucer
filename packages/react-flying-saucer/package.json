@@ -1,6 +1,6 @@
 {
   "name": "react-flying-saucer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A zero-config way to write functional react apps that scale.",
   "bin": {
     "react-flying-saucer": "./bin/scripts.js"
@@ -43,9 +43,9 @@
     "webpack-babel-env-deps": "^1.4.3"
   },
   "peerDependencies": {
+    "lodash": "^4.17.11",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "lodash": "^4.17.11",
     "use-react-hooks": "^1.0.7"
   },
   "browserslist": [
