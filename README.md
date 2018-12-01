@@ -19,3 +19,7 @@ A zero-config way to write functional react apps that scale.
   - Create a create-react-app app and then codemod it to outerspace!
 - [react-flying-saucer](packages/react-flying-saucer)
   - npm scripts and runtime dependencies for a functional react that's out of this world!
+
+## Docs
+
+- [WIP] [Getting Started](https://github.com/d3dc/react-flying-saucer/blob/master/docs/gettting-started.md)
