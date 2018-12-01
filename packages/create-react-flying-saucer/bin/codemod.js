@@ -1,23 +1,7 @@
 #!/usr/bin/env node
 const path = require('path')
-const {
-  packageJson,
-  uninstall,
-  install,
-  deleteFiles,
-  makeDirs,
-  template,
-} = require('mrm-core')
-
-const clone = (to, from) =>
-  template(to, path.join(__dirname, '../templates', from))
-    .apply()
-    .save()
-
-const cloneLocal = (to, from) =>
-  template(to, path.join(process.cwd(), from))
-    .apply()
-    .save()
+const { packageJson, uninstall, install } = require('mrm-core')
+const { copySync, ensureDirSync, removeSync } = require('fs-extra')
 
 const projectName = process.argv[2]
 
@@ -28,6 +12,7 @@ replaceScripts()
 addTemplates()
 
 function replaceDependencies() {
+  uninstall('react-scripts', { dev: false })
   install('react-flying-saucer', { dev: false })
 }
 
@@ -50,15 +35,8 @@ function replaceScripts() {
 }
 
 function addTemplates() {
-  makeDirs(['src/modules', 'src/modules/Main'])
-  clone('src/modules/Main/index.js', 'src/module-main/index.js')
-  clone('src/modules/Main/Main.js', 'src/module-main/Main.js')
-  clone('src/modules/Main/routes.js', 'src/module-main/routes.js')
-  cloneLocal('src/modules/Main/App.js', 'src/App.js')
-  cloneLocal('src/modules/Main/App.test.js', 'src/App.test.js')
-  cloneLocal('src/modules/Main/App.css', 'src/App.css')
-  deleteFiles('src/App.css')
-  cloneLocal('src/modules/Main/logo.svg', 'src/logo.svg')
-  deleteFiles('src/logo.svg')
-  clone('src/App.js', 'src/App.js')
+  ensureDirSync('src/features/Main')
+  copySync(path.join(__dirname, '../templates/src'), 'src')
+  removeSync('src/App.css')
+  removeSync('src/logo.svg')
 }
