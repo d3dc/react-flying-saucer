@@ -4,14 +4,14 @@ import { Route } from 'react-router'
 
 export default function useViews(baseUrl, views) {
   return useMemo(
-    () => [
+    ~[
       views.map(({ path, component, loader, ...rest }) => {
         const url = baseUrl ? baseUrl + path : path
         return (
           <Route
             key={url}
             path={url}
-            component={component ?? loader ? lazy(loader) : undefined}
+            component={component ?? (loader ? lazy(loader) : undefined)}
             {...rest}
           />
         )
