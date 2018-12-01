@@ -1,9 +1,9 @@
-import { memo, lazy } from 'react'
-import { withRouter, Switch } from 'react-router'
-import { useHooks, useEffect } from 'use-react-hooks'
+import { memo } from 'react'
+import { withRouter, Switch, Route } from 'react-router'
+import { useHooks, useLayoutEffect } from 'use-react-hooks'
 
 import Scope, { useScope } from '../Scope'
-import { useApp } from '../app'
+import { useModels } from '../context'
 import useViews from './useViews'
 import Boundary from './Boundary'
 
@@ -12,35 +12,29 @@ export default function createFeature(config = {}) {
     const name = config.name || Base.displayName || Base.name
 
     const Feature = useHooks(({ match, path, children }) => {
-      const app = useApp()
+      useModels(config.models)
       const scope = useScope()
-
       // provide views under baseUrl
-      // already routed, makes a new path, or "always on"
-      const baseUrl = match?.url ?? path ? scope.base + path : scope.base
+      //makes a new path, or "always on"
+      const baseUrl = path ? scope.base + path : scope.base
       const [routing, providedViews] = useViews(baseUrl, config.views)
-
       // don't override the base if there is no match
       const render = ({ match }) => (
-        <Base>
-          <Boundary fallback={config.placeholder} recovery={config.recovery}>
-            <Scope
-              base={match?.url}
-              views={providedViews}
-              elements={config.elements}
-            >
+        <Boundary fallback={config.placeholder} recovery={config.recovery}>
+          <Scope
+            base={match?.url}
+            views={providedViews}
+            provides={config.provides}
+          >
+            <Base>
               <Switch>
                 {routing}
                 {children}
               </Switch>
-            </Scope>
-          </Boundary>
-        </Base>
+            </Base>
+          </Scope>
+        </Boundary>
       )
-
-      useEffect(() => {
-        app.registerModels(config.models)
-      })
 
       if (path) {
         // new path

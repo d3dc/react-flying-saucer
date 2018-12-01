@@ -1,5 +1,4 @@
-import { createModel } from '@@'
-import { omit, omitBy } from 'lodash/fp'
+import { mapValues, omit, omitBy } from 'lodash/fp'
 import uuid from 'uuid/v4'
 
 export const ALL_TODOS = 'all'
@@ -25,43 +24,48 @@ const reducers = {
       ...state,
       allTodos: {
         ...state.allTodos,
-        [id]: { ...payload, id },
+        [id]: { ...payload, id, completed: false },
       },
     }
   },
-  save(state, { todo }) {
+  edit(state, { todo, id, canceled }) {
     return {
       ...state,
+      editing: canceled ? null : id ?? todo.id,
+    }
+  },
+  save(state, { id, todo }) {
+    return {
+      ...state,
+      editing: null,
       allTodos: {
         ...state.allTodos,
-        [todo.id]: todo,
+        [id ?? todo.id]: todo,
       },
     }
   },
-  destroy(state, { todo }) {
+  destroy(state, { todo, id }) {
     return {
       ...state,
-      allTodos: state.allTodos |> omit(todo.id),
+      allTodos: state.allTodos |> omit(id ?? todo.id),
     }
   },
-  toggle(state, { todo }) {
-    const current = state.allTodos[todo.id]
+  toggle(state, { todo, id }) {
+    const key = id ?? todo.id
+    const current = state.allTodos[key]
     const next = { ...current, completed: !current.completed }
     return {
       ...state,
       allTodos: {
         ...state.allTodos,
-        [todo.id]: next,
+        [key]: next,
       },
     }
   },
   toggleAll(state, { completed }) {
     return {
       ...state,
-      allTodos: Object.values(state.allTodos).reduce(
-        (next, todo) => (next[todo.id] = { ...todo, completed }),
-        {}
-      ),
+      allTodos: state.allTodos |> mapValues(todo => ({ ...todo, completed })),
     }
   },
   clearCompleted(state) {
@@ -74,27 +78,30 @@ const reducers = {
 
 const selectors = (slice, createSelector) => ({
   byId() {
-    return (state, id) => state.allTodos[id]
+    return (state, id) => state.todos.allTodos[id]
   },
   count() {
-    return slice(_.allTodos.length)
+    return createSelector(slice(_.allTodos), todos => Object.keys(todos).length)
   },
   activeCount() {
-    return slice(_.allTodos.filter(!_.completed).length)
+    return createSelector(
+      slice(_.allTodos),
+      todos => Object.values(todos).filter(it => !it.completed).length
+    )
   },
   completedCount() {
     return createSelector(this.count, this.activeCount, _ - _)
   },
   list() {
-    return slice(state =>
-      Object.values(state.allTodos).filter(
+    return createSelector(slice(_.allTodos), slice(_.filter), (todos, filter) =>
+      Object.values(todos).filter(
         do {
-          if (state.filter === ACTIVE_TODOS) {
+          if (filter === ACTIVE_TODOS) {
             _.completed === false
-          } else if (state.filter === COMPLETED_TODOS) {
+          } else if (filter === COMPLETED_TODOS) {
             _.completed === true
           } else {
-            _ => _
+            _
           }
         }
       )
@@ -102,11 +109,11 @@ const selectors = (slice, createSelector) => ({
   },
 })
 
-const todos = createModel({
-  name: 'main',
+const todos = {
+  name: 'todos',
   state: initialState,
   reducers,
   selectors,
-})
+}
 
 export default [todos]

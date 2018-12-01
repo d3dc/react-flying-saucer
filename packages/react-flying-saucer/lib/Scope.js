@@ -12,8 +12,10 @@ export const useScope = () => useContext(context)
 
 export const useProvided = () => useContext(context).provides
 
-export const Scope = useHooks(props => (
-  <context.Provider value={merge({}, useScope(), props)} />
+export const Scope = useHooks(({ children, ...rest }) => (
+  <context.Provider value={merge({}, useScope(), rest)} children={children} />
 ))
+
+Scope.displayName = 'Scope'
 
 export default Scope

@@ -11,7 +11,8 @@ export default class Boundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      return this.props.recovery
+      const { recovery = <div>Error!</div>, ...rest } = this.props
+      return recovery
     } else {
       const { fallback = <div>Loading...</div>, ...rest } = this.props
       return <Suspense fallback={fallback} {...rest} />

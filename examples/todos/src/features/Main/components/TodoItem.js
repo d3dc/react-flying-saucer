@@ -1,5 +1,6 @@
 import { $$ } from '@@'
-import { Component, findDOMNode } from 'react'
+import { Component } from 'react'
+import { findDOMNode } from 'react-dom'
 import classNames from 'classnames'
 
 const ESCAPE_KEY = 27
@@ -10,32 +11,37 @@ const enhance = $$(
     todo: (state, props) => select.todos.byId(state, props.id),
     isEditing: (state, props) => state.todos.editing === props.id,
   }),
-  dispatch => ({
+  (dispatch, props) => ({
     save: dispatch.todos.save,
-    destroy: dispatch.todos.destroy,
+    onCancel: ~dispatch.todos.edit({ canceled: true }),
+    onEdit: ~dispatch.todos.edit({ id: props.id }),
+    onDestroy: ~dispatch.todos.destroy({ id: props.id }),
+    onToggle: ~dispatch.todos.toggle({ id: props.id }),
   })
 )
 
 class TodoItem extends Component {
+  state = { editText: this.props.todo.title }
+
   handleSubmit = event => {
     const title = this.state.editText.trim()
     if (title) {
-      this.props.save({ ...this.props.todo, title })
+      this.props.save({ todo: { ...this.props.todo, title } })
       this.setState({ editText: title })
     } else {
-      this.props.destroy(this.props.todo)
+      this.props.onDestroy(this.props.todo)
     }
   }
 
   handleEdit = () => {
-    this.props.edit(this.props.todo)
+    this.props.onEdit()
     this.setState({ editText: this.props.todo.title })
   }
 
   handleKeyDown = event => {
     if (event.which === ESCAPE_KEY) {
       this.setState({ editText: this.props.todo.title })
-      this.props.cancel()
+      this.props.onCancel()
     } else if (event.which === ENTER_KEY) {
       this.handleSubmit(event)
     }
@@ -45,10 +51,6 @@ class TodoItem extends Component {
     if (this.props.isEditing) {
       this.setState({ editText: event.target.value })
     }
-  }
-
-  getInitialState() {
-    return { editText: this.props.todo.title }
   }
 
   /**
@@ -85,7 +87,7 @@ class TodoItem extends Component {
       <li
         className={classNames({
           completed: this.props.todo.completed,
-          editing: this.props.editing,
+          editing: this.props.isEditing,
         })}
       >
         <div className="view">

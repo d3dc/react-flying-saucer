@@ -1,6 +1,5 @@
 import { _$ } from '@@'
 import { Component } from 'react'
-import { ALL_TODOS } from '../models'
 
 const ENTER_KEY = 13
 
@@ -24,10 +23,10 @@ class Header extends Component {
 
     event.preventDefault()
 
-    const val = this.state.newTodo.trim()
+    const title = this.state.newTodo.trim()
 
-    if (val) {
-      this.props.addTodo(val)
+    if (title) {
+      this.props.addTodo({ title })
       this.setState({ newTodo: '' })
     }
   }

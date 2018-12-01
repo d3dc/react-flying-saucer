@@ -18,14 +18,12 @@ function List({ list, activeCount, toggleAll }) {
         className="toggle-all"
         id="toggle-all"
         type="checkbox"
-        onChange={e => toggleAll({ completed: e.target.value })}
+        onChange={e => toggleAll({ completed: e.target.checked })}
         checked={activeCount === 0}
       />
       <label htmlFor="toggle-all" />
       <ul className="todo-list">
-        {list.map((todo, index) => (
-          <TodoItem key={index} todo={todo} />
-        ))}
+        {list.map?.(todo => <TodoItem key={todo.id} id={todo.id} />)}
       </ul>
     </section>
   )

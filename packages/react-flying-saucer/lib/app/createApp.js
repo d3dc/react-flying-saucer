@@ -27,7 +27,7 @@ export default function createApp({ inject, rematch } = {}) {
       dispatch,
       getState,
     },
-    registerModels(models = []) {
+    registerModels(models) {
       models.forEach(model => {
         if (registeredModels[model.name] !== model) {
           registeredModels[model.name] = model

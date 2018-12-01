@@ -5,22 +5,24 @@ import Header from './components/Header'
 import List from './components/List'
 
 const enhance = $$(select => ({
-  list: select.todos.list,
+  count: select.todos.count,
 }))
 
-function Main({ list, children }) {
+function Main({ count, children }) {
   return (
-    <div>
+    <div className="todoapp">
       <Header />
-      {list.length && (
+      {count > 0 ? (
         <>
           <List />
           <Footer />
         </>
-      )}
+      ) : null}
       {children}
     </div>
   )
 }
+
+Main.displayName = 'Main'
 
 export default enhance(Main)

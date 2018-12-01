@@ -1,8 +1,6 @@
 import { $$, useHooks, useProvided } from '@@'
 import pluralize from 'pluralize'
 
-import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from '../models'
-
 const enhance = $$(
   select => ({
     count: select.todos.activeCount,
@@ -13,14 +11,14 @@ const enhance = $$(
   })
 )
 
-const Footer = useHooks(() => {
+const Footer = useHooks(props => {
   const { NavLink } = useProvided()
-  const activeTodoWord = pluralize(this.props.count, 'item')
+  const activeTodoWord = pluralize('item', props.count)
 
   return (
     <footer className="footer">
       <span className="todo-count">
-        <strong>{this.props.count}</strong> {activeTodoWord} left
+        <strong>{props.count}</strong> {activeTodoWord} left
       </span>
       <ul className="filters">
         <li>
@@ -39,8 +37,8 @@ const Footer = useHooks(() => {
           </NavLink>
         </li>
       </ul>
-      {this.props.completedCount > 0 ? (
-        <button className="clear-completed" onClick={this.props.clearCompleted}>
+      {props.completedCount > 0 ? (
+        <button className="clear-completed" onClick={props.clearCompleted}>
           Clear completed
         </button>
       ) : null}

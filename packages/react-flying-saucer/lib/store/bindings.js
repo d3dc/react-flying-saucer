@@ -1,6 +1,7 @@
 import { memo, createElement } from 'react'
 import { connect } from 'react-redux'
-import { useApp } from '../app'
+import { useHooks, useEffect } from 'use-react-hooks'
+import { useApp } from '../context'
 
 export { connect } from 'react-redux'
 
@@ -9,21 +10,25 @@ export const withDispatch = connect(
   _
 )
 
-export const useReduxEffect = (mapDispatch, watch) =>
-  useEffect(() => mapDispatch(useApp().inject.dispatch), watch)
+export const useReduxEffect = (mapDispatch, watch) => {
+  const app = useApp()
+  useEffect(() => mapDispatch(app.inject.dispatch), watch)
+}
 
 export const sconnect = (mapSelect, mapDispatch) => Base => {
-  function SelectConnector(props) {
+  const c = useHooks(props => {
     const app = useApp()
     const enhance = connect(
-      mapSelect(app.inject.select),
+      app.store.select(mapSelect),
       mapDispatch
     )
 
     return createElement(enhance(Base), props)
-  }
+  })
 
-  return memo(SelectConnector)
+  c.displayName = `connect()`
+
+  return memo(c)
 }
 
 export const $$ = sconnect
