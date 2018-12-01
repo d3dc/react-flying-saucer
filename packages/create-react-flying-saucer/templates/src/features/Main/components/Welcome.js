@@ -1,6 +1,6 @@
-import { useProvided } from '@@'
+import { useHooks, useProvided } from '@@'
 
-export default function Welcome() {
+function Welcome() {
   const { Logo } = useProvided()
   return (
     <header className="Main-header">
@@ -19,3 +19,5 @@ export default function Welcome() {
     </header>
   )
 }
+
+export default useHooks(Welcome)
