@@ -6,30 +6,33 @@ _Note_: lib uses es6+ features and needs to be compiled
 
 ## npm scripts
 
+`react-flying-saucer` works the same way as `create-react-app`. You can pass the following task names as arguments:
+
 - start
 - test
 - build
 
-## Exported Utilities
-
-- [`Mothership` to assemble your feature fleet](#Mothership)
-- [`createApp` create data sources for Mothership](#createApp)
-- [`createFeature` to declaratively configure views, models, and ambient dependencies for a feature](#createModule)
-- [`createModel` to create encapsulated redux logic for a feature](#createModel)
-- [`redux` bindings](#redux-bindings)
-- [`useApp`](#useApp)
-- [`useProvided`](#useProvided)
-- `{ Switch, Route }` from [react-router]
-
 ## Import Aliases
 
-Special imports from the toolkit all come from `react-flying-saucer` - which is given the `@@` alias.
+`react-flying-saucer` re-exports everything you need - its given the `@@` alias.
 
 You can always link to the source root of your project with the `@` alias. This is useful for linking to features.
 
 ```js
+import { $$ } from '@@'
 import Sidebar from '@/features/sidebar'
 ```
+
+## Exported Utilities
+
+- [`Mothership` to assemble your feature fleet](#mothership-)
+- [`createApp` to configure create data sources for Mothership](#createappconfig)
+- [`createFeature` to configure views, models, and ambient dependencies for a feature](#createfeatureconfig)
+- [`createModel` to create encapsulated redux logic for a feature](#createModel)
+- [`redux` bindings](#redux-bindings)
+- [`useHooks`](#useHooks)
+- [`useApp`](#useApp)
+- [`useProvided`](#useProvided)
 
 ## API
 
@@ -106,9 +109,23 @@ config: {
 
 ### `createModel`
 
-Create a model to be used in the store. Models encapsulate state logic.
+Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/api.html#models).
 
-Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/api.html#models) with all factories receiving the mothership's injectors
+Create a model to be used in the store. Models encapsulate state logic. Calling this is optional, as models are plain objects.
+
+When first mounted, the model will be constructed, receiving the mothership's injectors as the final argument in any factory functions.
+
+
+**arguments:**
+
+```
+config: {
+  name: string, // optional display name
+  reducers: { [actionName]: (state, payload) => state }
+  selectors: (slice, createSelector, hasProps, inject) => { [selectorName]: models => (state, payload) => any }
+  effects: (dispatch, inject) => { [actionName]: async (state, payload) => any }
+}
+```
 
 **returns:**
 
@@ -120,10 +137,13 @@ Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/
 createModel(config: ModelConfig)
 ```
 
+## Contextual Bindings
+
+
 ### `useHooks()`
 
-HOC for functions that use future react hooks.
-**You must wrap your functions to use hooks**
+HOC to polyfill functions to use future react hooks.
+**`react-flying-saucer` creates apps that depend on React 16.6**
 
 ### `useApp()`
 
@@ -151,7 +171,7 @@ By default `Mothership` provides `react-router` analogs that `useApp()`.
 **example:**
 
 ```js
-const { NavLink } = useProvided()
+const { Link, NavLink, Redirect, Route, Switch } = useProvided()
 ```
 
 ## Redux Bindings
