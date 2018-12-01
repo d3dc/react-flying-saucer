@@ -7,6 +7,7 @@
   },
   "main": "lib/index.js",
   "files": [
+    "bin/",
     "lib/",
     "craco-config.js"
   ],
