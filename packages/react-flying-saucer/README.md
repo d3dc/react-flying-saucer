@@ -107,6 +107,16 @@ config: {
 }
 ```
 
+** returns **
+
+`FeatureComponent`
+
+** props **
+
+```
+(Optional) path: string
+```
+
 ### `createModel`
 
 Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/api.html#models).
@@ -138,7 +148,6 @@ createModel(config: ModelConfig)
 ```
 
 ## Contextual Bindings
-
 
 ### `useHooks()`
 
