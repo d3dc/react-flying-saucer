@@ -8,9 +8,9 @@ export const context = createContext({
   provides: {},
 })
 
-export const useScope = () => useContext(context)
+export const useScope = ~useContext(context)
 
-export const useProvided = () => useContext(context).provides
+export const useProvided = ~useContext(context).provides
 
 export const Scope = useHooks(({ children, ...rest }) => (
   <context.Provider value={merge({}, useScope(), rest)} children={children} />

@@ -2,7 +2,7 @@ import { createContext } from 'react'
 import { useContext, useMemo } from 'use-react-hooks'
 
 export const context = createContext(null)
-export const useApp = () => useContext(context)
+export const useApp = ~useContext(context)
 export const useModels = models => {
   const app = useContext(context)
   // TODO: this should work in 16.7
