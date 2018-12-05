@@ -19,11 +19,15 @@ A zero-config way to write functional react apps that scale.
 - `$cd app`
 - `$yarn start`
 
-### Import Aliases
+### import aliases
 
-`@` - A link to the source root of your project.
+- `@`
 
-`@@` - `react-flying-saucer` [re-exports](#exported-utilities) everything you need for creating and mounting a feature fleet.
+  A link to the source root of your project.
+
+- `@@`
+
+  [re-exports](#exported-utilities) everything you need for creating and mounting a feature fleet.
 
 > One flying saucer, Two flying saucers
 
@@ -44,6 +48,32 @@ import Sidebar from '@/features/sidebar'
 - [`createModel` to create encapsulated redux logic for a feature](docs/api.md#createModel)
 - [`redux` bindings](docs/api.md#redux-bindings)
 - [`context` bindings](docs/api.md#context-bindings)
+
+### an "app example"
+
+```js
+const FeatureOne = createFeature()(() =>
+  <div className={substyle.element}>
+    <AFeatureOne />
+    <AFeatureTwo />
+  </div>
+)
+
+const FeatureTwo = createFeature()(() =>
+  <div>
+    <header>Hi!</header>
+    <BFeatureOne path="/another" />
+  </div>
+)
+
+const App = () =>
+  <Mothership>
+    <UI>
+      <FeatureOne />
+      <FeatureTwo path="/showTwo" />
+    </UI>
+  </Mothership>
+```
 
 ## Examples
 
