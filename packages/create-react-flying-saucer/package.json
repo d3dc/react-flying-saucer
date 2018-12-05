@@ -3,11 +3,13 @@
   "version": "0.0.4",
   "description": "Create a create-react-app app and then codemod it to outerspace!",
   "bin": {
-    "create-react-flying-saucer": "./bin/create.js"
+    "create-react-flying-saucer": "./bin/create.js",
+    "migrate-react-flying-saucer": "./bin/migrate.js"
   },
   "files": [
     "bin/",
-    "templates/"
+    "templates/",
+    "codemods.js"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -3,14 +3,6 @@ const path = require('path')
 const { packageJson, uninstall, install } = require('mrm-core')
 const { copySync, ensureDirSync, removeSync } = require('fs-extra')
 
-const projectName = process.argv[2]
-
-// Execute in-order
-process.chdir(projectName)
-replaceDependencies()
-replaceScripts()
-addTemplates()
-
 function replaceDependencies() {
   uninstall('react-scripts', { dev: false })
   install('react-flying-saucer', { dev: false })
@@ -34,9 +26,19 @@ function replaceScripts() {
   file.save()
 }
 
-function addTemplates() {
+function addTemplate() {
   ensureDirSync('src/features/Main')
   copySync(path.join(__dirname, '../templates/src'), 'src')
+}
+
+function removeOriginalFiles() {
   removeSync('src/App.css')
   removeSync('src/logo.svg')
+}
+
+module.exports = {
+  removeOriginalFiles,
+  replaceDependencies,
+  replaceScripts,
+  addTemplates,
 }
