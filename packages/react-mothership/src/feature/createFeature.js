@@ -1,10 +1,10 @@
 import { memo } from 'react'
 import { withRouter, Switch, Route } from 'react-router'
-import { useHooks, useLayoutEffect } from 'use-react-hooks'
+import { useHooks, useLayoutEffect, useMemo } from 'use-react-hooks'
 
 import Scope, { useScope } from '../Scope'
-import { useModels } from '../context'
-import useViews from './useViews'
+import { useApp } from '../context'
+import { createRoutes, createLinks } from './views'
 import Boundary from './Boundary'
 
 export default function createFeature(config = {}) {
@@ -12,12 +12,10 @@ export default function createFeature(config = {}) {
     const name = config.name || Base.displayName || Base.name
 
     const Feature = useHooks(({ match, path, children }) => {
-      useModels(config.models)
-      const scope = useScope()
-      // provide views under baseUrl
-      //makes a new path, or "always on"
-      const baseUrl = path ? scope.base + path : scope.base
-      const [routing, providedViews] = useViews(baseUrl, config.views)
+      registersModels(config.models)
+
+      const [routing, providedViews] = getRouting(config.views, path)
+
       // don't override the base if there is no match
       const render = ({ match }) => (
         <Boundary fallback={config.placeholder} recovery={config.recovery}>
@@ -27,10 +25,8 @@ export default function createFeature(config = {}) {
             provides={config.provides}
           >
             <Base>
-              <Switch>
-                {routing}
-                {children}
-              </Switch>
+              <Switch children={routing} />
+              {children}
             </Base>
           </Scope>
         </Boundary>
@@ -49,4 +45,22 @@ export default function createFeature(config = {}) {
 
     return withRouter(memo(Feature))
   }
+}
+
+function registersModels(models) {
+  const app = useApp()
+
+  return useMemo(() => models && app.registerModels(models), [app])
+}
+
+function getRouting(views, path) {
+  const scope = useScope()
+
+  return useMemo(
+    () => {
+      const url = path ? scope.base + path : scope.base
+      return [createRoutes(url, views), createLinks(url, views)]
+    },
+    [scope, path]
+  )
 }
