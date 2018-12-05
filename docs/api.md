@@ -72,10 +72,11 @@ config: {
   views: [{
     name: string
     path: string
-    view?: (params: {}) => string // map params to formatted path
+    resolve?: (params: {}) => string // map params to formatted path
     component?: React.Component
     loader?: () => Promise<React.Component>
     render?: (props: {}) => React.Component
+    effect?: (dispatch: RematchDispatch) => any
   }],
 }
 ```
@@ -177,7 +178,7 @@ const enhance = $$(
 )
 ```
 
-### `withReduxEffect(mapDispatch)`
+### `withDispatch(mapDispatch)`
 
 **alias: `_$`**
 
@@ -191,12 +192,12 @@ const enhance = _$(dispatch => ({
 }))
 ```
 
-### `useReduxEffect(mapDispatch, watch)`
+### `useAppEffect(effectWithDispatch, watch)`
 
-Hook to run dispatchers as a side-effect.
+Hook to run dispatchers as a side-effect when any value in watch changes.
 
 **example:**
 
 ```js
-useReduxEffect(dispatch => dispatch.storage.retrieve(props.id), [props.id])
+useAppEffect(dispatch => dispatch.storage.retrieve(props.id), [props.id])
 ```

@@ -10,9 +10,11 @@ export const withDispatch = connect(
   _
 )
 
-export const useReduxEffect = (mapDispatch, watch) => {
+export const useAppEffect = (mapDispatch, watch) => {
   const app = useApp()
-  useEffect(() => mapDispatch(app.inject.dispatch), watch)
+  useEffect(() => {
+    mapDispatch(app.inject.dispatch)
+  }, watch)
 }
 
 export const sconnect = (mapSelect, mapDispatch) => Base => {
