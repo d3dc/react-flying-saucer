@@ -28,7 +28,7 @@ function replaceScripts() {
 
 function addTemplate() {
   ensureDirSync('src/features/Main')
-  copySync(path.join(__dirname, '../templates/src'), 'src')
+  copySync(path.join(__dirname, 'templates/src'), 'src')
 }
 
 function removeOriginalFiles() {
@@ -40,5 +40,5 @@ module.exports = {
   removeOriginalFiles,
   replaceDependencies,
   replaceScripts,
-  addTemplates,
+  addTemplate,
 }
