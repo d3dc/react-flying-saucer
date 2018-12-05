@@ -1,0 +1,33 @@
+{
+  "name": "react-mothership",
+  "version": "0.0.4",
+  "description": "React abstractions and HOCs for modular applications",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d3dc/react-flying-saucer.git"
+  },
+  "author": "@d3dc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d3dc/react-flying-saucer/issues"
+  },
+  "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
+  "dependencies": {
+    "@rematch/core": "^1.0.6",
+    "@rematch/select": "^2.0.3",
+    "lodash": "^4.17.11",
+    "react": "^16.6.3",
+    "react-redux": "^5.1.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "use-react-hooks": "^1.0.7"
+  },
+  "peerDependencies": {
+    "react-flying-saucer": "^0.0.4"
+  }
+}
