@@ -49,8 +49,12 @@ import Sidebar from '@/features/sidebar'
 - [`redux` bindings](docs/api.md#redux-bindings)
 - [`context` bindings](docs/api.md#context-bindings)
 
-### an "app example"
 
+## Examples
+
+- [TodoMVC](examples/todos)
+
+### "example" app
 ```js
 const FeatureOne = createFeature()(() =>
   <div className={substyle.element}>
@@ -75,9 +79,6 @@ const App = () =>
   </Mothership>
 ```
 
-## Examples
-
-- [TodoMVC](examples/todos)
 
 ## More Reading
 
