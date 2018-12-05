@@ -8,8 +8,9 @@
   "main": "barrel.js",
   "files": [
     "bin/",
-    "lib/",
-    "craco-config.js"
+    "barrel.js",
+    "craco-config.js",
+    "craco-plugin.js"
   ],
   "scripts": {
     "test": "react-flying-saucer test"
@@ -25,15 +26,15 @@
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
-    "@craco/craco": "^3.1.1",
+    "@craco/craco": "^3.2.0",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-react-require": "^3.0.1",
     "babel-preset-react-app": "^6.1.0",
     "babel-preset-techno-babel": "^1.1.0",
     "eslint-config-techno-babel": "^1.0.1",
+    "react": "^16.6.3",
     "react-mothership": "^0.0.4",
     "react-scripts": "^2.1.1",
-    "use-react-hooks": "^1.0.7",
     "webpack-babel-env-deps": "^1.4.3"
   },
   "peerDependencies": {
