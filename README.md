@@ -19,6 +19,8 @@ A zero-config way to write functional react apps that scale.
 - `$cd app`
 - `$yarn start`
 
+## Whats in the Box?
+
 ### import aliases
 
 `@`
