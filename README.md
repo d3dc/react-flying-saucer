@@ -21,13 +21,13 @@ A zero-config way to write functional react apps that scale.
 
 ### import aliases
 
-- `@`
+`@`
 
-  A link to the source root of your project.
+A link to the source root of your project.
 
-- `@@`
+`@@`
 
-  [re-exports](#exported-utilities) everything you need for creating and mounting a feature fleet.
+[re-exports](#exported-utilities) everything you need for creating and mounting a feature fleet.
 
 > One flying saucer, Two flying saucers
 
@@ -87,9 +87,11 @@ const App = () =>
 ## Packages
 
 - [create-react-flying-saucer](packages/create-react-flying-saucer)
-  - Create a create-react-app app and then codemod it to outerspace!
+  - create a create-react-app app and then codemod it to outerspace!
 - [react-flying-saucer](packages/react-flying-saucer)
-  - npm scripts and runtime dependencies for a functional react that's out of this world!
+  - npm scripts for a react experience that's out of this world!
+- [react-mothership](packages/react-mothership)
+  - beam data around your app with these HOCs and abstractions!
 
 ## Typescript when?!
 
