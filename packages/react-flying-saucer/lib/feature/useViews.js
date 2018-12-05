@@ -2,7 +2,7 @@ import { lazy } from 'react'
 import { useMemo } from 'use-react-hooks'
 import { Route } from 'react-router'
 
-export default function useViews(baseUrl, views) {
+export default function useViews(baseUrl, views = []) {
   return useMemo(
     ~[
       views.map(({ path, component, loader, ...rest }) => {

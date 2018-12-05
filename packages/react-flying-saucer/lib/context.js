@@ -7,7 +7,7 @@ export const useModels = models => {
   const app = useContext(context)
   // TODO: this should work in 16.7
   // useLayoutEffect(() =>
-  useMemo(() => app.registerModels(models))
+  useMemo(() => models && app.registerModels(models))
 }
 export const { Provider } = context
 

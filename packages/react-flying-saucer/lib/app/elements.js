@@ -10,7 +10,7 @@ const enhance = Comp =>
   useHooks(({ view, params, ...rest }) => {
     const scope = useScope()
     const [to, exact] = useMemo(
-      () => {
+      ~{
         if (view) {
           const config = scope?.views?.[view]
           return [config?.resolve(params), config?.exact]
