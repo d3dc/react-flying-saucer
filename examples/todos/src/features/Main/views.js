@@ -1,4 +1,3 @@
-import { useHooks, useReduxEffect } from '@@'
 import { ALL_TODOS, ACTIVE_TODOS, COMPLETED_TODOS } from './models'
 
 export default [
@@ -6,31 +5,16 @@ export default [
     name: 'all',
     path: '/',
     exact: true,
-    render: useHooks(() => {
-      useReduxEffect(dispatch => {
-        dispatch.todos.filter({ filter: ALL_TODOS, fromView: true })
-      })
-      return null
-    }),
+    effect: dispatch => dispatch.todos.filter({ filter: ALL_TODOS }),
   },
   {
     name: 'active',
     path: '/active',
-    render: useHooks(() => {
-      useReduxEffect(dispatch => {
-        dispatch.todos.filter({ filter: ACTIVE_TODOS, fromView: true })
-      })
-      return null
-    }),
+    effect: dispatch => dispatch.todos.filter({ filter: ACTIVE_TODOS }),
   },
   {
     name: 'completed',
     path: '/completed',
-    render: useHooks(() => {
-      useReduxEffect(dispatch => {
-        dispatch.todos.filter({ filter: COMPLETED_TODOS, fromView: true })
-      })
-      return null
-    }),
+    effect: dispatch => dispatch.todos.filter({ filter: COMPLETED_TODOS }),
   },
 ]
