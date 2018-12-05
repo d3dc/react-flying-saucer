@@ -62,7 +62,7 @@ const FeatureOne = createFeature()(() =>
 const FeatureTwo = createFeature()(() =>
   <div>
     <header>Hi!</header>
-    <BFeatureOne path="/another" />
+    <BFeatureOne path="/another" /> // /showTwo/another
   </div>
 )
 
