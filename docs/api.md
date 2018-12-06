@@ -54,11 +54,13 @@ config: {
 createApp({ inject: { api } })
 ```
 
-### `createFeature(config)`
+### `createFeature(config)(Base)`
 
 Decorate a React component at the root of a feature module. When mounted, it registers its dependencies with the context. Acts as a boundary for errors and suspense.
 
 Features are declaratively composed inside a `Mothership`.
+
+> Want lazy loading? Use a React.lazy component!
 
 **arguments:**
 
@@ -74,7 +76,6 @@ config: {
     path: string
     resolve?: (params: {}) => string // map params to formatted path
     component?: React.Component
-    loader?: () => Promise<React.Component>
     render?: (props: {}) => React.Component
     effect?: (dispatch: RematchDispatch) => any
   }],

@@ -1,6 +1,7 @@
-import { lazy } from 'react'
-import { Route } from 'react-router'
+import { trimEnd } from 'lodash'
+import { Switch, Route } from 'react-router'
 import { useHooks } from 'use-react-hooks'
+
 import { useAppEffect } from '../store'
 
 function reduxView(effect) {
@@ -22,17 +23,21 @@ export function createLinks(baseUrl, views) {
   }, {})
 }
 
-export function createRoutes(baseUrl, views = []) {
-  return views.map(({ path, component, loader, effect, ...rest }) => {
-    const url = baseUrl ? baseUrl + path : path
-    return (
-      <Route
-        key={url}
-        path={url}
-        render={effect && reduxView(effect)}
-        component={component ?? (loader && lazy(loader))}
-        {...rest}
-      />
-    )
-  })
+export function createRouting(baseUrl, views = []) {
+  return (
+    <Switch>
+      {views.map(({ path, component, effect, ...rest }) => {
+        const url = baseUrl + path
+        return (
+          <Route
+            key={url}
+            path={url}
+            render={effect && reduxView(effect)}
+            component={component}
+            {...rest}
+          />
+        )
+      })}
+    </Switch>
+  )
 }

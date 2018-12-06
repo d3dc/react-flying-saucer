@@ -3,7 +3,6 @@ import { useHooks, useContext } from 'use-react-hooks'
 import { merge } from 'lodash'
 
 export const context = createContext({
-  base: '',
   views: {},
   provides: {},
 })

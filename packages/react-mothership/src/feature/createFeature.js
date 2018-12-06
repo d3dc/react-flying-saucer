@@ -1,31 +1,33 @@
 import { memo } from 'react'
-import { withRouter, Switch, Route } from 'react-router'
-import { useHooks, useLayoutEffect, useMemo } from 'use-react-hooks'
+import { withRouter, Route } from 'react-router'
+import { useHooks, useMemo } from 'use-react-hooks'
 
-import Scope, { useScope } from '../Scope'
+import Scope from '../Scope'
 import { useApp } from '../context'
-import { createRoutes, createLinks } from './views'
+import { createRouting, createLinks } from './views'
 import Boundary from './Boundary'
 
 export default function createFeature(config = {}) {
   return Base => {
     const name = config.name || Base.displayName || Base.name
 
-    const Feature = useHooks(({ match, path, children }) => {
+    /*
+     * "If a Route does not have a path, and therefore always matches,
+     * you'll get the closest parent match. Same goes for withRouter.""
+     *
+     * https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/match.md
+     */
+    const Feature = useHooks(({ path, match, children }) => {
       registersModels(config.models)
 
-      const [routing, providedViews] = getRouting(config.views, path)
+      const baseUrl = getBaseUrl(match, path)
+      const [routing, providedViews] = getRouting(baseUrl, config.views)
 
-      // don't override the base if there is no match
-      const render = ({ match }) => (
+      const render = () => (
         <Boundary fallback={config.placeholder} recovery={config.recovery}>
-          <Scope
-            base={match?.url}
-            views={providedViews}
-            provides={config.provides}
-          >
+          <Scope views={providedViews} provides={config.provides}>
             <Base>
-              <Switch children={routing} />
+              {routing}
               {children}
             </Base>
           </Scope>
@@ -36,8 +38,8 @@ export default function createFeature(config = {}) {
         // new path
         return <Route path={baseUrl} render={render} />
       } else {
-        // already mounted, "always on"
-        return render({ match })
+        // "always on", parent already mounted
+        return render()
       }
     })
 
@@ -50,17 +52,27 @@ export default function createFeature(config = {}) {
 function registersModels(models) {
   const app = useApp()
 
+  // TODO: layout effect
   return useMemo(() => models && app.registerModels(models), [app])
 }
 
-function getRouting(views, path) {
-  const scope = useScope()
+function getBaseUrl(match, path) {
+  if (!path) {
+    return match.path
+  }
 
+  if (match.path === '/') {
+    return path
+  }
+
+  return match.path + path
+}
+
+function getRouting(baseUrl, views) {
   return useMemo(
     () => {
-      const url = path ? scope.base + path : scope.base
-      return [createRoutes(url, views), createLinks(url, views)]
+      return [createRouting(baseUrl, views), createLinks(baseUrl, views)]
     },
-    [scope, path]
+    [baseUrl]
   )
 }
