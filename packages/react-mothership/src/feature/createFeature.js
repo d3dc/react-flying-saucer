@@ -9,7 +9,7 @@ import Boundary from './Boundary'
 
 export default function createFeature(config = {}) {
   return Base => {
-    const name = config.name || Base.displayName || Base.name
+    const name = config.name || Base.displayName || Base.name || 'Component'
 
     /*
      * "If a Route does not have a path, and therefore always matches,
