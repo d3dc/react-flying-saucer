@@ -1,4 +1,4 @@
-import { trimEnd } from 'lodash'
+import { trimStart, trimEnd } from 'lodash'
 import { Switch, Route } from 'react-router'
 import { useHooks } from 'use-react-hooks'
 
@@ -11,13 +11,22 @@ function reduxView(effect) {
   })
 }
 
+export function pathJoin(...parts) {
+  const slash = '/'
+  return parts.reduce((acc, p) => {
+    return p === slash
+      ? acc // preserve trailing slash
+      : [trimEnd(acc, slash), trimStart(p, slash)].join(slash)
+  })
+}
+
 export function createLinks(baseUrl, views) {
   return views?.reduce((obj, view) => {
     obj[view.name] = {
       exact: view.exact,
       resolve: view.resolve
-        ? (...args) => baseUrl + view.resolve(...args)
-        : () => baseUrl + view.path,
+        ? (...args) => pathJoin(baseUrl, view.resolve(...args))
+        : () => pathJoin(baseUrl, view.path),
     }
     return obj
   }, {})
@@ -27,7 +36,7 @@ export function createRouting(baseUrl, views = []) {
   return (
     <Switch>
       {views.map(({ path, component, effect, ...rest }) => {
-        const url = baseUrl + path
+        const url = pathJoin(baseUrl, path)
         return (
           <Route
             key={url}

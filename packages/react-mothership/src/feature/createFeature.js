@@ -4,7 +4,7 @@ import { useHooks, useMemo } from 'use-react-hooks'
 
 import Scope from '../Scope'
 import { useApp } from '../context'
-import { createRouting, createLinks } from './views'
+import { createRouting, createLinks, pathJoin } from './views'
 import Boundary from './Boundary'
 
 export default function createFeature(config = {}) {
@@ -20,7 +20,7 @@ export default function createFeature(config = {}) {
     const Feature = useHooks(({ path, match, children }) => {
       registersModels(config.models)
 
-      const baseUrl = getBaseUrl(match, path)
+      const baseUrl = pathJoin(match.path, path)
       const [routing, providedViews] = getRouting(baseUrl, config.views)
 
       const render = () => (
@@ -54,18 +54,6 @@ function registersModels(models) {
 
   // TODO: layout effect
   return useMemo(() => models && app.registerModels(models), [app])
-}
-
-function getBaseUrl(match, path) {
-  if (!path) {
-    return match.path
-  }
-
-  if (match.path === '/') {
-    return path
-  }
-
-  return match.path + path
 }
 
 function getRouting(baseUrl, views) {
