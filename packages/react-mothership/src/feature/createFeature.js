@@ -17,35 +17,37 @@ export default function createFeature(config = {}) {
      *
      * https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/match.md
      */
-    const Feature = useHooks(({ path, match, children }) => {
-      registersModels(config.models)
+    const Feature = memo(
+      useHooks(({ path, match, children }) => {
+        registersModels(config.models)
 
-      const baseUrl = pathJoin(match.path, path)
-      const [routing, providedViews] = getRouting(baseUrl, config.views)
+        const baseUrl = pathJoin(match.path, path)
+        const [routing, providedViews] = getRouting(baseUrl, config.views)
 
-      const render = () => (
-        <Boundary fallback={config.placeholder} recovery={config.recovery}>
-          <Scope views={providedViews} provides={config.provides}>
-            <Base>
-              {routing}
-              {children}
-            </Base>
-          </Scope>
-        </Boundary>
-      )
+        const render = () => (
+          <Boundary fallback={config.placeholder} recovery={config.recovery}>
+            <Scope views={providedViews} provides={config.provides}>
+              <Base>
+                {routing}
+                {children}
+              </Base>
+            </Scope>
+          </Boundary>
+        )
 
-      if (path) {
-        // new path
-        return <Route path={baseUrl} render={render} />
-      } else {
-        // "always on", parent already mounted
-        return render()
-      }
-    })
+        if (path) {
+          // new path
+          return <Route path={baseUrl} render={render} />
+        } else {
+          // "always on", parent already mounted
+          return render()
+        }
+      })
+    )
 
     Feature.displayName = `Feature(${name})`
 
-    return withRouter(memo(Feature))
+    return withRouter(Feature)
   }
 }
 

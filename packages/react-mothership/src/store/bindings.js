@@ -18,19 +18,21 @@ export const useAppEffect = (mapDispatch, watch) => {
 }
 
 export const sconnect = (mapSelect, mapDispatch) => Base => {
-  const c = useHooks(props => {
-    const app = useApp()
-    const enhance = connect(
-      app.store.select(mapSelect),
-      mapDispatch
-    )
+  const c = memo(
+    useHooks(props => {
+      const app = useApp()
+      const enhance = connect(
+        app.store.select(mapSelect),
+        mapDispatch
+      )
 
-    return createElement(enhance(Base), props)
-  })
+      return createElement(enhance(Base), props)
+    })
+  )
 
-  c.displayName = `connect()`
+  c.displayName = `sconnect(${Base.displayName || Base.name || 'Component'})`
 
-  return memo(c)
+  return c
 }
 
 export const $$ = sconnect
