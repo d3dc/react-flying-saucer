@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
+    "@babel/core": "^7.0.0",
     "@craco/craco": "^3.2.0",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-react-require": "^3.0.1",
@@ -35,7 +36,7 @@
     "react": "^16.6.3",
     "react-mothership": "^0.0.6",
     "react-scripts": "^2.1.1",
-    "webpack-babel-env-deps": "^1.4.3"
+    "webpack": "^4.0.0"
   },
   "peerDependencies": {
     "lodash": "^4.17.11",
