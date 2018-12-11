@@ -81,30 +81,40 @@ const selectors = (slice, createSelector) => ({
     return (state, id) => state.todos.allTodos[id]
   },
   count() {
-    return createSelector(slice(_.allTodos), todos => Object.keys(todos).length)
+    return createSelector(
+      slice(_.allTodos),
+      todos => Object.keys(todos).length
+    )
   },
   activeCount() {
     return createSelector(
       slice(_.allTodos),
-      todos => Object.values(todos).filter(it => !it.completed).length
+      todos => Object.values(todos).filter(_.completed === false).length
     )
   },
   completedCount() {
-    return createSelector(this.count, this.activeCount, _ - _)
+    return createSelector(
+      this.count,
+      this.activeCount,
+      _ - _
+    )
   },
   list() {
-    return createSelector(slice(_.allTodos), slice(_.filter), (todos, filter) =>
-      Object.values(todos).filter(
-        do {
-          if (filter === ACTIVE_TODOS) {
-            _.completed === false
-          } else if (filter === COMPLETED_TODOS) {
-            _.completed === true
-          } else {
-            _
+    return createSelector(
+      slice(_.allTodos),
+      slice(_.filter),
+      (todos, filter) =>
+        Object.values(todos).filter(
+          do {
+            if (filter === ACTIVE_TODOS) {
+              _.completed === false
+            } else if (filter === COMPLETED_TODOS) {
+              _.completed === true
+            } else {
+              _
+            }
           }
-        }
-      )
+        )
     )
   },
 })
