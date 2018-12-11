@@ -30,10 +30,10 @@
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-react-require": "^3.0.1",
     "babel-preset-react-app": "^6.1.0",
-    "babel-preset-techno-babel": "^1.1.0",
+    "babel-preset-techno-babel": "^1.3.0",
     "eslint-config-techno-babel": "^1.0.1",
     "react": "^16.6.3",
-    "react-mothership": "^0.0.5",
+    "react-mothership": "0.0.5",
     "react-scripts": "^2.1.1",
     "webpack-babel-env-deps": "^1.4.3"
   },
