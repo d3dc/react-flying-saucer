@@ -31,7 +31,6 @@
     "use-react-hooks": "^1.0.7"
   },
   "peerDependencies": {
-    "react-flying-saucer": "^0.0.7",
-    "use-react-hooks": "^1.0.7"
+    "react-flying-saucer": "^0.0.8"
   }
 }
