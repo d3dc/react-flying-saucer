@@ -17,7 +17,7 @@ const enhance = Comp =>
           return [undefined, undefined]
         }
       },
-      [view, scope, params]
+      [scope, view, params]
     )
 
     return createElement(Comp, {
