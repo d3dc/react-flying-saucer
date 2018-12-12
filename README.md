@@ -2,7 +2,7 @@
 
 > The 👾 aren't in the bikeshed.
 
-A zero-config way to write functional react apps that scale.
+ A zero-config way to write scalable single-page apps with functional react.
 
 **features:**
 
