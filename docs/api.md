@@ -77,7 +77,8 @@ config: {
     resolve?: (params: {}) => string // map params to formatted path
     component?: React.Component
     render?: (props: {}) => React.Component
-    effect?: (dispatch: RematchDispatch) => any
+    effect?: (dispatch: RematchDispatch) => any,
+    redirect?: string | { to, ...params }
   }],
 }
 ```
