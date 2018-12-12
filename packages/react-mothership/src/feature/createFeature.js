@@ -18,7 +18,7 @@ export default function createFeature(config = {}) {
      * https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/match.md
      */
     const Feature = memo(
-      useHooks(({ path, match, children }) => {
+      useHooks(({ path, match, location, history, children }) => {
         registersModels(config.models)
 
         const baseUrl = pathJoin(match.path, path)
@@ -26,7 +26,11 @@ export default function createFeature(config = {}) {
 
         const render = () => (
           <Boundary fallback={config.placeholder} recovery={config.recovery}>
-            <Scope views={providedViews} provides={config.provides}>
+            <Scope
+              views={providedViews}
+              provides={config.provides}
+              router={{ location, history }}
+            >
               <Base>
                 {routing}
                 {children}
