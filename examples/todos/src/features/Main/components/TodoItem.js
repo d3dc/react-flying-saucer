@@ -113,4 +113,4 @@ class TodoItem extends Component {
   }
 }
 
-export default enhance(TodoItem)
+export default TodoItem |> enhance

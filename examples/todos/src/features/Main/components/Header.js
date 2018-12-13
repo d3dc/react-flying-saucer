@@ -49,4 +49,4 @@ class Header extends Component {
   }
 }
 
-export default enhance(Header)
+export default Header |> enhance

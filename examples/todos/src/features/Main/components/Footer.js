@@ -46,4 +46,4 @@ const Footer = useHooks(props => {
   )
 })
 
-export default enhance(Footer)
+export default Footer |> enhance

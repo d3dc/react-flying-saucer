@@ -25,4 +25,4 @@ function Main({ count, children }) {
 
 Main.displayName = 'Main'
 
-export default enhance(Main)
+export default Main |> enhance

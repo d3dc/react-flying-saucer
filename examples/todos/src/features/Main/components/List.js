@@ -29,4 +29,4 @@ function List({ list, activeCount, toggleAll }) {
   )
 }
 
-export default enhance(List)
+export default List |> enhance
