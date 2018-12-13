@@ -27,9 +27,9 @@ const enhance = Comp =>
     })
   })
 
-export const Link = enhance(BaseLink)
-export const NavLink = enhance(BaseNavLink)
-export const Redirect = enhance(BaseRedirect)
+export const Link = BaseLink |> enhance
+export const NavLink = BaseNavLink |> enhance
+export const Redirect = BaseRedirect |> enhance
 
 // TODO: Can this be configurable?
 export default { Switch, Route, Link, NavLink, Redirect }

@@ -15,18 +15,20 @@ export function pathJoin(...parts) {
 }
 
 export function createLinks(baseUrl, views) {
-  return views?.reduce((obj, view) => {
-    obj[view.name] = {
-      exact: view.exact,
-      resolve: view.resolve
-        ? (...args) => pathJoin(baseUrl, view.resolve(...args))
-        : () => pathJoin(baseUrl, view.path),
+  return views.reduce((obj, view) => {
+    if (view.name) {
+      obj[view.name] = {
+        exact: view.exact || false,
+        resolve: view.resolve
+          ? (...args) => pathJoin(baseUrl, view.resolve(...args))
+          : () => pathJoin(baseUrl, view.path),
+      }
     }
     return obj
   }, {})
 }
 
-export function createRouting(baseUrl, views = []) {
+export function createRouting(baseUrl, views) {
   return (
     <Switch>
       {views.map(({ path, component, effect, redirect, ...rest }) => {
@@ -50,7 +52,7 @@ export function createRouting(baseUrl, views = []) {
 }
 
 function renderHooks(...hooks) {
-  const used = hooks.filter(_ !== undefined)
+  const used = hooks.filter(Boolean)
 
   if (!used.length) {
     return undefined

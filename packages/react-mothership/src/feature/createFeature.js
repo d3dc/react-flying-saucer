@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, Children } from 'react'
 import { withRouter, Route } from 'react-router'
 import { useHooks, useMemo } from 'use-react-hooks'
 
@@ -9,7 +9,7 @@ import Boundary from './Boundary'
 
 export default function createFeature(config = {}) {
   return Base => {
-    const name = config.name || Base.displayName || Base.name || 'Component'
+    const name = config.name || Base.displayName || Base.name
 
     /*
      * "If a Route does not have a path, and therefore always matches,
@@ -17,56 +17,93 @@ export default function createFeature(config = {}) {
      *
      * https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/match.md
      */
-    const Feature = memo(
-      useHooks(({ path, match, location, history, children }) => {
-        registersModels(config.models)
+    function Feature({ path, exact, match, location, history, children }) {
+      useModelRegistration(config.models)
 
-        const baseUrl = pathJoin(match.path, path)
-        const [routing, providedViews] = getRouting(baseUrl, config.views)
+      const baseUrl = pathJoin(match.path, path)
+      const nested = useNestedLinks(name, path, children)
 
-        const render = () => (
-          <Boundary fallback={config.placeholder} recovery={config.recovery}>
-            <Scope
-              views={providedViews}
-              provides={config.provides}
-              router={{ location, history }}
-            >
-              <Base>
-                {routing}
-                {children}
-              </Base>
-            </Scope>
-          </Boundary>
-        )
+      const [routing, links] = useRouting(baseUrl, nested, config.views)
 
-        if (path) {
-          // new path
-          return <Route path={baseUrl} render={render} />
-        } else {
-          // "always on", parent already mounted
-          return render()
-        }
-      })
-    )
+      const render = () => (
+        <Boundary fallback={config.placeholder} recovery={config.recovery}>
+          <Scope
+            views={links}
+            provides={config.provides}
+            router={{ location, history }}
+          >
+            <Base>
+              {routing}
+              {children}
+            </Base>
+          </Scope>
+        </Boundary>
+      )
 
-    Feature.displayName = `Feature(${name})`
+      return path ? (
+        // conditional new path
+        <Route path={baseUrl} exact={exact} render={render} />
+      ) : (
+        // "always on"
+        render()
+      )
+    }
 
-    return withRouter(Feature)
+    const Wrapper = Feature |> useHooks |> memo |> withRouter
+
+    Wrapper.displayName = `Feature(${name || 'Component'})`
+    Wrapper.wrappedName = name
+    Wrapper.WrappedComponent = Base
+
+    return Wrapper
   }
 }
 
-function registersModels(models) {
-  const app = useApp()
+function useNestedLinks(name, path, cs) {
+  // only update when paths change
+  const paths = Children.map(cs, _.props.path)?.filter(Boolean) ?? []
+  return useMemo(
+    () => {
+      const list = []
 
+      if (name) {
+        list.push({
+          name.toLowerCase(),
+          path: '/',
+        })
+      }
+
+      Children.forEach(cs, c => {
+        if (c.type.wrappedName) {
+          list.push({
+            name: c.type.wrappedName.toLowerCase(),
+            path: c.props.path,
+          })
+        }
+      })
+
+      return list
+    },
+    [path, ...paths]
+  )
+}
+
+function useModelRegistration(models) {
+  const app = useApp()
   // TODO: layout effect
   return useMemo(() => models && app.registerModels(models), [app])
 }
 
-function getRouting(baseUrl, views) {
+function useRouting(baseUrl, nested, views = []) {
+  // we know views won't change
+  // and only need to update when paths change
   return useMemo(
     () => {
-      return [createRouting(baseUrl, views), createLinks(baseUrl, views)]
+      return [
+        createRouting(baseUrl, views),
+        createLinks(baseUrl, [...nested, ...views]),
+      ]
     },
-    [baseUrl]
+    [baseUrl, nested]
   )
 }

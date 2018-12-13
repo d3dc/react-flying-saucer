@@ -9,8 +9,10 @@ export const useRouter = ~useScope().router
 export const useNavigator = () => {
   const { views, router } = useScope()
 
-  return useMemo(~mapValues(views, v => router.history.push(v(..._))), [
-    router,
-    views,
-  ])
+  return useMemo(
+    ~mapValues(views, v => (...args) =>
+      router.history.push(v.resolve(...args))
+    ),
+    [router, views]
+  )
 }
