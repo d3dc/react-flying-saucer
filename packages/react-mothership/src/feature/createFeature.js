@@ -68,7 +68,7 @@ function useNestedLinks(name, path, cs) {
 
       if (name) {
         list.push({
-          name.toLowerCase(),
+          name: name.toLowerCase(),
           path: '/',
         })
       }
