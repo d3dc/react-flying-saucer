@@ -21,7 +21,7 @@ export default function createFeature(config = {}) {
       useModelRegistration(config.models)
 
       const baseUrl = pathJoin(match.path, path)
-      const nested = useNestedLinks(name, path, children)
+      const nested = useNestedAsViews(name, path, children)
 
       const [routing, links] = useRouting(baseUrl, nested, config.views)
 
@@ -59,7 +59,7 @@ export default function createFeature(config = {}) {
   }
 }
 
-function useNestedLinks(name, path, cs) {
+function useNestedAsViews(name, path, cs) {
   // only update when paths change
   const paths = Children.map(cs, _.props.path)?.filter(Boolean) ?? []
   return useMemo(
