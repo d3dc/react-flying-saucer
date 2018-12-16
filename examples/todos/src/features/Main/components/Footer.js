@@ -1,4 +1,4 @@
-import { $$, useHooks, useProvided } from '@@'
+import { $$, NavLink } from '@@'
 import pluralize from 'pluralize'
 
 const enhance = $$(
@@ -11,8 +11,7 @@ const enhance = $$(
   })
 )
 
-const Footer = useHooks(props => {
-  const { NavLink } = useProvided()
+function Footer(props) {
   const activeTodoWord = pluralize('item', props.count)
 
   return (
@@ -44,6 +43,6 @@ const Footer = useHooks(props => {
       ) : null}
     </footer>
   )
-})
+}
 
 export default Footer |> enhance
