@@ -2,9 +2,9 @@ import { memo, Children } from 'react'
 import { withRouter, Route } from 'react-router'
 import { useHooks, useMemo } from 'use-react-hooks'
 
-import Scope from '../Scope'
+import { Scope, useScope } from '../scope'
 import { useApp } from '../context'
-import { createRouting, createLinks, pathJoin } from './views'
+import { createRouting, pathJoin } from '../views'
 import Boundary from './Boundary'
 
 export default function createFeature(config = {}) {
@@ -17,20 +17,17 @@ export default function createFeature(config = {}) {
      *
      * https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/match.md
      */
-    function Feature({ path, exact, match, location, history, children }) {
-      useModelRegistration(config.models)
-
-      const baseUrl = pathJoin(match.path, path)
-      const nested = useNestedAsViews(name, path, children)
-
-      const [routing, links] = useRouting(baseUrl, nested, config.views)
+    function Feature({ path, exact, match, children }) {
+      const basePath = pathJoin(match.path, path)
+      const routing = useRouting(name, basePath, config.views)
 
       const render = () => (
         <Boundary fallback={config.placeholder} recovery={config.recovery}>
           <Scope
-            views={links}
+            name={name}
+            basePath={basePath}
             provides={config.provides}
-            router={{ location, history }}
+            mounted={children}
           >
             <Base>
               {routing}
@@ -41,8 +38,9 @@ export default function createFeature(config = {}) {
       )
 
       return path ? (
-        // conditional new path
-        <Route path={baseUrl} exact={exact} render={render} />
+        // Wait to mount the Base, children and routing
+        // and run any effects they have
+        <Route path={basePath} exact={exact} render={render} />
       ) : (
         // "always on"
         render()
@@ -52,58 +50,18 @@ export default function createFeature(config = {}) {
     const Wrapper = Feature |> useHooks |> memo |> withRouter
 
     Wrapper.displayName = `Feature(${name || 'Component'})`
-    Wrapper.wrappedName = name
     Wrapper.WrappedComponent = Base
+    Wrapper.featureConfig = {
+      ...config,
+      name,
+    }
 
     return Wrapper
   }
 }
 
-function useNestedAsViews(name, path, cs) {
-  // only update when paths change
-  const paths = Children.map(cs, _.props.path)?.filter(Boolean) ?? []
-  return useMemo(
-    () => {
-      const list = []
-
-      if (name) {
-        list.push({
-          name: name.toLowerCase(),
-          path: '/',
-        })
-      }
-
-      Children.forEach(cs, c => {
-        if (c.type.wrappedName) {
-          list.push({
-            name: c.type.wrappedName.toLowerCase(),
-            path: c.props.path,
-          })
-        }
-      })
-
-      return list
-    },
-    [path, ...paths]
-  )
-}
-
-function useModelRegistration(models) {
-  const app = useApp()
-  // TODO: layout effect
-  return useMemo(() => models && app.registerModels(models), [app])
-}
-
-function useRouting(baseUrl, nested, views = []) {
-  // we know views won't change
+function useRouting(name, basePath, views = []) {
+  // we know name and views won't change
   // and only need to update when paths change
-  return useMemo(
-    () => {
-      return [
-        createRouting(baseUrl, views),
-        createLinks(baseUrl, [...nested, ...views]),
-      ]
-    },
-    [baseUrl, nested]
-  )
+  return useMemo(() => createRouting(basePath, views), [basePath])
 }

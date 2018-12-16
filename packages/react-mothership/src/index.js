@@ -1,8 +1,9 @@
 export * from './app'
 export * from './feature'
-export * from './store'
 export * from './router'
-export { useScope, useProvided } from './Scope'
+export * from './scope'
+export * from './store'
+
 export { useApp } from './context'
 
 // its like a polyfill

@@ -2,8 +2,9 @@ import { trimStart, trimEnd } from 'lodash'
 import { Switch, Route } from 'react-router'
 import { useHooks } from 'use-react-hooks'
 
-import { useProvided } from '../Scope'
-import { useAppEffect } from '../store'
+import { useProvided } from './scope'
+import { useAppEffect } from './store'
+import { Redirect } from './router'
 
 export function pathJoin(...parts) {
   const slash = '/'
@@ -14,25 +15,24 @@ export function pathJoin(...parts) {
   })
 }
 
-export function createLinks(baseUrl, views) {
-  return views.reduce((obj, view) => {
+export function addLinks(dest, basePath, views) {
+  views.forEach(view => {
     if (view.name) {
-      obj[view.name] = {
-        exact: view.exact || false,
+      dest[view.name] = {
+        exact: view.exact || undefined,
         resolve: view.resolve
-          ? (...args) => pathJoin(baseUrl, view.resolve(...args))
-          : () => pathJoin(baseUrl, view.path),
+          ? (...args) => pathJoin(basePath, view.resolve(...args))
+          : () => pathJoin(basePath, view.path),
       }
     }
-    return obj
-  }, {})
+  })
 }
 
-export function createRouting(baseUrl, views) {
+export function createRouting(basePath, views) {
   return (
     <Switch>
       {views.map(({ path, component, effect, redirect, ...rest }) => {
-        const url = pathJoin(baseUrl, path)
+        const url = pathJoin(basePath, path)
         const render = renderHooks(
           effect && reduxHook(effect),
           redirect && redirectHook(redirect)
@@ -77,8 +77,5 @@ function redirectHook(payload) {
   } else {
     view = payload
   }
-  return () => {
-    const { Redirect } = useProvided()
-    return <Redirect key={view} view={view} params={params} />
-  }
+  return () => <Redirect key={view} view={view} params={params} />
 }

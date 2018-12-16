@@ -1,20 +1,13 @@
 import { createContext } from 'react'
 import { useHooks, useContext } from 'use-react-hooks'
-import { merge } from 'lodash'
 
 export const context = createContext({
+  name: 'root',
   views: {},
   provides: {},
 })
 
+// toolkit
 export const useScope = ~useContext(context)
-
+// user
 export const useProvided = ~useContext(context).provides
-
-export const Scope = useHooks(({ children, ...rest }) => (
-  <context.Provider value={merge({}, useScope(), rest)} children={children} />
-))
-
-Scope.displayName = 'Scope'
-
-export default Scope
