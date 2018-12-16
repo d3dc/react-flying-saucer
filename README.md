@@ -2,7 +2,7 @@
 
 > The 👾 aren't in the bikeshed.
 
- A zero-config way to write scalable single-page apps with functional react.
+A zero-config way to write scalable single-page apps with functional react.
 
 **features:**
 
@@ -51,41 +51,28 @@ import Sidebar from '@/features/sidebar'
 - [`redux` bindings](docs/api.md#redux-bindings)
 - [`context` bindings](docs/api.md#context-bindings)
 
-
 ## Examples
 
 - [TodoMVC](examples/todos)
 
 ### "example" app
+
 ```js
-const FeatureOne = createFeature()(() =>
-  <div className={substyle.element}>
-    <AFeatureOne />
-    <AFeatureTwo />
-  </div>
-)
-
-const FeatureTwo = createFeature()(() =>
-  <div>
-    <header>Hi!</header>
-    <BFeatureOne path="/another" /> // /showTwo/another
-  </div>
-)
-
-const App = () =>
+const App = () => (
   <Mothership>
     <UI>
       <FeatureOne />
       <FeatureTwo path="/showTwo" />
     </UI>
   </Mothership>
+)
 ```
-
 
 ## More Reading
 
 - [API](docs/api.md)
 - [WIP][getting started](docs/gettting-started.md)
+- [WIP][standalone mothership](docs/standalone-mothership.md)
 
 ## Packages
 
@@ -95,6 +82,17 @@ const App = () =>
   - npm scripts for a react experience that's out of this world!
 - [react-mothership](packages/react-mothership)
   - beam data around your app with these HOCs and abstractions!
+
+## Polyfills and patches
+
+Includes code that disappears when these are released:
+
+- [ ] `react-router@4.4`
+  - Feature scope re-provides router.
+  - polyfills `useRouter()` hook
+- [ ] `react@16.7`
+  - adds per component polyfill `useHooks()`
+  - must import hooks from `react-mothership`
 
 ## Typescript when?!
 
