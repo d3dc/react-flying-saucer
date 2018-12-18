@@ -12,14 +12,14 @@ export const useNavigator = () => {
   } = useScope()
 
   return useMemo(
-    ~mapValues(views, v => (...args) => history.push(v.resolve(...args))),
+    ~mapValues(views, v => (...args) => history.push(v(...args))),
     [history, views]
   )
 }
 
 export class ViewNotFoundError extends Error {
   constructor(view, scope) {
-    super(`View "${view}" not provided by context "${scope}"`)
+    super(`View "${view}" not provided by feature "${scope}"`)
     this.name = 'ViewNotFoundError'
   }
 }
@@ -27,16 +27,16 @@ export class ViewNotFoundError extends Error {
 const enhance = Comp =>
   useHooks(({ view, params, ...rest }) => {
     const scope = useScope()
-    const [to, exact] = useMemo(
+    const to = useMemo(
       () => {
         if (view) {
-          const config = scope?.views?.[view]
-          if (!config) {
+          const resolve = scope?.views?.[view]
+          if (!resolve) {
             throw new ViewNotFoundError(view, scope.name)
           }
-          return [config.resolve(params), config.exact]
+          return resolve(params)
         } else {
-          return [undefined, undefined]
+          return undefined
         }
       },
       [scope, view, params]
@@ -44,7 +44,6 @@ const enhance = Comp =>
 
     return createElement(Comp, {
       to,
-      exact,
       ...rest,
     })
   })
