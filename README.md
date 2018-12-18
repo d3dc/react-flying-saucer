@@ -2,16 +2,16 @@
 
 > The 👾 aren't in the bikeshed.
 
-A zero-config way to write scalable single-page apps with functional react.
+A zero-config extension to `create-react-app` for scalable single-page apps with functional react.
 
 **features:**
 
-- 🔋 All the batteries are included
+- 🔋 All the batteries are included - including [routing](https://github.com/ReactTraining/react-router)
 - 🔗 Compose feature modules as declarative React components
-- 📍[Routing](https://github.com/ReactTraining/react-router) and other common components are provided and overloaded through the context API
 - 🕳 opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel)
 - 📬 dispatch changes through redux to encapsulated [rematch models](https://rematch.gitbooks.io/rematch/docs/api.html#models)
 - 📝 memoize updating from your redux state using [rematch selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
+- 📍 Top-level data is injected in models, while features can provide and use constants.
 
 ## Quick Start
 
