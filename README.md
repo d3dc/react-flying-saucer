@@ -21,6 +21,18 @@ A zero-config way to write scalable single-page apps with functional react.
 
 ## Whats in the Box?
 
+### new project or upgrade
+
+```sh
+$ create-react-flying-saucer
+```
+run the latest `create-react-app` and add `react-flying-saucer`
+
+```sh
+$ upgrade-react-flying-saucer
+```
+add `react-flying-saucer` to an existing app bootstrapped with `create-react-app`
+
 ### import aliases
 
 > One flying saucer, Two flying saucers
