@@ -29,7 +29,7 @@ $ create-react-flying-saucer
 run the latest `create-react-app` and add `react-flying-saucer`
 
 ```sh
-$ upgrade-react-flying-saucer
+$ migrate-react-flying-saucer
 ```
 add `react-flying-saucer` to an existing app bootstrapped with `create-react-app`
 
