@@ -1,5 +1,13 @@
 import { createContext } from 'react'
+import { get } from 'lodash'
 import { useHooks, useContext } from 'use-react-hooks'
+
+class NotProvidedInScopeError extends Error {
+  constructor(path, scope) {
+    super(`Path "${path}" not provided by feature "${scope}"`)
+    this.name = 'ViewNotFoundError'
+  }
+}
 
 export const context = createContext({
   name: 'root',
@@ -10,4 +18,13 @@ export const context = createContext({
 // toolkit
 export const useScope = ~useContext(context)
 // user
-export const useProvided = ~useContext(context).provides
+export const useProvided = (...deps) => {
+  const scope = useContext(context)
+  return deps.map(path => {
+    const val = get(scope.provides, path)
+    if (val === undefined) {
+      throw new NotProvidedInScopeError(path, scope.name)
+    }
+    return val
+  })
+}
