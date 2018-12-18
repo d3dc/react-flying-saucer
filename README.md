@@ -23,6 +23,8 @@ A zero-config way to write scalable single-page apps with functional react.
 
 ### import aliases
 
+> One flying saucer, Two flying saucers
+
 `@`
 
 A link to the source root of your project.
@@ -30,8 +32,6 @@ A link to the source root of your project.
 `@@`
 
 [re-exports](#exported-utilities) everything you need for creating and mounting a feature fleet.
-
-> One flying saucer, Two flying saucers
 
 ```js
 import { $$ } from '@@'
@@ -54,6 +54,7 @@ import Sidebar from '@/features/sidebar'
 ## Examples
 
 - [TodoMVC](examples/todos)
+- [Nesting Features](examples/nesting-features-with-grommet)
 
 ### "example" app
 
