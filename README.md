@@ -94,7 +94,7 @@ const App = () => (
 - [react-flying-saucer](packages/react-flying-saucer)
   - npm scripts for a react experience that's out of this world!
 - [react-mothership](packages/react-mothership)
-  - Primitive building blocks for stellar apps!
+  - react primitives for building stellar apps!
 
 ## Polyfills and patches
 
