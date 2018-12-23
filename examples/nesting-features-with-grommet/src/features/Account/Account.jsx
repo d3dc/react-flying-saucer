@@ -5,4 +5,6 @@ function Account(props) {
   return <Page {...props} />
 }
 
+Account.displayName = 'Account'
+
 export default Account |> useHooks

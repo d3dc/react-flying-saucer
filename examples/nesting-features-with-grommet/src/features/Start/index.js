@@ -1,4 +1,4 @@
 import { createFeature } from '@@'
 import { lazy } from 'react'
 
-export default createFeature({ name: 'start' })(lazy(~import('./Start')))
+export default lazy(~import('./Start')) |> createFeature({ name: 'start' })

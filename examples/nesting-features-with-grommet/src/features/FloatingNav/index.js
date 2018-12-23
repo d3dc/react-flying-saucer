@@ -1,4 +1,4 @@
 import { createFeature } from '@@'
 import FloatingNav from './FloatingNav'
 
-export default createFeature({ name: 'nav' })(FloatingNav)
+export default FloatingNav |> createFeature({ name: 'nav' })

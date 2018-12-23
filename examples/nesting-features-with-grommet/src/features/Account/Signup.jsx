@@ -39,9 +39,9 @@ function Signup({ login }) {
         disabled={state.loading}
         onClick={async () => {
           const { username, password } = state
-          setState({ loading: true })
+          await setState({ loading: true })
           await login({ username, password })
-          nav.start()
+          return nav.start()
         }}
       />
     </Box>
