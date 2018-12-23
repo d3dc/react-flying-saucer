@@ -1,38 +1,57 @@
 import { Children } from 'react'
 import { useHooks, useMemo } from 'use-react-hooks'
 import { merge } from 'lodash'
-import { addLinks, pathJoin } from '../views'
+import { addLinks, pathJoin } from '../path'
 import { useApp } from '../context'
 import { context, useScope } from './context'
 
-function Scope({ basePath, mounted, children, ...rest }) {
-  const views = useViews(basePath, mounted)
+/**
+ * Primitive used by Features and Mothership
+ * for providing their context
+
+ * @param       {string} basePath
+ *              base path for views
+ *
+ * @param       {ReactElement | ReactElement[]} hoist
+ *              react children to visit while looking for
+ *              values to hoist in this scope
+ *
+ * @param       {ReactElement | ReactElement[][type]} children
+ *              rendered react children
+ *
+ * @param       {...} rest
+ *              any additional values that should be defined in scope
+ *
+ */
+function Scope({ basePath, hoist, children, ...rest }) {
   const scope = useScope()
+  const views = useViews(basePath, hoist)
   const value = merge({ views }, scope, rest)
 
-  useModels(mounted)
+  useModels(hoist)
 
   return <context.Provider value={value} children={children} />
 }
 
 Scope.displayName = 'Scope'
 
-function useViews(basePath, mounted) {
+function useViews(basePath, hoisted) {
   return useMemo(
     () => {
       const views = {}
-      Children.forEach(mounted, child => {
+      Children.forEach(hoisted, child => {
         const featureName = child.type.featureConfig?.name
         const featureViews = child.type.featureConfig?.views
         const featurePath = pathJoin(basePath, child.props.path)
-        const featureLink = {
-          name: featureName,
-          exact: child.props.exact,
-          path: '/',
-        }
 
         if (featureName) {
-          addLinks(views, featurePath, [featureLink])
+          addLinks(views, featurePath, [
+            {
+              name: featureName,
+              exact: child.props.exact,
+              path: '/',
+            },
+          ])
         }
 
         if (featureViews) {
@@ -41,26 +60,26 @@ function useViews(basePath, mounted) {
       })
       return views
     },
-    [basePath, mounted]
+    [basePath, hoisted]
   )
 }
 
-function useModels(mounted) {
+function useModels(hoisted) {
   const app = useApp()
 
   // TODO: layout effect
   useMemo(
     () =>
-      Children.forEach(mounted, child => {
-        const models = child.type.featureConfig?.models
+      Children.forEach(hoisted, child => {
+        const featureModels = child.type.featureConfig?.models
 
-        if (!models) {
+        if (!featureModels) {
           return
         }
 
-        app.registerModels(models)
+        app.registerModels(featureModels)
       }),
-    [app, mounted]
+    [app, hoisted]
   )
 }
 

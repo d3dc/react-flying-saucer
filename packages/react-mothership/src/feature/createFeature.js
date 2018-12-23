@@ -1,10 +1,12 @@
 import { memo, Children } from 'react'
-import { withRouter, Route } from 'react-router'
+import { partition } from 'lodash'
+import { withRouter, Switch, Route } from 'react-router'
 import { useHooks, useMemo } from 'use-react-hooks'
 
 import { Scope, useScope } from '../scope'
 import { useApp } from '../context'
-import { createRouting, pathJoin } from '../views'
+import { pathJoin } from '../path'
+import createRoutes from './createRoutes'
 import Boundary from './Boundary'
 
 export default function createFeature(config = {}) {
@@ -19,7 +21,8 @@ export default function createFeature(config = {}) {
      */
     function Feature({ path, exact, match, children }) {
       const basePath = pathJoin(match.path, path)
-      const routing = useRouting(name, basePath, config.views)
+      const routes = useRoutes(name, basePath, config.views)
+      const [withPath, nested] = usePartition(children)
 
       const render = () => (
         <Boundary fallback={config.placeholder} recovery={config.recovery}>
@@ -27,11 +30,14 @@ export default function createFeature(config = {}) {
             name={name}
             basePath={basePath}
             provides={config.provides}
-            mounted={children}
+            hoist={children}
           >
             <Base>
-              {routing}
-              {children}
+              <Switch>
+                {routes}
+                {withPath}
+              </Switch>
+              {nested}
             </Base>
           </Scope>
         </Boundary>
@@ -60,8 +66,14 @@ export default function createFeature(config = {}) {
   }
 }
 
-function useRouting(name, basePath, views = []) {
+function useRoutes(name, basePath, views = []) {
   // we know name and views won't change
   // and only need to update when paths change
-  return useMemo(() => createRouting(basePath, views), [basePath])
+  return useMemo(() => createRoutes(basePath, views), [basePath])
+}
+
+function usePartition(children) {
+  return useMemo(() => partition(Children.toArray(children), _.props.path), [
+    children,
+  ])
 }
