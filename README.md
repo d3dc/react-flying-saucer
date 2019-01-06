@@ -30,16 +30,18 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 
 ### new project or upgrade
 
+- run the latest `create-react-app` and add `react-flying-saucer`
+
 ```sh
 $ npx create-react-flying-saucer <project>
 ```
-run the latest `create-react-app` and add `react-flying-saucer`
+
+- add `react-flying-saucer` to an existing app bootstrapped with `create-react-app`
 
 ```sh
 $ cd <project>
 $ npx migrate-react-flying-saucer
 ```
-add `react-flying-saucer` to an existing app bootstrapped with `create-react-app`
 
 ### import aliases
 
