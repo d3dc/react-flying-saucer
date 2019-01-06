@@ -6,12 +6,12 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 
 **features:**
 
-- 🔋 All the batteries are included - including [routing](https://github.com/ReactTraining/react-router)
 - 🔗 Compose feature modules as declarative React components
 - 🕳 opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel)
 - 📬 dispatch changes through redux to encapsulated [rematch models](https://rematch.gitbooks.io/rematch/docs/api.html#models)
 - 📝 memoize updating from your redux state using [rematch selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
-- 📍 Top-level data is injected in models, while features can provide and use constants.
+- 📍 Top-level data sources are accessible in every feature's models.
+- 🔋 Batteries included! - suspense, contextual constants, scoped route trees, dynamic models, and enhanced [routing components](https://github.com/ReactTraining/react-router)
 
 ## Quick Start
 
