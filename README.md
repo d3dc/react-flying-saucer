@@ -10,7 +10,7 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 - 🔩 Opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel)
 - 📬 Dispatch changes through redux to encapsulated [rematch models](https://rematch.gitbooks.io/rematch/docs/api.html#models)
 - 📝 Memoize updating from your redux state using [rematch selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
-- 📍 Top-level data sources are accessible in every feature's models.
+- 📍 Top-level data sources are accessible in every feature's models
 
 - 🔋 Batteries included!
   - suspense
@@ -19,6 +19,8 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
   - scoped route trees
   - dynamic models
   - enhanced [routing components](https://github.com/ReactTraining/react-router)
+  - shorthand redux bindings
+  - composable side-effects from views
 
 ## Quick Start
 
