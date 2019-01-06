@@ -19,15 +19,27 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
   | error boundaries | enhanced [routing components](https://github.com/ReactTraining/react-router) |  shorthand redux bindings |
   | contextual constants | composable view side-effects |
 
+&nbsp;
+
+&nbsp;
+
+---
+
 ## Quick Start
 
 - `$npx create-react-flying-saucer app`
 - `$cd app`
 - `$yarn start`
 
+---
+
+&nbsp;
+
+&nbsp;
+
 ## Whats in the Box?
 
-### new project or upgrade
+### One-touch bootstrap or migrate
 
 - run the latest `create-react-app` and add `react-flying-saucer`
 
@@ -71,6 +83,10 @@ import Sidebar from '@/features/sidebar'
 - [`createModel` to create encapsulated redux logic for a feature](docs/api.md#createModel)
 - [`redux` bindings](docs/api.md#redux-bindings)
 - [`context` bindings](docs/api.md#context-bindings)
+
+&nbsp;
+
+&nbsp;
 
 ## Examples
 
