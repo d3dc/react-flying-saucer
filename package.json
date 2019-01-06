@@ -4,5 +4,12 @@
   "devDependencies": {
     "lerna": "^3.4.3"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "scripts": {
+    "lerna": "lerna",
+    "postinstall": "lerna bootstrap",
+    "build": "lerna run build",
+    "format": "lerna run format",
+    "clean": "lerna clean"
+  }
 }

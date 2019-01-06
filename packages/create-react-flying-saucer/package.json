@@ -12,7 +12,8 @@
     "codemods.js"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"{,!(node_modules)/**/}*.{js,jsx,json,md,css}\""
   },
   "repository": {
     "type": "git",
@@ -25,8 +26,11 @@
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
-    "create-react-app": "^2.1.1",
+    "create-react-app": "^2.1.3",
     "fs-extra": "^7.0.1",
     "mrm-core": "^3.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.3"
   }
 }

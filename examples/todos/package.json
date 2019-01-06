@@ -6,9 +6,9 @@
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "pluralize": "^7.0.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-flying-saucer": "^0.0.13",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-flying-saucer": "0.0.13",
     "todomvc-app-css": "^2.1.2",
     "uuid": "^3.3.2"
   },
