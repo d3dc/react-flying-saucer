@@ -4,12 +4,11 @@ import { useHooks, useContext, useMemo } from 'use-react-hooks'
 import { Redirect as BaseRedirect } from 'react-router'
 import { Link as BaseLink, NavLink as BaseNavLink } from 'react-router-dom'
 import { useScope } from './scope'
+import { useApp } from './context'
 
 export const useNavigator = () => {
-  const {
-    views,
-    provides: { history },
-  } = useScope()
+  const { history } = useApp()
+  const { views } = useScope()
 
   return useMemo(
     ~mapValues(views, v => (...args) => history.push(v(...args))),

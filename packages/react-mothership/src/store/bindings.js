@@ -13,7 +13,7 @@ export const withDispatch = connect(
 export const useAppEffect = (mapDispatch, watch) => {
   const app = useApp()
   useEffect(() => {
-    mapDispatch(app.inject.dispatch)
+    mapDispatch(app.store.dispatch)
   }, watch)
 }
 
