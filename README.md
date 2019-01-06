@@ -2,6 +2,10 @@
 
 > The 👾 aren't in the bikeshed.
 
+&nbsp;
+
+&nbsp;
+
 A zero-config extension to `create-react-app` for scalable single-page apps with functional react.
 
 **features:**
@@ -87,6 +91,8 @@ import Sidebar from '@/features/sidebar'
 &nbsp;
 
 &nbsp;
+
+---
 
 ## Examples
 
