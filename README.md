@@ -8,9 +8,8 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 
 - 🔗 Compose feature modules as declarative React components
 - 🔩 Opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel)
-- 📬 Dispatch changes through redux to encapsulated [rematch models](https://rematch.gitbooks.io/rematch/docs/api.html#models)
-- 📝 Memoize updating from your redux state using [rematch selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
-- 📍 Top-level data sources are accessible in every feature's models
+- 📬 [Models](https://rematch.gitbooks.io/rematch/docs/api.html#models) track changes and keep rendering fast with first-class [selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
+- 📍 Declare POJO business logic and data sources to inject in every model's factories
 
 - 🔋 Batteries included!
 
