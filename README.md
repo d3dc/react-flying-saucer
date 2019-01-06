@@ -13,14 +13,12 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 - 📍 Top-level data sources are accessible in every feature's models
 
 - 🔋 Batteries included!
-  - suspense
-  - error boundaries
-  - contextual constants
-  - scoped route trees
-  - dynamic models
-  - enhanced [routing components](https://github.com/ReactTraining/react-router)
-  - shorthand redux bindings
-  - composable side-effects from views
+
+  |   |   |   |
+  | - | - | - |
+  | suspense | scoped route trees | dynamic models  |
+  | error boundaries | enhanced [routing components](https://github.com/ReactTraining/react-router) |  shorthand redux bindings |
+  | contextual constants | composable view side-effects |
 
 ## Quick Start
 
