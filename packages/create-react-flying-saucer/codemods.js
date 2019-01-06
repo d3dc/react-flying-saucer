@@ -5,7 +5,7 @@ const { copySync, ensureDirSync, removeSync } = require('fs-extra')
 
 function replaceDependencies() {
   uninstall('react-scripts', { dev: false })
-  install('react-flying-saucer', { dev: false })
+  install(['react-flying-saucer', 'lodash'], { dev: false })
 }
 
 function replaceScripts() {
@@ -21,7 +21,7 @@ function replaceScripts() {
   file.setScript('test', 'react-flying-saucer test')
   file.removeScript('eject')
 
-  file.unset('eslintConfig')
+  file.unset('eslintConfig') //TODO: Editor config
 
   file.save()
 }
