@@ -31,12 +31,13 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 ### new project or upgrade
 
 ```sh
-$ create-react-flying-saucer
+$ npx create-react-flying-saucer <project>
 ```
 run the latest `create-react-app` and add `react-flying-saucer`
 
 ```sh
-$ migrate-react-flying-saucer
+$ cd <project>
+$ npx migrate-react-flying-saucer
 ```
 add `react-flying-saucer` to an existing app bootstrapped with `create-react-app`
 
@@ -75,19 +76,6 @@ import Sidebar from '@/features/sidebar'
 - [TodoMVC](examples/todos)
 - [Nesting Features](examples/nesting-features-with-grommet)
 
-### "example" app
-
-```js
-const App = () => (
-  <Mothership>
-    <UI>
-      <FeatureOne />
-      <FeatureTwo path="/showTwo" />
-    </UI>
-  </Mothership>
-)
-```
-
 ## More Reading
 
 - [API](docs/api.md)
@@ -107,11 +95,8 @@ const App = () => (
 
 Includes code that disappears when these are released:
 
-- [ ] `react-router@4.4`
-  - Feature scope re-provides router.
-  - polyfills `useRouter()` hook
-- [ ] `react@16.7`
-  - adds per component polyfill `useHooks()`
+- [ ] `react@16.8`
+  - adds per component polyfill [`useHooks()`](https://github.com/tannerlinsley/use-react-hooks)
   - must import hooks from `react-mothership`
 
 ## Typescript when?!
