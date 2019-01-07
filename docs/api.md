@@ -8,6 +8,7 @@
 - [`createModel` to create encapsulated redux logic for a feature](#createModel)
 - [`redux` bindings](#redux-bindings)
 - [`context` bindings](#context-bindings)
+- [enhanced routing](#enhanced-routing)
 
 ### `<Mothership />`
 
@@ -70,7 +71,7 @@ config: {
   placeholder: React.Element, // react element to show while suspended,
   recovery: React.Element, // react element to show when suspense fails
   provides: {}, // ambient dependencies
-  models: [Rematch.Model], // rematch models to add to the store immediately
+  models: [Rematch.Model], // rematch models to add to the store dynamically
   views: [{
     name: string
     path: string
@@ -93,7 +94,7 @@ config: {
 (Optional) path: string
 ```
 
-### `createModel`
+### `createModel(modelConfig)`
 
 Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/api.html#models).
 
@@ -104,7 +105,7 @@ When first mounted, the model will be constructed, receiving the mothership's in
 **arguments:**
 
 ```
-config: {
+modelConfig: {
   name: string, // optional display name
   reducers: { [actionName]: (state, payload) => state }
   selectors: (slice, createSelector, hasProps, inject) => { [selectorName]: models => (state, payload) => any }
@@ -124,11 +125,17 @@ createModel(config: ModelConfig)
 
 ## Context Bindings
 
-### `useHooks()`
+### `useHooks(Base)`
 
-[HOC to polyfill functions to use future react hooks.](https://github.com/tannerlinsley/use-react-hooks)
+[HOC wrapper for functional components to use the proposed react hooks feature.](https://github.com/tannerlinsley/use-react-hooks)
 
 **`react-flying-saucer` creates apps that depend on React 16.6**
+
+**arguments:**
+
+```
+Base: Function
+```
 
 ### `useApp()`
 
@@ -144,28 +151,44 @@ Hook to retrieve the mothership's app configuration.
 const app = useApp()
 ```
 
-### `useProvided`
+### `useProvided(...paths)`
 
 Hook to retrieve the current scopes's ambient dependencies.
-By default `Mothership` provides `react-router` analogs that `useApp()`.
+
+**arguments:**
+
+```
+paths: string[]
+```
 
 **returns:**
 
-`{ [dependencyName]: dependencyValue }`
+`any[]`
+
+**throws:**
+
+`NotProvidedInScopeError`
 
 **example:**
 
 ```js
-const { Link, NavLink, Redirect, Route, Switch } = useProvided()
+const [Layout, appName] = useProvided('Layout', 'config.app.name')
 ```
 
 ## Redux Bindings
 
-### `sconnect(mapSelect, mapDispatch)`
+### `sconnect(mapSelect, mapDispatch)(Base)`
 
 **alias: `$$`**
 
-`react-redux`'s `connect` function that retrieves the `Mothership`'s selectors.
+`react-redux`'s `connect` function that retrieves the `Mothership`'s selectors instead of directly mapping state.
+
+**arguments:**
+
+```
+mapSelect: RematchSelect => {}
+mapDispatch: RematchDispatch => {}
+```
 
 **example:**
 
@@ -180,11 +203,17 @@ const enhance = $$(
 )
 ```
 
-### `withDispatch(mapDispatch)`
+### `withDispatch(mapDispatch)(Base)`
 
 **alias: `_$`**
 
 `connect`s only dispatchers. `$$` but skips the first argument.
+
+**arguments:**
+
+```
+mapDispatch: RematchDispatch => {}
+```
 
 **example:**
 
@@ -197,6 +226,13 @@ const enhance = _$(dispatch => ({
 ### `useAppEffect(effectWithDispatch, watch)`
 
 Hook to run dispatchers as a side-effect when any value in watch changes.
+
+**arguments:**
+
+```
+effectWithDispatch: RematchDispatch => any
+watch: any[]
+```
 
 **example:**
 
