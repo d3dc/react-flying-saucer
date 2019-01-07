@@ -10,6 +10,8 @@
 - [`context` bindings](#context-bindings)
 - [enhanced routing](#enhanced-routing)
 
+&nbsp;
+
 ### `<Mothership />`
 
 Sets up the environment, optionally using the passed `app`.
@@ -31,6 +33,8 @@ Top-level features should be mounted as children of a `Mothership`.
   </BrandChrome>
 </Mothership>
 ```
+
+&nbsp;
 
 ### `createApp(config)`
 
@@ -54,6 +58,8 @@ config: {
 ```ts
 createApp({ inject: { api } })
 ```
+
+&nbsp;
 
 ### `createFeature(config)(Base)`
 
@@ -94,6 +100,8 @@ config: {
 (Optional) path: string
 ```
 
+&nbsp;
+
 ### `createModel(modelConfig)`
 
 Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/api.html#models).
@@ -125,6 +133,8 @@ createModel(config: ModelConfig)
 
 ## Context Bindings
 
+&nbsp;
+
 ### `useHooks(Base)`
 
 [HOC wrapper for functional components to use the proposed react hooks feature.](https://github.com/tannerlinsley/use-react-hooks)
@@ -136,6 +146,8 @@ createModel(config: ModelConfig)
 ```
 Base: Function
 ```
+
+&nbsp;
 
 ### `useApp()`
 
@@ -150,6 +162,8 @@ Hook to retrieve the mothership's app configuration.
 ```js
 const app = useApp()
 ```
+
+&nbsp;
 
 ### `useProvided(...paths)`
 
@@ -177,6 +191,8 @@ const [Layout, appName] = useProvided('Layout', 'config.app.name')
 
 ## Redux Bindings
 
+&nbsp;
+
 ### `sconnect(mapSelect, mapDispatch)(Base)`
 
 **alias: `$$`**
@@ -203,6 +219,8 @@ const enhance = $$(
 )
 ```
 
+&nbsp;
+
 ### `withDispatch(mapDispatch)(Base)`
 
 **alias: `_$`**
@@ -222,6 +240,8 @@ const enhance = _$(dispatch => ({
   addTodo: dispatch.todos.addTodo,
 }))
 ```
+
+&nbsp;
 
 ### `useAppEffect(effectWithDispatch, watch)`
 
