@@ -10,6 +10,8 @@
 - [`context` bindings](#context-bindings)
 - [enhanced routing](#enhanced-routing)
 
+---
+
 &nbsp;
 
 ### `<Mothership />`
@@ -131,6 +133,8 @@ modelConfig: {
 createModel(config: ModelConfig)
 ```
 
+&nbsp;
+
 ## Context Bindings
 
 &nbsp;
@@ -188,6 +192,8 @@ paths: string[]
 ```js
 const [Layout, appName] = useProvided('Layout', 'config.app.name')
 ```
+
+&nbsp;
 
 ## Redux Bindings
 
