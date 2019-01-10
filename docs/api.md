@@ -2,17 +2,22 @@
 
 ## Exported Utilities
 
-- [`Mothership` to assemble your feature fleet](#mothership-)
-- [`createApp` to configure create data sources for Mothership](#createappconfig)
-- [`createFeature` to configure views, models, and ambient dependencies for a feature](#createfeatureconfigbase)
-- [`RematchModel` encapsulates redux logic for a feature](#rematchmodel)
-- [`FlyingSaucerView` encapsulates how a feature responds to the Mothership's history](#rematchmodel)
-- [enhanced routing](#enhanced-routing)
-- [react hooks](#react-hooks)
+- [The App - Every app has a Mothership](#the-app)
+- [Features - Your fleet of features flies in formation](#features)
+- [`RematchModel` - encapsulates redux logic for a feature](#rematchmodel)
+- [`FlyingSaucerView` - encapsulates how a feature responds to the Mothership's history](#flyingsaucerview)
+- [enhanced routing - go where you want to go](#enhanced-routing)
+- [react hooks - use what you want to use](#react-hooks)
 - [`redux` bindings](#redux-bindings)
 - [`context` bindings](#context-bindings)
 
 ---
+
+&nbsp;
+
+## The App
+
+Every application starts with a `Mothership` at the root to control its fleet.
 
 &nbsp;
 
@@ -48,8 +53,11 @@ Create a new container for singletons used by [Mothership](#Mothership).
 
 ```
 config: {
-  inject?: {},
-  rematch?: RematchConfig,
+
+  (Optional) inject: {}
+
+  (Optional) rematch?: RematchConfig
+
 }
 ```
 
@@ -65,11 +73,15 @@ createApp({ inject: { api } })
 
 &nbsp;
 
+## Features
+
+`react-mothership` is based around feature modules. The tree created by the react components at the root of your application describes the active features and how they are wired together - or in better words, what formation your fleet is flying in.
+
+&nbsp;
+
 ### `createFeature(config)(Base)`
 
 Decorate a React component at the root of a feature module. When mounted, it registers its dependencies with the context. Acts as a boundary for errors and suspense.
-
-Features are declaratively composed inside a `Mothership`.
 
 > Want lazy loading? Use a React.lazy component!
 
@@ -77,12 +89,19 @@ Features are declaratively composed inside a `Mothership`.
 
 ```
 (Optional) config: {
+
   (Optional) name: string, // display name
+
   (Optional) placeholder: React.Element, // react element to show while suspended,
+
   (Optional) recovery: React.Element, // react element to show when suspense fails
+
   (Optional) models: [Rematch.Model], // rematch models to add to the store dynamically
+
   (Optional) views: [FlyingSaucerView], // views to provide in the parent scope
+
   (Optional) provides: {}, // concrete ambient dependencies
+
 }
 ```
 
@@ -103,6 +122,30 @@ const package = createFeature({
 })
 
 export default Base |> package
+```
+
+&nbsp;
+
+### `<FeatureComponent />`
+
+Behaves almost like a feature flag; mount this inside your mothership.
+
+**props:**
+
+```
+(Optional) path: string
+```
+
+**example:**
+
+```js
+import Feature from '@/features/Feature'
+```
+
+```js
+<Mothership>
+  <Feature path="/somewhere" />
+</Mothership>
 ```
 
 &nbsp;
@@ -166,30 +209,6 @@ When first mounted, a model will be registered with the store and built. Each of
   }
 
 }
-```
-
-&nbsp;
-
-### `<FeatureComponent />`
-
-Behaves almost like a feature flag; mount this inside your mothership.
-
-**props:**
-
-```
-(Optional) path: string
-```
-
-**example:**
-
-```js
-import Feature from '@/features/Feature'
-```
-
-```js
-<Mothership>
-  <Feature path="/somewhere" />
-</Mothership>
 ```
 
 &nbsp;
