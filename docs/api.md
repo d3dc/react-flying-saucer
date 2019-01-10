@@ -135,15 +135,19 @@ createModel(config: ModelConfig)
 
 &nbsp;
 
-## Context Bindings
+## React Hooks
+
+[React hooks are a proposed feature for a future version of React](https://reactjs.org/docs/hooks-intro.html). They're pretty neat.
+
+`react-mothership` makes use of react hooks with [use-react-hooks](https://github.com/tannerlinsley/use-react-hooks). The apps `react-flying-saucer` templates use the stable React, but can still take advantage of hooks by importing them from `react-mothership`.
 
 &nbsp;
 
 ### `useHooks(Base)`
 
-[HOC wrapper for functional components to use the proposed react hooks feature.](https://github.com/tannerlinsley/use-react-hooks)
+HOC wrapper for functional components to use the proposed react hooks feature.
 
-**`react-flying-saucer` creates apps that depend on React 16.6**
+> You need this if you see a 🎣
 
 **arguments:**
 
@@ -151,9 +155,29 @@ createModel(config: ModelConfig)
 Base: Function
 ```
 
+**example:**
+
+```js
+import { useHooks, useState, useEffect, useMemo, useReducer } from '@@'
+```
+
+```js
+function Component() {
+  const [name, setText] = useState('world')
+
+  return <div>Hello, {name}!</div>
+}
+
+export default Component |> useHooks
+```
+
 &nbsp;
 
-### `useApp()`
+## Context Bindings
+
+&nbsp;
+
+### `useApp()` [🎣](#usehooksbase)
 
 Hook to retrieve the mothership's app configuration.
 
@@ -169,7 +193,7 @@ const app = useApp()
 
 &nbsp;
 
-### `useProvided(...paths)`
+### `useProvided(...paths)` [🎣](#usehooksbase)
 
 Hook to retrieve the current scopes's ambient dependencies.
 
@@ -249,7 +273,7 @@ const enhance = _$(dispatch => ({
 
 &nbsp;
 
-### `useAppEffect(effectWithDispatch, watch)`
+### `useAppEffect(effectWithDispatch, watch)` [🎣](#usehooksbase)
 
 Hook to run dispatchers as a side-effect when any value in watch changes.
 
@@ -265,3 +289,32 @@ watch: any[]
 ```js
 useAppEffect(dispatch => dispatch.storage.retrieve(props.id), [props.id])
 ```
+
+&nbsp;
+
+## Enhanced Routing
+
+every routing primitive from `react-router` is available from `react-mothership`. Any components that take a `to` prop can also resolve it from the current scope's `views`.
+
+**example:**
+
+```js
+import { Switch, Route, Redirect, Link, NavLink } from '@@'
+```
+
+```js
+function Nope({ match }) {
+  return <Redirect view="nope" params={match} />
+}
+```
+
+**props:**
+
+```
+view: string
+params: any
+```
+
+**todo:**
+
+You may notice we export components from `react-router-dom`; this might be revisited to use some form of DI
