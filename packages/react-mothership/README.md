@@ -6,11 +6,13 @@ _Note_: lib uses es6+ features and needs to be compiled
 
 _TODO: rollup with the project babel config?_
 
-## Exported Utilities
+## [API](/docs/api.md)
 
-- [`Mothership` to assemble your feature fleet](/docs/api.md#mothership-)
-- [`createApp` to declare data sources for the Mothership](/docs/api.md#createappconfig)
-- [`createFeature` to declare views, models, and ambient dependencies for a feature](/docs/api.md#createfeatureconfig)
-- [`createModel` to create encapsulated redux logic for a feature](/docs/api.md#createModel)
-- [`redux` bindings](/docs/api.md#redux-bindings)
+- [Mothership](/docs/api.md#the-app)
+- [Features](/docs/api.md#features)
+- [`RematchModel`](/docs/api.md#rematchmodel)
+- [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
+- [enhanced routing](/docs/api.md#enhanced-routing)
+- [react hooks](/docs/api.md#react-hooks)
 - [`context` bindings](/docs/api.md#context-bindings)
+- [`redux` bindings](/docs/api.md#redux-bindings)

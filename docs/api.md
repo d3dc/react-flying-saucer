@@ -1,15 +1,13 @@
 # API
 
-## Exported Utilities
-
 - [The App - Every app has a Mothership](#the-app)
 - [Features - Your fleet of features flies in formation](#features)
 - [`RematchModel` - encapsulates redux logic for a feature](#rematchmodel)
 - [`FlyingSaucerView` - encapsulates how a feature responds to the Mothership's history](#flyingsaucerview)
 - [enhanced routing - go where you want to go](#enhanced-routing)
 - [react hooks - use what you want to use](#react-hooks)
-- [`redux` bindings](#redux-bindings)
 - [`context` bindings](#context-bindings)
+- [`redux` bindings](#redux-bindings)
 
 ---
 
@@ -150,6 +148,36 @@ import Feature from '@/features/Feature'
 
 &nbsp;
 
+### `RematchModel`
+
+Models encapsulate state logic.
+
+When first mounted, a model will be registered with the store and built. Each of its factory functions will receive the `inject` property of the current `Mothership`.
+
+**props:**
+
+```
+{
+
+  name: string, // name to register globally
+
+  (Optional) reducers: {
+    [actionName]: (state, payload) => state
+  }
+
+  (Optional) selectors: (slice, createSelector, hasProps, inject) => {
+    [selectorName]: models => (state, payload) => any
+  }
+
+  (Optional) effects: (dispatch, inject) => {
+    [actionName]: async (state, payload) => any
+  }
+
+}
+```
+
+&nbsp;
+
 ### `FlyingSaucerView`
 
 Views are declarative _responses_ to `app.history` changes.
@@ -177,36 +205,6 @@ Each view will become a `<Route />` in a `<Switch />`
   (Optional) effect: (dispatch: RematchDispatch) => any,
 
   (Optional) redirect: string | { to, ...params }
-
-}
-```
-
-&nbsp;
-
-### `RematchModel`
-
-Models encapsulate state logic.
-
-When first mounted, a model will be registered with the store and built. Each of its factory functions will receive the `inject` property of the current `Mothership`.
-
-**props:**
-
-```
-{
-
-  name: string, // name to register globally
-
-  (Optional) reducers: {
-    [actionName]: (state, payload) => state
-  }
-
-  (Optional) selectors: (slice, createSelector, hasProps, inject) => {
-    [selectorName]: models => (state, payload) => any
-  }
-
-  (Optional) effects: (dispatch, inject) => {
-    [actionName]: async (state, payload) => any
-  }
 
 }
 ```

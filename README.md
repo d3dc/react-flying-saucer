@@ -17,11 +17,11 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 
 - 🔋 Batteries included!
 
-  |   |   |   |
-  | - | - | - |
-  | suspense | scoped route trees | dynamic models  |
-  | error boundaries | enhanced [routing components](https://github.com/ReactTraining/react-router) |  shorthand redux bindings |
-  | contextual constants | composable view side-effects |
+  |                      |                                                                              |                          |
+  | -------------------- | ---------------------------------------------------------------------------- | ------------------------ |
+  | suspense             | scoped route trees                                                           | dynamic models           |
+  | error boundaries     | enhanced [routing components](https://github.com/ReactTraining/react-router) | shorthand redux bindings |
+  | contextual constants | composable view side-effects                                                 |
 
 &nbsp;
 
@@ -79,14 +79,16 @@ import Sidebar from '@/features/sidebar'
 
 `react-flying-saucer` respects any `.babelrc` and `.eslintrc` configuration files. Any additional configuration your project needs can be added directly to these files.
 
-### exported utilities
+### [exported utilities](docs/api.md)
 
-- [`Mothership` to assemble your feature fleet](docs/api.md#mothership-)
-- [`createApp` to declare data sources for the Mothership](docs/api.md#createappconfig)
-- [`createFeature` to declare views, models, and ambient dependencies for a feature](docs/api.md#createfeatureconfig)
-- [`createModel` to create encapsulated redux logic for a feature](docs/api.md#createModel)
-- [`redux` bindings](docs/api.md#redux-bindings)
-- [`context` bindings](docs/api.md#context-bindings)
+- [Mothership](/docs/api.md#the-app)
+- [Features](/docs/api.md#features)
+- [`RematchModel`](/docs/api.md#rematchmodel)
+- [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
+- [enhanced routing](/docs/api.md#enhanced-routing)
+- [react hooks](/docs/api.md#react-hooks)
+- [`context` bindings](/docs/api.md#context-bindings)
+- [`redux` bindings](/docs/api.md#redux-bindings)
 
 &nbsp;
 
