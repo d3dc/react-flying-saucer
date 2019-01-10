@@ -4,11 +4,13 @@
 
 - [`Mothership` to assemble your feature fleet](#mothership-)
 - [`createApp` to configure create data sources for Mothership](#createappconfig)
-- [`createFeature` to configure views, models, and ambient dependencies for a feature](#createfeatureconfig)
-- [`createModel` to create encapsulated redux logic for a feature](#createModel)
+- [`createFeature` to configure views, models, and ambient dependencies for a feature](#createfeatureconfigbase)
+- [`RematchModel` encapsulates redux logic for a feature](#rematchmodel)
+- [`FlyingSaucerView` encapsulates how a feature responds to the Mothership's history](#rematchmodel)
+- [enhanced routing](#enhanced-routing)
+- [react hooks](#react-hooks)
 - [`redux` bindings](#redux-bindings)
 - [`context` bindings](#context-bindings)
-- [enhanced routing](#enhanced-routing)
 
 ---
 
@@ -74,21 +76,13 @@ Features are declaratively composed inside a `Mothership`.
 **arguments:**
 
 ```
-config: {
-  name: string, // optional display name
-  placeholder: React.Element, // react element to show while suspended,
-  recovery: React.Element, // react element to show when suspense fails
-  provides: {}, // ambient dependencies
-  models: [Rematch.Model], // rematch models to add to the store dynamically
-  views: [{
-    name: string
-    path: string
-    resolve?: (params: {}) => string // map params to formatted path
-    component?: React.Component
-    render?: (props: {}) => React.Component
-    effect?: (dispatch: RematchDispatch) => any,
-    redirect?: string | { to, ...params }
-  }],
+(Optional) config: {
+  (Optional) name: string, // display name
+  (Optional) placeholder: React.Element, // react element to show while suspended,
+  (Optional) recovery: React.Element, // react element to show when suspense fails
+  (Optional) models: [Rematch.Model], // rematch models to add to the store dynamically
+  (Optional) views: [FlyingSaucerView], // views to provide in the parent scope
+  (Optional) provides: {}, // concrete ambient dependencies
 }
 ```
 
@@ -96,42 +90,136 @@ config: {
 
 `FeatureComponent`
 
-**props**
+**example:**
+
+```js
+import Base from './Base'
+import views from './views'
+import models from './models'
+
+const package = createFeature({
+  views,
+  models,
+})
+
+export default Base |> package
+```
+
+&nbsp;
+
+### `FlyingSaucerView`
+
+Views are declarative _responses_ to `app.history` changes.
+
+Each view will become a `<Route />` in a `<Switch />`
+
+- `component` can be a `React.lazy` component and always takes precedence
+- `render`, `effect`, and `redirect` can be combined for a _side-effect in response to routing_.
+
+**props:**
+
+```
+{
+
+  name: string
+
+  path: string
+
+  (Optional) resolve: (params: {}) => string // map params to formatted path
+
+  (Optional) component: React.Component
+
+  (Optional) render: (props: {}) => React.Component
+
+  (Optional) effect: (dispatch: RematchDispatch) => any,
+
+  (Optional) redirect: string | { to, ...params }
+
+}
+```
+
+&nbsp;
+
+### `RematchModel`
+
+Models encapsulate state logic.
+
+When first mounted, a model will be registered with the store and built. Each of its factory functions will receive the `inject` property of the current `Mothership`.
+
+**props:**
+
+```
+{
+
+  name: string, // name to register globally
+
+  (Optional) reducers: {
+    [actionName]: (state, payload) => state
+  }
+
+  (Optional) selectors: (slice, createSelector, hasProps, inject) => {
+    [selectorName]: models => (state, payload) => any
+  }
+
+  (Optional) effects: (dispatch, inject) => {
+    [actionName]: async (state, payload) => any
+  }
+
+}
+```
+
+&nbsp;
+
+### `<FeatureComponent />`
+
+Behaves almost like a feature flag; mount this inside your mothership.
+
+**props:**
 
 ```
 (Optional) path: string
 ```
 
+**example:**
+
+```js
+import Feature from '@/features/Feature'
+```
+
+```js
+<Mothership>
+  <Feature path="/somewhere" />
+</Mothership>
+```
+
 &nbsp;
 
-### `createModel(modelConfig)`
+## Enhanced Routing
 
-Re-exports [Rematch's `createModel()`](https://rematch.gitbooks.io/rematch/docs/api.html#models).
-
-Create a model to be used in the store. Models encapsulate state logic. Calling this is optional, as models are plain objects.
-
-When first mounted, the model will be constructed, receiving the mothership's injectors as the final argument in any factory functions.
-
-**arguments:**
-
-```
-modelConfig: {
-  name: string, // optional display name
-  reducers: { [actionName]: (state, payload) => state }
-  selectors: (slice, createSelector, hasProps, inject) => { [selectorName]: models => (state, payload) => any }
-  effects: (dispatch, inject) => { [actionName]: async (state, payload) => any }
-}
-```
-
-**returns:**
-
-`Rematch.Model`
+Every routing primitive from `react-router` is available from `react-mothership`. Any components that take a `to` prop can also resolve it from the current scope's `views`.
 
 **example:**
 
-```ts
-createModel(config: ModelConfig)
+```js
+import { Switch, Route, Redirect, Link, NavLink } from '@@'
 ```
+
+```js
+function Nope({ match }) {
+  return <Redirect view="nope" params={match} />
+}
+```
+
+**props:**
+
+```
+view: string
+params: any
+```
+
+**todo:**
+
+You may notice we export components from `react-router-dom`; this might be revisited to use some form of DI
 
 &nbsp;
 
@@ -291,30 +379,3 @@ useAppEffect(dispatch => dispatch.storage.retrieve(props.id), [props.id])
 ```
 
 &nbsp;
-
-## Enhanced Routing
-
-every routing primitive from `react-router` is available from `react-mothership`. Any components that take a `to` prop can also resolve it from the current scope's `views`.
-
-**example:**
-
-```js
-import { Switch, Route, Redirect, Link, NavLink } from '@@'
-```
-
-```js
-function Nope({ match }) {
-  return <Redirect view="nope" params={match} />
-}
-```
-
-**props:**
-
-```
-view: string
-params: any
-```
-
-**todo:**
-
-You may notice we export components from `react-router-dom`; this might be revisited to use some form of DI
