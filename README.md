@@ -11,9 +11,9 @@ A zero-config extension to `create-react-app` for scalable single-page apps with
 **features:**
 
 - 🔗 Compose feature modules as declarative React components
-- 🔩 Opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel)
-- 📬 [Models](https://rematch.gitbooks.io/rematch/docs/api.html#models) track changes and keep rendering fast with first-class [selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
-- 📍 Declare POJO business logic and data sources to inject in every model's factories
+- 🔩 Opinionated syntax from [babel-preset-techno-babel](https://github.com/d3dc/babel-preset-techno-babel) with a focus on composability
+- 📬 [Models](https://rematch.gitbooks.io/rematch/docs/api.html#models) provide a bite-size abstraction for redux and keep rendering fast with first-class [selectors](https://rematch.gitbooks.io/rematch/plugins/select/)
+- 🧱 Write business logic and data sources as plain modules and let dependency injection handle the rest
 
 - 🔋 Batteries included!
 
