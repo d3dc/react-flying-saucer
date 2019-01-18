@@ -1,6 +1,6 @@
 {
   "name": "react-flying-saucer",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A zero-config way to write functional react apps that scale.",
   "bin": {
     "react-flying-saucer": "./bin/scripts.js"
@@ -37,7 +37,7 @@
     "eslint-config-techno-babel": "^1.0.1",
     "history": "^4.7.2",
     "react": "^16.7.0",
-    "react-mothership": "^0.0.15",
+    "react-mothership": "^0.0.16",
     "react-scripts": "^2.1.3",
     "webpack": "^4.28.4"
   },
