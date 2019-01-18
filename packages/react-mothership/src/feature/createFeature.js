@@ -19,7 +19,8 @@ export default function createFeature(config = {}) {
      *
      * https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/match.md
      */
-    function Feature({ path, exact, match, children }) {
+    function Feature(props) {
+      const { provides, path, exact, match, children } = props
       const basePath = pathJoin(match.path, path)
       const routes = useRoutes(name, basePath, config.views)
       const [withPath, nested] = usePartition(children)
@@ -29,10 +30,13 @@ export default function createFeature(config = {}) {
           <Scope
             name={name}
             basePath={basePath}
-            provides={config.provides}
+            provides={{
+              ...config.provides,
+              ...provides,
+            }}
             hoist={children}
           >
-            <Base>
+            <Base {...props}>
               <Switch>
                 {routes}
                 {withPath}

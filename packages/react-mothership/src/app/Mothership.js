@@ -5,11 +5,11 @@ import { Scope } from '../scope'
 
 import createApp from './createApp'
 
-export default function Mothership({ app = createApp(), children }) {
+export default function Mothership({ app = createApp(), children, ...rest }) {
   return (
     <AppProvider value={app}>
       <StoreProvider store={app.store}>
-        <Scope name="root" basePath="/" hoist={children}>
+        <Scope name="root" basePath="/" hoist={children} provides={rest}>
           <Router history={app.history}>{children}</Router>
         </Scope>
       </StoreProvider>
