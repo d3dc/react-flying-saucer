@@ -24,13 +24,13 @@ import { context, useScope } from './context'
  *
  */
 function Scope({ basePath, hoist, children, ...rest }) {
-  const scope = useScope()
+  const parent = useScope()
   const views = useViews(basePath, hoist)
-  const value = merge({ views }, scope, rest)
+  const scope = merge({ views }, parent, rest)
 
-  useModels(hoist)
+  useModels(hoist, scope)
 
-  return <context.Provider value={value} children={children} />
+  return <context.Provider value={scope} children={children} />
 }
 
 Scope.displayName = 'Scope'
@@ -64,7 +64,7 @@ function useViews(basePath, hoisted) {
   )
 }
 
-function useModels(hoisted) {
+function useModels(hoisted, scope) {
   const app = useApp()
 
   // TODO: layout effect
@@ -77,7 +77,7 @@ function useModels(hoisted) {
           return
         }
 
-        app.registerModels(featureModels)
+        app.registerModels(featureModels, scope)
       }),
     [app, hoisted]
   )

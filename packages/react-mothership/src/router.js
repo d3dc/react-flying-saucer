@@ -4,17 +4,6 @@ import { useHooks, useContext, useMemo } from 'use-react-hooks'
 import { Redirect as BaseRedirect } from 'react-router'
 import { Link as BaseLink, NavLink as BaseNavLink } from 'react-router-dom'
 import { useScope } from './scope'
-import { useApp } from './context'
-
-export const useNavigator = () => {
-  const { history } = useApp()
-  const { views } = useScope()
-
-  return useMemo(
-    ~mapValues(views, v => (...args) => history.push(v(...args))),
-    [history, views]
-  )
-}
 
 export class ViewNotFoundError extends Error {
   constructor(view, scope) {
@@ -26,16 +15,16 @@ export class ViewNotFoundError extends Error {
 const enhance = Comp =>
   useHooks(({ view, params, ...rest }) => {
     const scope = useScope()
-    const to = useMemo(
+    const [to, exact] = useMemo(
       () => {
         if (view) {
-          const resolve = scope?.views?.[view]
-          if (!resolve) {
+          const config = scope?.views?.[view]
+          if (!config) {
             throw new ViewNotFoundError(view, scope.name)
           }
-          return resolve(params)
+          return [config.resolve(params), config.exact]
         } else {
-          return undefined
+          return [undefined, undefined]
         }
       },
       [scope, view, params]
@@ -43,6 +32,7 @@ const enhance = Comp =>
 
     return createElement(Comp, {
       to,
+      exact,
       ...rest,
     })
   })

@@ -1,10 +1,12 @@
+import { mapValues } from 'lodash'
 import { createBrowserHistory } from 'history'
 import { createStore } from '../store'
 
 // interface FlyingSaucerApp<ReduxStore, Model> {
 //   store: ReduxStore;
 //   history: History;
-//   registerModels: (...models: Model[]) => void;
+//   registerModels: (models: Model[], scope: Scope) => void;
+//   navigate: (views: { [name]: View }) => { [name]: () => void }
 // }
 
 function enhance(model, inject) {
@@ -39,14 +41,18 @@ export default function createApp(config = {}) {
     select,
     dispatch,
     getState,
-    history,
   }
 
-  function registerModels(models) {
+  function navigate(views) {
+    return mapValues(views, v => (...args) => history.push(v.resolve(...args)))
+  }
+
+  function registerModels(models, scope) {
     models.forEach(model => {
       if (registeredModels[model.name] !== model) {
+        const injected = { ...inject, navigator: navigate(scope.views) }
         registeredModels[model.name] = model
-        store.model(enhance(model, inject))
+        store.model(enhance(model, injected))
       }
     })
   }
@@ -55,5 +61,6 @@ export default function createApp(config = {}) {
     store,
     history,
     registerModels,
+    navigate,
   }
 }

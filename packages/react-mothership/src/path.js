@@ -12,9 +12,12 @@ export function pathJoin(...parts) {
 export function addLinks(dest, basePath, views) {
   views.forEach(view => {
     if (view.name) {
-      dest[view.name] = view.resolve
-        ? (...args) => pathJoin(basePath, view.resolve(...args))
-        : () => pathJoin(basePath, view.path)
+      dest[view.name] = {
+        exact: view.exact,
+        resolve: view.resolve
+          ? (...args) => pathJoin(basePath, view.resolve(...args))
+          : () => pathJoin(basePath, view.path),
+      }
     }
   })
 }
