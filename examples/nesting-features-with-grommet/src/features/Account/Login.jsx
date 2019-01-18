@@ -1,4 +1,4 @@
-import { _$, useHooks, useState, useNavigator } from '@@'
+import { _$, useHooks, useState, useCallback, useNavigator } from '@@'
 import { Box, Heading, FormField, TextInput, Button } from 'grommet'
 
 const enhance = _$(dispatch => ({
@@ -6,12 +6,20 @@ const enhance = _$(dispatch => ({
 }))
 
 function Login({ login }) {
-  const [state, setState] = useState({
-    username: '',
-    password: '',
-    loading: false,
-  })
+  const [username, updateUsername] = useState('')
+  const [password, updatePassword] = useState('')
+  const [loading, updateLoading] = useState(false)
+
   const nav = useNavigator()
+
+  const submit = useCallback(
+    async () => {
+      await updateLoading(true)
+      await signup({ username, password })
+      return nav.start()
+    },
+    [state, nav]
+  )
 
   return (
     <Box width="50%">
@@ -20,30 +28,21 @@ function Login({ login }) {
         <TextInput
           key="username"
           type="text"
-          disabled={state.loading}
-          value={state.username}
-          onChange={event => setState({ username: event.target.value })}
+          disabled={loading}
+          value={username}
+          onChange={event => updateUsername(event.target.value)}
         />
       </FormField>
       <FormField label="Password">
         <TextInput
           key="password"
           type="password"
-          disabled={state.loading}
-          value={state.password}
-          onChange={event => setState({ password: event.target.value })}
+          disabled={loading}
+          value={password}
+          onChange={event => updatePassword(event.target.value)}
         />
       </FormField>
-      <Button
-        label="Login"
-        disabled={state.loading}
-        onClick={async () => {
-          const { username, password } = state
-          await setState({ loading: true })
-          await login({ username, password })
-          return nav.start()
-        }}
-      />
+      <Button label="Login" disabled={loading} onClick={submit} />
     </Box>
   )
 }

@@ -21,10 +21,14 @@ const account = {
     },
   },
   effects: {
-    async login(state, { username, password }) {
+    async signup(state, { email, username, password }) {
       // Here, you should call your authentication
       // and store a token, etc.
       // Instead, we just wait 3 seconds.
+      await delay(3000)
+      return this.authenticated({ username })
+    },
+    async login(state, { username, password }) {
       await delay(3000)
       return this.authenticated({ username })
     },
