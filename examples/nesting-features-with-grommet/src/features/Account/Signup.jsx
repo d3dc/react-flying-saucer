@@ -19,7 +19,7 @@ function Signup({ signup }) {
       await signup({ email, username, password })
       return nav.start()
     },
-    [state, nav]
+    [email, username, password, nav]
   )
 
   return (

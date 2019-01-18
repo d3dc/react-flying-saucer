@@ -15,10 +15,10 @@ function Login({ login }) {
   const submit = useCallback(
     async () => {
       await updateLoading(true)
-      await signup({ username, password })
+      await login({ username, password })
       return nav.start()
     },
-    [state, nav]
+    [username, password, nav]
   )
 
   return (

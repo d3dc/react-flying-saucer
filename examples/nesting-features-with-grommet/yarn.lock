@@ -8667,10 +8667,10 @@ react-error-overlay@^5.1.2:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.2.tgz#888957b884d4b25b083a82ad550f7aad96585394"
   integrity sha512-7kEBKwU9R8fKnZJBRa5RSIfay4KJwnYvKB6gODGicUmDSAhQJ7Tdnll5S0RLtYrzRfMVXlqYw61rzrSpP4ThLQ==
 
-react-flying-saucer@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/react-flying-saucer/-/react-flying-saucer-0.0.15.tgz#de83123dd2cbade5bbdfe306e76ad3cfd2599645"
-  integrity sha512-X4Ki+p261dwU2tUMtP1ZNVvPWsL29c09CU4wlWRVQJ4SDXa2UPPJgcB7zKmg0igUpbazKIxCIwupKBM4q9kT6Q==
+react-flying-saucer@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/react-flying-saucer/-/react-flying-saucer-0.0.16.tgz#83a2531267648e73e46df5427dba17a42740c058"
+  integrity sha512-GdtjWgMqPvEwjlpM4DQ1DlirBLT5+I4REFANuzxSBBDS8MHhy3ETqLYZok2xAlwMrtJ/vR+TKCV0evqB5djwqA==
   dependencies:
     "@babel/core" "^7.2.2"
     "@craco/craco" "^3.4.0"
@@ -8682,7 +8682,7 @@ react-flying-saucer@^0.0.15:
     eslint-config-techno-babel "^1.0.1"
     history "^4.7.2"
     react "^16.7.0"
-    react-mothership "^0.0.15"
+    react-mothership "^0.0.16"
     react-scripts "^2.1.3"
     webpack "^4.28.4"
 
@@ -8696,10 +8696,10 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-mothership@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/react-mothership/-/react-mothership-0.0.15.tgz#d47933e754813a91072179afb0968f14ca52d9ff"
-  integrity sha512-YE+0JHN6iihgb006mO/0/Jp3HLNeoOXD+qAZ/oWV94ZGLluizZiDkwK4caVfXcZ/cr4HWOeaJCwaDReDB251Lw==
+react-mothership@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/react-mothership/-/react-mothership-0.0.16.tgz#cc010598e57644b1eab1bb95128827b65c162af3"
+  integrity sha512-JZxoaqfc20CCcxwhihK+olQeWnUphgI/Cmi4JjXBzfE/utN5+F/qrKNvMX2O4oFFJmkFuFT9VCqsYSXX5627pw==
   dependencies:
     "@rematch/core" "^1.0.6"
     "@rematch/select" "^2.0.3"
