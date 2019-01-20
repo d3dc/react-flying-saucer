@@ -1,7 +1,7 @@
 import { useHooks, useProvided } from '@@'
 
 function Welcome() {
-  const { Logo } = useProvided()
+  const [Logo] = useProvided('Logo')
   return (
     <header className="Main-header">
       <Logo />
