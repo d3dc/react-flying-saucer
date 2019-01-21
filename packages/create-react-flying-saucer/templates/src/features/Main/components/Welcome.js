@@ -1,7 +1,6 @@
-import { useHooks, useProvided } from '@@'
+import { Logo } from './Logo'
 
 function Welcome() {
-  const [Logo] = useProvided('Logo')
   return (
     <header className="Main-header">
       <Logo />
@@ -20,4 +19,4 @@ function Welcome() {
   )
 }
 
-export default useHooks(Welcome)
+export default Welcome

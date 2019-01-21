@@ -1,5 +1,8 @@
-import logo from './logo.svg'
+import { useHooks, useProvided } from '@@'
 
-export default function Logo() {
-  return <img src={logo} className="Main-logo" alt="logo" />
+function Logo() {
+  const [logoSrc] = useProvided('logoSrc')
+  return <img src={logoSrc} className="Main-logo" alt="logo" />
 }
+
+export default Logo |> useHooks
