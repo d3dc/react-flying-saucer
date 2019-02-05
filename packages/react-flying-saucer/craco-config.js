@@ -55,5 +55,4 @@ module.exports = {
   jest,
   babel,
   eslint,
-  plugins: [{ plugin: require('./craco-plugin') }],
 }
