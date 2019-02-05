@@ -6,9 +6,9 @@ const {
 } = require('@craco/craco')
 
 function getExternalFeatures() {
-  const package = require(path.join(process.cwd(), 'package.json'))
+  const package = require(path.resolve('package.json'))
 
-  return package.externalFeatures.map(name => require.resolve(name))
+  return package.externalFeatures.map(name => path.resolve(name))
 }
 
 module.exports = {
