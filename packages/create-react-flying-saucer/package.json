@@ -1,6 +1,6 @@
 {
   "name": "create-react-flying-saucer",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Create a create-react-app app and then codemod it to outerspace!",
   "bin": {
     "create-react-flying-saucer": "./bin/create.js",
