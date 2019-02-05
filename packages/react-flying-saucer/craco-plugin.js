@@ -1,3 +1,4 @@
+const path = require('path')
 const {
   getLoaders,
   loaderByName,
@@ -19,6 +20,8 @@ module.exports = {
       return webpackConfig
     }
 
+    const package = require(path.join(cwd(), 'package.json'))
+
     const {
       externalPaths,
       presets,
@@ -37,7 +40,7 @@ module.exports = {
           loader.include = (Array.isArray(loader.include)
             ? loader.include
             : [loader.include]
-          ).concat(externalPaths)
+          ).concat(externalPaths, package.externalFeatures)
 
           loader.exclude = {
             test: loader.exclude || /node_modules/,
