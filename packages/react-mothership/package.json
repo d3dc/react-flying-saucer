@@ -1,6 +1,6 @@
 {
   "name": "react-mothership",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "React abstractions and HOCs for modular applications",
   "main": "src/index.js",
   "files": [
