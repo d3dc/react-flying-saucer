@@ -26,14 +26,16 @@ module.exports = {
       return webpackConfig
     }
 
-    const externalFeatures = getExternalFeatures()
-
     const {
       externalPaths,
       presets,
       plugins,
       loaderOptions,
     } = cracoConfig.customBabel
+
+    const externalFeatures = getExternalFeatures()
+
+    const external = [...externalPaths, ...externalFeatures]
 
     matches.forEach(({ loader }) => {
       if (loader.options.customize) {
@@ -42,15 +44,15 @@ module.exports = {
           plugins: [...loader.options.plugins, ...plugins],
         })
 
-        if (externalPaths) {
+        if (external.length) {
           loader.include = (Array.isArray(loader.include)
             ? loader.include
             : [loader.include]
-          ).concat(externalPaths)
+          ).concat(external)
 
           loader.exclude = {
             test: loader.exclude || /node_modules/,
-            not: externalPaths,
+            not: external,
           }
         }
       }
