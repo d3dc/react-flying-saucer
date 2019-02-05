@@ -9,8 +9,7 @@
   "files": [
     "bin/",
     "barrel.js",
-    "craco-config.js",
-    "craco-plugin.js"
+    "craco-config.js"
   ],
   "scripts": {
     "test": "react-flying-saucer test",
