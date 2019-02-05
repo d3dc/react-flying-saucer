@@ -20,7 +20,7 @@ module.exports = {
       return webpackConfig
     }
 
-    const package = require(path.join(cwd(), 'package.json'))
+    const package = require(path.join(process.cwd(), 'package.json'))
 
     const {
       externalPaths,
