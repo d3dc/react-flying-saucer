@@ -5,6 +5,12 @@ const {
   throwUnexpectedConfigError,
 } = require('@craco/craco')
 
+function getExternalFeatures() {
+  const package = require(path.join(process.cwd(), 'package.json'))
+
+  return package.externalFeatures.map(name => require.resolve(name))
+}
+
 module.exports = {
   overrideWebpackConfig({ webpackConfig, cracoConfig }) {
     if (!cracoConfig.customBabel) {
@@ -20,7 +26,7 @@ module.exports = {
       return webpackConfig
     }
 
-    const package = require(path.join(process.cwd(), 'package.json'))
+    const externalFeatures = getExternalFeatures()
 
     const {
       externalPaths,
@@ -40,7 +46,7 @@ module.exports = {
           loader.include = (Array.isArray(loader.include)
             ? loader.include
             : [loader.include]
-          ).concat(externalPaths, package.externalFeatures)
+          ).concat(externalPaths)
 
           loader.exclude = {
             test: loader.exclude || /node_modules/,
