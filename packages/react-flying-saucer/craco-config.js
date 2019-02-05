@@ -1,7 +1,6 @@
 const path = require('path')
 
-const customBabel = {
-  externalPaths: [path.dirname(require.resolve('react-mothership'))],
+const babel = {
   presets: [require.resolve('babel-preset-techno-babel')],
   plugins: [
     require('babel-plugin-react-require').default,
@@ -54,7 +53,7 @@ const webpack = {
 module.exports = {
   webpack,
   jest,
-  customBabel,
+  babel,
   eslint,
   plugins: [{ plugin: require('./craco-plugin') }],
 }
