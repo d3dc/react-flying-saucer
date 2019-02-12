@@ -12,3 +12,7 @@ Provides customized [react-scripts](https://github.com/facebook/create-react-app
 - test
 - build
 - bundle
+
+## bundling
+
+`react-flying-saucer` lets you include bundled features and their dependencies from separate packages by first calling `react-flying-saucer bundle` in the feature package - task runners like (lerna)[https://lernajs.io] are great for orchestrating multiple packages.
