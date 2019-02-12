@@ -1,4 +1,4 @@
-import { $$, useHooks } from '@@'
+import { $$ } from '@@'
 import { Box, Menu } from 'grommet'
 import { Menu as MenuIcon } from 'grommet-icons'
 
@@ -40,4 +40,4 @@ function FloatingNav({ loggedIn, match, location, history, ...rest }) {
   )
 }
 
-export default FloatingNav |> useHooks |> enhance
+export default FloatingNav |> enhance

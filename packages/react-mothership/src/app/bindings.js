@@ -1,4 +1,4 @@
-import { useMemo } from 'use-react-hooks'
+import { useMemo } from 'react'
 
 import { useApp } from '../context'
 import { useScope } from '../scope'

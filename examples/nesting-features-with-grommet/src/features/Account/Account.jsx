@@ -1,4 +1,4 @@
-import { useHooks, useProvided } from '@@'
+import { useProvided } from '@@'
 
 function Account(props) {
   const [Page] = useProvided('Page')
@@ -7,4 +7,4 @@ function Account(props) {
 
 Account.displayName = 'Account'
 
-export default Account |> useHooks
+export default Account

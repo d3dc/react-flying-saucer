@@ -1,4 +1,4 @@
-import { $$, useHooks, useProvided, Link } from '@@'
+import { $$, useProvided, Link } from '@@'
 import logo from './logo.svg'
 
 const enhance = $$(select => ({
@@ -32,4 +32,4 @@ function Start({ loggedIn }) {
   )
 }
 
-export default Start |> useHooks |> enhance
+export default Start |> enhance

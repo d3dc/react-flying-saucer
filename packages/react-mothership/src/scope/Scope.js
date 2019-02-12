@@ -1,5 +1,4 @@
-import { Children } from 'react'
-import { useHooks, useMemo } from 'use-react-hooks'
+import { Children, useMemo } from 'react'
 import { merge } from 'lodash'
 import { addLinks, pathJoin } from '../path'
 import { useApp } from '../context'
@@ -83,4 +82,4 @@ function useModels(hoisted, scope) {
   )
 }
 
-export default Scope |> useHooks
+export default Scope

@@ -1,6 +1,5 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 import { get } from 'lodash'
-import { useHooks, useContext } from 'use-react-hooks'
 
 class NotProvidedInScopeError extends Error {
   constructor(path, scope) {

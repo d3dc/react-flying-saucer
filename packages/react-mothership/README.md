@@ -13,6 +13,5 @@ _TODO: rollup with the project babel config?_
 - [`RematchModel`](/docs/api.md#rematchmodel)
 - [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
 - [enhanced routing](/docs/api.md#enhanced-routing)
-- [react hooks](/docs/api.md#react-hooks)
 - [`context` bindings](/docs/api.md#context-bindings)
 - [`redux` bindings](/docs/api.md#redux-bindings)

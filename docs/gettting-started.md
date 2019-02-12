@@ -6,7 +6,7 @@ intro
 
 hooks are a proposed change to React
 
-Using React 16.6, needs `useHooks` as a "polyfill"
+~~Using React 16.6, needs `useHooks` as a "polyfill"~~
 
 ## Models
 
@@ -27,11 +27,11 @@ components are the "source" of events.
 ```js
 function Hello({ done }) {
   const { Redirect } = useProvided()
-  
+
   if (done) {
-    return <Redirect view='Goodbye' />
+    return <Redirect view="Goodbye" />
   }
-  
+
   return 'Hello'
 }
 ```

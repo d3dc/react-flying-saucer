@@ -1,7 +1,6 @@
-import { memo, Children } from 'react'
+import { useMemo, memo, Children } from 'react'
 import { partition } from 'lodash'
 import { withRouter, Switch, Route } from 'react-router'
-import { useHooks, useMemo } from 'use-react-hooks'
 
 import { Scope, useScope } from '../scope'
 import { useApp } from '../context'
@@ -57,7 +56,7 @@ export default function createFeature(config = {}) {
       )
     }
 
-    const Wrapper = Feature |> useHooks |> memo |> withRouter
+    const Wrapper = Feature |> memo |> withRouter
 
     Wrapper.displayName = `Feature(${name || 'Component'})`
     Wrapper.WrappedComponent = Base

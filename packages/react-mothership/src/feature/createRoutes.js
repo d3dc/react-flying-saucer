@@ -1,5 +1,4 @@
 import { Route } from 'react-router'
-import { useHooks } from 'use-react-hooks'
 
 import { pathJoin } from '../path'
 import { useAppEffect } from '../store'
@@ -32,12 +31,11 @@ function renderHooks(...hooks) {
     return undefined
   }
 
-  return useHooks(~used.map(_.call()))
+  return ~used.map(_.call())
 }
 
 function reduxHook(effect) {
   return () => {
-    useAppEffect(effect, [])
     return null
   }
 }

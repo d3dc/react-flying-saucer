@@ -1,5 +1,4 @@
-import { createContext } from 'react'
-import { useContext } from 'use-react-hooks'
+import { createContext, useContext } from 'react'
 
 export const context = createContext(null)
 export const useApp = ~useContext(context)
