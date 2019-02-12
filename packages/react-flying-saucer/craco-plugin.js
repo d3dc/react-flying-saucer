@@ -4,7 +4,7 @@ const {
   throwUnexpectedConfigError,
 } = require('@craco/craco')
 
-const merge = require('lodash/merge')
+// const merge = require('lodash/merge')
 const castArray = require('lodash/castArray')
 
 module.exports = {
@@ -31,9 +31,12 @@ module.exports = {
 
     matches.forEach(({ loader }) => {
       if (loader.options.customize) {
-        merge(loader.options, loaderOptions, {
-          presets,
-          plugins,
+        const basePresets = loader.options.presets
+        const basePlugins = loader.options.plugins
+
+        Object.assign(loader.options, loaderOptions, {
+          presets: basePresets.concat(presets),
+          plugins: basePlugins.concat(plugins),
         })
 
         if (externalPaths.length) {
