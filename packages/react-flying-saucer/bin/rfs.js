@@ -1,20 +1,23 @@
 #!/usr/bin/env node
 const path = require('path')
+const spawn = require('cross-spawn')
+
 const configPath = path.relative(
   process.cwd(),
   require.resolve('../craco-config.js')
 )
 
-const defaultArgs = `--config ${configPath}`.split(' ')
+const defaultArgs = ['--config', configPath]
 
 const args = process.argv.slice(2)
 const scriptIndex = args.findIndex(x => x === 'bundle')
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex]
 
-let processArgs, verbose
+let verbose = false
+let processArgs
 
 switch (script) {
-  case 'assemble': {
+  case 'bundle': {
     const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : []
     const scriptPath = require.resolve(`../scripts/${script}`)
     const scriptArgs = args.slice(scriptIndex + 1)
@@ -27,7 +30,6 @@ switch (script) {
   }
   default:
     const scriptPath = require.resolve('@craco/craco/bin/craco.js')
-    verbose = false
     processArgs = [scriptPath].concat(args).concat(defaultArgs)
     break
 }

@@ -3,7 +3,7 @@
   "version": "0.0.23",
   "description": "A zero-config way to write functional react apps that scale.",
   "bin": {
-    "react-flying-saucer": "./bin/scripts.js"
+    "react-flying-saucer": "./bin/rfs.js"
   },
   "main": "barrel.js",
   "files": [
