@@ -1,15 +1,11 @@
-const path = require('path')
 const {
   getLoaders,
   loaderByName,
   throwUnexpectedConfigError,
 } = require('@craco/craco')
 
-function getExternalFeatures() {
-  const package = require(path.resolve('package.json'))
-
-  return package.externalFeatures.map(name => path.resolve(name))
-}
+// const merge = require('lodash/merge')
+const castArray = require('lodash/castArray')
 
 module.exports = {
   overrideWebpackConfig({ webpackConfig, cracoConfig }) {
@@ -33,26 +29,22 @@ module.exports = {
       loaderOptions,
     } = cracoConfig.customBabel
 
-    const externalFeatures = getExternalFeatures()
-
-    const external = [...externalPaths, ...externalFeatures]
-
     matches.forEach(({ loader }) => {
       if (loader.options.customize) {
+        const basePresets = loader.options.presets
+        const basePlugins = loader.options.plugins
+
         Object.assign(loader.options, loaderOptions, {
-          presets: [...loader.options.presets, ...presets],
-          plugins: [...loader.options.plugins, ...plugins],
+          presets: basePresets.concat(presets),
+          plugins: basePlugins.concat(plugins),
         })
 
-        if (external.length) {
-          loader.include = (Array.isArray(loader.include)
-            ? loader.include
-            : [loader.include]
-          ).concat(external)
+        if (externalPaths.length) {
+          loader.include = castArray(loader.include).concat(externalPaths)
 
           loader.exclude = {
             test: loader.exclude || /node_modules/,
-            not: external,
+            not: externalPaths,
           }
         }
       }

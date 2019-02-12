@@ -3,11 +3,13 @@
   "version": "0.0.23",
   "description": "A zero-config way to write functional react apps that scale.",
   "bin": {
-    "react-flying-saucer": "./bin/scripts.js"
+    "react-flying-saucer": "./bin/rfs.js"
   },
   "main": "barrel.js",
   "files": [
     "bin/",
+    "lib/",
+    "scripts/",
     "barrel.js",
     "craco-config.js",
     "craco-plugin.js"
@@ -36,9 +38,15 @@
     "eslint": "^5.6.0",
     "eslint-config-techno-babel": "^1.0.1",
     "history": "^4.7.2",
+    "lodash": "^4.17.11",
     "react": "^16.8.1",
     "react-mothership": "^0.0.23",
     "react-scripts": "^2.1.3",
+    "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-babel-minify": "^7.0.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
     "webpack": "^4.28.4"
   },
   "peerDependencies": {
