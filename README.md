@@ -86,7 +86,6 @@ import Sidebar from '@/features/sidebar'
 - [`RematchModel`](/docs/api.md#rematchmodel)
 - [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
 - [enhanced routing](/docs/api.md#enhanced-routing)
-- [react hooks](/docs/api.md#react-hooks)
 - [`context` bindings](/docs/api.md#context-bindings)
 - [`redux` bindings](/docs/api.md#redux-bindings)
 
@@ -120,9 +119,9 @@ import Sidebar from '@/features/sidebar'
 
 Includes code that disappears when these are released:
 
-- [ ] `react@16.8`
-  - adds per component polyfill [`useHooks()`](https://github.com/tannerlinsley/use-react-hooks)
-  - must import hooks from `react-mothership`
+- [x] `react@16.8`
+  - ~~adds per component polyfill [`useHooks()`](https://github.com/tannerlinsley/use-react-hooks)~~
+  - ~~must import hooks from `react-mothership`~~
 
 ## Typescript when?!
 

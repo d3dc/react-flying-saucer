@@ -1,4 +1,4 @@
-import { useHooks, useProvided } from '@@'
+import { useProvided } from '@@'
 import { Heading } from 'grommet'
 
 function FourOhFour({ computedMatch }) {
@@ -12,4 +12,4 @@ function FourOhFour({ computedMatch }) {
   )
 }
 
-export default FourOhFour |> useHooks
+export default FourOhFour

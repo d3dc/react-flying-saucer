@@ -1,4 +1,5 @@
-import { _$, useHooks, useState, useCallback, useNavigator } from '@@'
+import { _$, useNavigator } from '@@'
+import { useState, useCallback } from 'react'
 import { Box, Heading, FormField, TextInput, Button } from 'grommet'
 
 const enhance = _$(dispatch => ({
@@ -13,14 +14,11 @@ function Signup({ signup }) {
 
   const nav = useNavigator()
 
-  const submit = useCallback(
-    async () => {
-      await updateLoading(true)
-      await signup({ email, username, password })
-      return nav.start()
-    },
-    [email, username, password, nav]
-  )
+  const submit = useCallback(async () => {
+    await updateLoading(true)
+    await signup({ email, username, password })
+    return nav.start()
+  }, [email, username, password, nav])
 
   return (
     <Box width="50%">
@@ -57,4 +55,4 @@ function Signup({ signup }) {
   )
 }
 
-export default Signup |> useHooks |> enhance
+export default Signup |> enhance

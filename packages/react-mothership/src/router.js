@@ -1,6 +1,5 @@
 import { mapValues } from 'lodash'
-import { createElement } from 'react'
-import { useHooks, useContext, useMemo } from 'use-react-hooks'
+import { createElement, useContext, useMemo } from 'react'
 import { Redirect as BaseRedirect } from 'react-router'
 import { Link as BaseLink, NavLink as BaseNavLink } from 'react-router-dom'
 import { useScope } from './scope'
@@ -12,30 +11,29 @@ export class ViewNotFoundError extends Error {
   }
 }
 
-const enhance = Comp =>
-  useHooks(({ view, params, ...rest }) => {
-    const scope = useScope()
-    const [to, exact] = useMemo(
-      () => {
-        if (view) {
-          const config = scope?.views?.[view]
-          if (!config) {
-            throw new ViewNotFoundError(view, scope.name)
-          }
-          return [config.resolve(params), config.exact]
-        } else {
-          return [undefined, undefined]
+const enhance = Comp => ({ view, params, ...rest }) => {
+  const scope = useScope()
+  const [to, exact] = useMemo(
+    () => {
+      if (view) {
+        const config = scope?.views?.[view]
+        if (!config) {
+          throw new ViewNotFoundError(view, scope.name)
         }
-      },
-      [scope, view, params]
-    )
+        return [config.resolve(params), config.exact]
+      } else {
+        return [undefined, undefined]
+      }
+    },
+    [scope, view, params]
+  )
 
-    return createElement(Comp, {
-      to,
-      exact,
-      ...rest,
-    })
+  return createElement(Comp, {
+    to,
+    exact,
+    ...rest,
   })
+}
 
 export const Link = BaseLink |> enhance
 export const NavLink = BaseNavLink |> enhance

@@ -1,4 +1,5 @@
-import { _$, useHooks, useState } from '@@'
+import { _$ } from '@@'
+import { useState } from 'react'
 
 const ENTER_KEY = 13
 
@@ -41,4 +42,4 @@ function Header(props) {
   )
 }
 
-export default Header |> useHooks |> enhance
+export default Header |> enhance

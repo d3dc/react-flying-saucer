@@ -1,4 +1,5 @@
-import { $$, useHooks, useState, useRef, useEffect } from '@@'
+import { $$ } from '@@'
+import { useState, useRef, useEffect } from 'react'
 import { findDOMNode } from 'react-dom'
 import classNames from 'classnames'
 
@@ -59,17 +60,14 @@ function TodoItem(props) {
    * For more info refer to notes at https://facebook.github.io/react/docs/component-api.html#setstate
    * and https://facebook.github.io/react/docs/component-specs.html#updating-componentdidupdate
    */
-  useEffect(
-    () => {
-      if (editFieldEl.current && props.isEditing) {
-        // Put the cursor at the end of existing element
-        var node = findDOMNode(editFieldEl.current)
-        node.focus()
-        node.setSelectionRange(node.value.length, node.value.length)
-      }
-    },
-    [props.isEditing]
-  )
+  useEffect(() => {
+    if (editFieldEl.current && props.isEditing) {
+      // Put the cursor at the end of existing element
+      var node = findDOMNode(editFieldEl.current)
+      node.focus()
+      node.setSelectionRange(node.value.length, node.value.length)
+    }
+  }, [props.isEditing])
 
   return (
     <li
@@ -104,4 +102,4 @@ function TodoItem(props) {
  * The original demo makes a note of an optional performance enhancement.
  * Using connect already makes components pure (memo).
  */
-export default TodoItem |> useHooks |> enhance
+export default TodoItem |> enhance
