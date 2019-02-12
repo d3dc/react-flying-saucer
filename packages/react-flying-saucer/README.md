@@ -11,3 +11,4 @@ Provides customized [react-scripts](https://github.com/facebook/create-react-app
 - start
 - test
 - build
+- bundle
