@@ -25,6 +25,8 @@ function customizeCssOutput(webpackConfig) {
 }
 
 function customizeJsOutput(webpackConfig) {
+  // libraryTarget 'module' won't be supported until webpack 5
+  // currently, there's no way to get a tree-shakable bundle
   // const package = require(paths.appPackageJson)
 
   remove(webpackConfig.plugins, isForHtml)
@@ -33,8 +35,7 @@ function customizeJsOutput(webpackConfig) {
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
     // library: package.name,
-    // libraryTarget: 'umd',
-    // umdNamedDefine: true,
+    // libraryTarget: 'module',
   })
 }
 
