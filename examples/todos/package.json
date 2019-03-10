@@ -9,12 +9,14 @@
     "react": "^16.8.1",
     "react-dom": "^16.7.0",
     "react-flying-saucer": "^0.0.25",
+    "react-scripts": "^2.1.8",
     "todomvc-app-css": "^2.1.2",
     "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-flying-saucer start",
     "build": "react-flying-saucer build",
+    "bundle": "react-flying-saucer bundle",
     "test": "react-flying-saucer test"
   },
   "browserslist": [
