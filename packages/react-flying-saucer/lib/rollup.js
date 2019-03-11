@@ -59,6 +59,7 @@ function bundle(name) {
           jsnext: true,
           main: true,
           browser: true,
+          extensions: ['.mjs', '.js', '.jsx', '.json'],
         }),
         commonjs(),
         minify({
