@@ -7,6 +7,7 @@ const { getLoader, loaderByName } = require('@craco/craco')
 const babel = require('rollup-plugin-babel')
 const alias = require('rollup-plugin-alias')
 const rebase = require('rollup-plugin-rebase')
+const del = require('rollup-plugin-delete')
 const resolve = require('rollup-plugin-node-resolve')
 
 const { webpack } = require('../craco-config')
@@ -53,6 +54,7 @@ function getInputOptions(babelOptions) {
       return !/^([\.@]?\/|@@)/.test(importee)
     },
     plugins: [
+      del({ targets: 'dist/*' }),
       alias({
         resolve: ['/index.js', ...extensions],
         ...webpack.alias,
