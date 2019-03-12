@@ -1,88 +1,83 @@
 const path = require('path')
 const rollup = require('rollup')
+const { omit } = require('lodash')
 const { log } = require('@craco/craco/lib/logger')
 const { getLoader, loaderByName } = require('@craco/craco')
 
 const babel = require('rollup-plugin-babel')
-const commonjs = require('rollup-plugin-commonjs')
+const alias = require('rollup-plugin-alias')
+const rebase = require('rollup-plugin-rebase')
 const resolve = require('rollup-plugin-node-resolve')
-const minify = require('rollup-plugin-babel-minify')
 
 const { webpack } = require('../craco-config')
 
-const alias = aliases => ({
-  resolveId(importee) {
-    const alias = aliases[importee]
+// dist is not ignored by SCM
+const outputOptions = {
+  dir: 'dist',
+  format: 'esm',
+  sourcemap: true,
+}
 
-    return alias ? this.resolveId(alias) : null
-  },
-})
+function getBabelLoaderOptions(configProvider) {
+  const { isFound, match } = getLoader(
+    configProvider,
+    loaderByName('babel-loader')
+  )
 
-function bundle(name) {
-  return async configProvider => {
-    const { isFound, match } = getLoader(
-      configProvider,
-      loaderByName('babel-loader')
+  if (!isFound) {
+    throw new Error(
+      "craco: 'configProvider' does not contain a `babel-loader` configuration."
     )
-
-    if (!isFound) {
-      throw new Error(
-        "craco: 'configProvider' does not contain a `babel-loader` configuration."
-      )
-    }
-
-    // remove webpack only config
-    const {
-      customize,
-      cacheDirectory,
-      cacheCompression,
-      cacheIdentifier,
-      ...options
-    } = match.loader.options
-
-    const inputOptions = {
-      input: 'src/index.js',
-      external: [
-        'react-flying-saucer',
-        'react-mothership',
-        'react',
-        'react-dom',
-        'lodash',
-      ],
-      plugins: [
-        alias(webpack.alias),
-        babel({
-          ...options,
-          runtimeHelpers: true,
-        }),
-        resolve({
-          jsnext: true,
-          main: true,
-          browser: true,
-          extensions: ['.mjs', '.js', '.jsx', '.json'],
-        }),
-        commonjs(),
-        minify({
-          mangle: { topLevel: true },
-        }),
-      ],
-    }
-
-    const outputOptions = {
-      name,
-      file: 'dist/index.js',
-      format: 'umd',
-      sourcemap: true,
-      sourcemapFile: 'dist/index.js.map',
-    }
-
-    const bundle = await rollup.rollup(inputOptions)
-
-    log(`Bundling ${name} with dependencies:`)
-    log(bundle.watchFiles) // an array of file names this bundle depends on
-
-    await bundle.write(outputOptions)
   }
+
+  // remove webpack only config
+  const options = omit(match.loader.options, [
+    'customize',
+    'cacheDirectory',
+    'cacheCompression',
+    'cacheIdentifier',
+  ])
+
+  return options
+}
+
+function getInputOptions(babelOptions) {
+  const extensions = ['.mjs', '.js', '.jsx', '.json']
+  return {
+    preserveModules: true,
+    input: 'src/index.js',
+    external: function(importee) {
+      // external if it doesn't start
+      // with a relative or absolute path
+      // assumes no one else can touch webpack.alias
+      return !/^([\.@]?\/|@@)/.test(importee)
+    },
+    plugins: [
+      alias({
+        resolve: ['/index.js', ...extensions],
+        ...webpack.alias,
+      }),
+      rebase(),
+      resolve(extensions),
+      babel({
+        ...babelOptions,
+        comments: false,
+        runtimeHelpers: true,
+      }),
+    ],
+  }
+}
+
+async function bundle(configProvider) {
+  const babelOptions = getBabelLoaderOptions(configProvider)
+  const inputOptions = getInputOptions(babelOptions)
+
+  const bundle = await rollup.rollup(inputOptions)
+
+  log(`Bundling with dependencies:`)
+  log(bundle.watchFiles) // an array of file names this bundle depends on
+
+  await bundle.write(outputOptions)
 }
 
 module.exports = {
