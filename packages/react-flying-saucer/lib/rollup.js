@@ -57,6 +57,12 @@ function getInputOptions(babelOptions) {
   const extensions = ['.mjs', '.js', '.jsx', '.json']
   return {
     input: 'src/index.js',
+    onwarn: (warning, next) => {
+      // Ignore warnings in UMD about unnamed stylesheets
+      // and node_modules
+      if (warning.code === 'MISSING_GLOBAL_NAME') return
+      next(warning)
+    },
     external: function(importee) {
       // external if it doesn't start
       // with a relative or absolute path
