@@ -31,8 +31,10 @@ const context = {
   paths: craPaths,
 }
 
+const package = require(craPaths.appPackageJson)
+
 const cracoConfig = loadCracoConfig(context)
 const craWebpackConfig = loadWebpackProdConfig()
 
 // Instead of require.resolve hacking, run rollup
-overrideWebpack(cracoConfig, craWebpackConfig, bundle, context)
+overrideWebpack(cracoConfig, craWebpackConfig, bundle(package.name), context)

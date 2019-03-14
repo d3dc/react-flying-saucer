@@ -1,3 +1,4 @@
+const del = require('del')
 const path = require('path')
 const rollup = require('rollup')
 const { omit } = require('lodash')
@@ -7,16 +8,26 @@ const { getLoader, loaderByName } = require('@craco/craco')
 const babel = require('rollup-plugin-babel')
 const alias = require('rollup-plugin-alias')
 const rebase = require('rollup-plugin-rebase')
-const del = require('rollup-plugin-delete')
 const resolve = require('rollup-plugin-node-resolve')
 
 const { webpack } = require('../craco-config')
 
 // dist is not ignored by SCM
-const outputOptions = {
-  dir: 'dist',
-  format: 'esm',
-  sourcemap: true,
+function getEsmOutputOptions() {
+  return {
+    file: 'dist/index.js',
+    format: 'esm',
+    sourcemap: true,
+  }
+}
+
+function getUmdOutputOptions(name) {
+  return {
+    name,
+    file: 'dist/index.umd.js',
+    format: 'umd',
+    sourcemap: true,
+  }
 }
 
 function getBabelLoaderOptions(configProvider) {
@@ -45,7 +56,6 @@ function getBabelLoaderOptions(configProvider) {
 function getInputOptions(babelOptions) {
   const extensions = ['.mjs', '.js', '.jsx', '.json']
   return {
-    preserveModules: true,
     input: 'src/index.js',
     external: function(importee) {
       // external if it doesn't start
@@ -54,7 +64,6 @@ function getInputOptions(babelOptions) {
       return !/^([\.@]?\/|@@)/.test(importee)
     },
     plugins: [
-      del({ targets: 'dist/*' }),
       alias({
         resolve: ['/index.js', ...extensions],
         ...webpack.alias,
@@ -70,18 +79,21 @@ function getInputOptions(babelOptions) {
   }
 }
 
-async function bundle(configProvider) {
-  const babelOptions = getBabelLoaderOptions(configProvider)
-  const inputOptions = getInputOptions(babelOptions)
+function bundle(name) {
+  return async configProvider => {
+    const babelOptions = getBabelLoaderOptions(configProvider)
+    const inputOptions = getInputOptions(babelOptions)
 
-  const bundle = await rollup.rollup(inputOptions)
+    const bundle = await rollup.rollup(inputOptions)
 
-  log(`Bundling with dependencies:`)
-  log(bundle.watchFiles) // an array of file names this bundle depends on
+    log(`Bundling with dependencies:`)
+    log(bundle.watchFiles) // an array of file names this bundle depends on
 
-  await bundle.write(outputOptions)
+    await del('dist/*')
+    await bundle.write(getEsmOutputOptions())
+    await bundle.write(getUmdOutputOptions(name))
+  }
 }
-
 module.exports = {
   bundle,
 }
