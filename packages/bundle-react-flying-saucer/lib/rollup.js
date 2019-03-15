@@ -65,7 +65,7 @@ function getInputOptions(babelOptions, aliases = {}) {
       // external if it doesn't start
       // with a relative or absolute path
       // assumes no one else can touch webpack.alias
-      return !/^([\.@]?\/|@@)/.test(importee)
+      return !/^([\.@]*\/|@@)/.test(importee)
     },
     plugins: [
       alias({
