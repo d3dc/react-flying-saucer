@@ -73,7 +73,9 @@ function getInputOptions(babelOptions, aliases = {}) {
         ...aliases,
       }),
       rebase(),
-      resolve(extensions),
+      resolve({
+        extensions,
+      }),
       babel({
         ...babelOptions,
         comments: false,
