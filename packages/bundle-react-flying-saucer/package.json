@@ -1,17 +1,16 @@
 {
-  "name": "react-flying-saucer",
+  "name": "bundle-react-flying-saucer",
   "version": "0.0.25",
-  "description": "A zero-config way to write functional react apps that scale.",
+  "description": "Bundle react-flying-saucer apps for cosmic voyages!",
   "bin": {
-    "react-flying-saucer": "./bin/rfs.js"
+    "bundle-react-flying-saucer": "./bin/bundle.js"
   },
-  "main": "barrel.js",
   "files": [
     "bin/",
-    "barrel.js"
+    "lib/"
   ],
   "scripts": {
-    "test": "react-flying-saucer test",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"{,!(node_modules)/**/}*.{js,jsx,json,md,css}\""
   },
   "repository": {
@@ -25,26 +24,17 @@
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
-    "@babel/core": "^7.3.4",
     "@craco/craco": "^3.6.0",
     "craco-flying-saucer": "0.0.25",
-    "cross-spawn": "^6.0.5",
-    "eslint": "^5.15.1",
-    "react-mothership": "0.0.25",
-    "react-scripts": "^2.1.8",
-    "webpack": "^4.29.6"
-  },
-  "peerDependencies": {
+    "del": "^4.0.0",
     "lodash": "^4.17.11",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-scripts": "^2.1.8",
+    "rollup": "^1.6.0",
+    "rollup-plugin-alias": "^1.5.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-rebase": "^3.0.8"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
     "prettier": "^1.16.4"
   }

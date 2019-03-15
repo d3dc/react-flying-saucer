@@ -23,7 +23,7 @@ module.exports = {
     }
 
     const {
-      externalPaths,
+      externalPaths = [],
       presets,
       plugins,
       loaderOptions,

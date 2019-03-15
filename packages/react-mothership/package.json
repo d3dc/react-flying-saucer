@@ -5,12 +5,12 @@
   "module": "dist/index.js",
   "main": "dist/index.umd.js",
   "files": [
-    "src/"
+    "dist/"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"{,!(node_modules)/**/}*.{js,jsx,json,md,css}\"",
-    "bundle": "bundle-react-flying-saucer"
+    "prepare": "bundle-react-flying-saucer"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "dependencies": {
     "@rematch/core": "^1.1.0",
     "@rematch/select": "^2.0.4",
+    "history": "^4.7.2",
     "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-redux": "^5.1.1",

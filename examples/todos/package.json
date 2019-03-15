@@ -9,7 +9,6 @@
     "react": "^16.8.1",
     "react-dom": "^16.7.0",
     "react-flying-saucer": "^0.0.25",
-    "react-scripts": "^2.1.8",
     "todomvc-app-css": "^2.1.2",
     "uuid": "^3.3.2"
   },
