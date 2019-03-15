@@ -100,6 +100,7 @@ function bundle(name) {
     await bundle.write(getUmdOutputOptions(name))
   }
 }
+
 module.exports = {
   bundle,
 }

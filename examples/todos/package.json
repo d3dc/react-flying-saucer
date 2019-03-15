@@ -16,7 +16,6 @@
   "scripts": {
     "start": "react-flying-saucer start",
     "build": "react-flying-saucer build",
-    "bundle": "react-flying-saucer bundle",
     "test": "react-flying-saucer test"
   },
   "browserslist": [
