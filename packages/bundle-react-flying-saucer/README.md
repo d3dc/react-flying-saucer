@@ -23,7 +23,7 @@ Its recommended to expose the generated files in your `package.json` for bundler
   module: "dist/index.js"
   main: "dist/index.umd.js",
   scripts: {
-    "bundle": "bundle-react-flying-saucer"
+    "prepare": "bundle-react-flying-saucer"
   },
   ...
 ```
