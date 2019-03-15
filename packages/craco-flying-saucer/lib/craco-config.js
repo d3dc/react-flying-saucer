@@ -1,7 +1,6 @@
 const path = require('path')
 
 const customBabel = {
-  externalPaths: [path.dirname(require.resolve('react-mothership'))],
   presets: [require.resolve('babel-preset-techno-babel')],
   plugins: [
     require('babel-plugin-react-require').default,

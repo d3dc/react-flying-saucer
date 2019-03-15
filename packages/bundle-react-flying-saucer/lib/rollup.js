@@ -10,8 +10,6 @@ const alias = require('rollup-plugin-alias')
 const rebase = require('rollup-plugin-rebase')
 const resolve = require('rollup-plugin-node-resolve')
 
-const { webpack } = require('../craco-config')
-
 // dist is not ignored by SCM
 function getEsmOutputOptions() {
   return {
@@ -53,7 +51,7 @@ function getBabelLoaderOptions(configProvider) {
   return options
 }
 
-function getInputOptions(babelOptions) {
+function getInputOptions(babelOptions, aliases = {}) {
   const extensions = ['.mjs', '.js', '.jsx', '.json']
   return {
     input: 'src/index.js',
@@ -67,12 +65,12 @@ function getInputOptions(babelOptions) {
       // external if it doesn't start
       // with a relative or absolute path
       // assumes no one else can touch webpack.alias
-      return !/^([\.@]?\/|@@)/.test(importee)
+      return !/^([\.@]*\/|@@)/.test(importee)
     },
     plugins: [
       alias({
         resolve: ['/index.js', ...extensions],
-        ...webpack.alias,
+        ...aliases,
       }),
       rebase(),
       resolve(extensions),
@@ -87,8 +85,9 @@ function getInputOptions(babelOptions) {
 
 function bundle(name) {
   return async configProvider => {
+    const aliases = configProvider.resolve.alias
     const babelOptions = getBabelLoaderOptions(configProvider)
-    const inputOptions = getInputOptions(babelOptions)
+    const inputOptions = getInputOptions(babelOptions, aliases)
 
     const bundle = await rollup.rollup(inputOptions)
 
@@ -100,6 +99,7 @@ function bundle(name) {
     await bundle.write(getUmdOutputOptions(name))
   }
 }
+
 module.exports = {
   bundle,
 }
