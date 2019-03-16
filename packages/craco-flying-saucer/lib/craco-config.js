@@ -37,7 +37,7 @@ const jest = config => {
   config.moduleNameMapper = {
     ...config.moduleNameMapper,
     '@@$': 'react-flying-saucer',
-    '@(.*)$': '<rootDir>/src/$1',
+    '@/(.*)$': '<rootDir>/src/$1',
   }
 
   return config
