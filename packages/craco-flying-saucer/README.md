@@ -1,6 +1,6 @@
 # `craco-flying-saucer`
 
-Configure [@craco/core](//github.com/sharegate/craco/packages/core) to prepare for launch with [react-flying-saucer](https://github.com/d3dc/react-flying-saucer)
+Configure [@craco/core](//github.com/sharegate/craco) to prepare for launch with [react-flying-saucer](https://github.com/d3dc/react-flying-saucer)
 
 ## Usage
 
