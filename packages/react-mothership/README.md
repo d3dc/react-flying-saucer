@@ -2,10 +2,6 @@
 
 [React abstractions and HOCs for react-flying-saucer.](https://github.com/d3dc/react-flying-saucer)
 
-_Note_: lib uses es6+ features and needs to be compiled
-
-_TODO: rollup with the project babel config?_
-
 ## [API](/docs/api.md)
 
 - [Mothership](/docs/api.md#the-app)
