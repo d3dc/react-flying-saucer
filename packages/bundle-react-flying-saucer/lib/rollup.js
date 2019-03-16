@@ -64,7 +64,7 @@ function getInputOptions(babelOptions, aliases = {}) {
     external: function(importee) {
       // real paths: /<module>, ./<module>, ../<module>
       // and aliases: @@, @/<module>
-      const localImport = !/^([.@]*\/|@@)/.test(importee)
+      const localImport = /^([.@]*\/|@@)/.test(importee)
       const nodeModule = /node_modules/.test(importee)
 
       return !localImport || nodeModule
