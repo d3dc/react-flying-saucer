@@ -62,10 +62,12 @@ function getInputOptions(babelOptions, aliases = {}) {
       next(warning)
     },
     external: function(importee) {
-      // external if it doesn't start
-      // with a relative or absolute path
-      // assumes no one else can touch webpack.alias
-      return !/^([\.@]*\/|@@)/.test(importee)
+      // real paths: /<module>, ./<module>, ../<module>
+      // and aliases: @@, @/<module>
+      const localImport = !/^([.@]*\/|@@)/.test(importee)
+      const nodeModule = /node_modules/.test(importee)
+
+      return !localImport || nodeModule
     },
     plugins: [
       alias({

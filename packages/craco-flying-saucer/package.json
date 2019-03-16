@@ -11,7 +11,7 @@
   "author": "Sam Richard <sam.richard@gmail.com>",
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "license": "ISC",
-  "main": "index.js",
+  "main": "lib/craco-config.js",
   "files": [
     "index.js",
     "lib"
