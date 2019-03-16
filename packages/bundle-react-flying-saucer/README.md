@@ -27,3 +27,7 @@ Its recommended to expose the generated files in your `package.json` for bundler
   },
   ...
 ```
+
+## Use a tool
+
+Task runners like [lerna](https://lernajs.io) are great for orchestrating multiple packages.
