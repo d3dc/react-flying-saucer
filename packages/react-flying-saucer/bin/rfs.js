@@ -6,7 +6,7 @@ const configPath = path.relative(
   process.cwd(),
   require.resolve('craco-flying-saucer')
 )
-const scriptsPath = require.resolve('react-scripts')
+const scriptsPath = path.dirname(require.resolve('react-scripts/package.json'))
 
 const defaultArgs = ['--react-scripts', scriptsPath, '--config', configPath]
 
