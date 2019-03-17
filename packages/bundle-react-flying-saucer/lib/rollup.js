@@ -1,7 +1,7 @@
 const del = require('del')
 const path = require('path')
 const rollup = require('rollup')
-const { omit } = require('lodash')
+const { last, omit } = require('lodash')
 const { log } = require('@craco/craco/lib/logger')
 const { getLoader, loaderByName } = require('@craco/craco')
 
@@ -9,6 +9,20 @@ const babel = require('rollup-plugin-babel')
 const alias = require('rollup-plugin-alias')
 const rebase = require('rollup-plugin-rebase')
 const resolve = require('rollup-plugin-node-resolve')
+
+function externalBabelHelpers() {
+  // Transforms any absolute references to node_modules into standard
+  // require statements
+  return {
+    name: 'external-babel-helpers',
+    resolveId(importee) {
+      if (/node_modules/.test(importee)) {
+        return last(importee.split(/node_modules\//))
+      }
+      return null
+    },
+  }
+}
 
 // dist is not ignored by SCM
 function getEsmOutputOptions() {
@@ -65,11 +79,11 @@ function getInputOptions(babelOptions, aliases = {}) {
       // real paths: /<module>, ./<module>, ../<module>
       // and aliases: @@, @/<module>
       const localImport = /^([.@]*\/|@@)/.test(importee)
-      const nodeModule = /node_modules/.test(importee)
 
-      return !localImport || nodeModule
+      return !localImport
     },
     plugins: [
+      externalBabelHelpers(),
       alias({
         resolve: ['/index.js', ...extensions],
         ...aliases,
