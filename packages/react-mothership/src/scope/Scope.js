@@ -1,4 +1,4 @@
-import { Children, useMemo } from 'react'
+import { Children, useMemo, useLayoutEffect } from 'react'
 import { merge } from 'lodash'
 import { addLinks, pathJoin } from '../path'
 import { useApp } from '../context'
@@ -66,8 +66,7 @@ function useViews(basePath, hoisted) {
 function useModels(hoisted, scope) {
   const app = useApp()
 
-  // TODO: layout effect
-  useMemo(
+  useLayoutEffect(
     () =>
       Children.forEach(hoisted, child => {
         const featureModels = child.type.featureConfig?.models
