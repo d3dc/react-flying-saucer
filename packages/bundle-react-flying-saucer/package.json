@@ -1,6 +1,6 @@
 {
   "name": "bundle-react-flying-saucer",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "Bundle react-flying-saucer apps for cosmic voyages!",
   "bin": {
     "bundle-react-flying-saucer": "./bin/bundle.js"
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
     "@craco/craco": "^3.6.0",
-    "craco-flying-saucer": "^0.0.27",
+    "craco-flying-saucer": "^0.0.28",
     "del": "^4.0.0",
     "lodash": "^4.17.11",
     "react-scripts": "^2.1.8",

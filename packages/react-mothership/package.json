@@ -1,6 +1,6 @@
 {
   "name": "react-mothership",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "React abstractions and HOCs for modular applications",
   "module": "dist/index.js",
   "main": "dist/index.umd.js",
@@ -34,7 +34,7 @@
     "redux": "^4.0.1"
   },
   "devDependencies": {
-    "bundle-react-flying-saucer": "^0.0.27",
+    "bundle-react-flying-saucer": "^0.0.28",
     "prettier": "^1.16.4"
   }
 }
