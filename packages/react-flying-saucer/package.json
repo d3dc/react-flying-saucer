@@ -29,15 +29,15 @@
     "@craco/craco": "^3.6.0",
     "craco-flying-saucer": "^0.0.28",
     "cross-spawn": "^6.0.5",
-    "eslint": "^5.15.1",
+    "eslint": "5.12.0",
     "react-mothership": "^0.0.28",
     "react-scripts": "^2.1.8",
-    "webpack": "^4.29.6"
+    "webpack": "4.28.3"
   },
   "peerDependencies": {
     "lodash": "^4.17.11",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "browserslist": [
     ">0.2%",
