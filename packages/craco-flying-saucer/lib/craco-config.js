@@ -18,6 +18,7 @@ const customBabel = {
   },
 }
 
+// Preset was broken, here it is in full
 const eslint = {
   configure: {
     // extends: [require('eslint-config-techno-babel')],
@@ -45,6 +46,12 @@ const jest = config => {
 
 const webpack = {
   alias: {
+    /**
+     * Use the top-most react for all bundles.
+     * Hooks break if they aren't all from one
+     * node_modules
+     */
+    react: path.resolve('node_modules/react'),
     '@@': 'react-flying-saucer',
     '@': path.resolve('src'),
   },
