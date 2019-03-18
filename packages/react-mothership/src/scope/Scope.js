@@ -1,4 +1,4 @@
-import { Children, useMemo } from 'react'
+import { Children, useMemo, useLayoutEffect } from 'react'
 import { merge } from 'lodash'
 import { addLinks, pathJoin } from '../path'
 import { useApp } from '../context'
@@ -35,39 +35,35 @@ function Scope({ basePath, hoist, children, ...rest }) {
 Scope.displayName = 'Scope'
 
 function useViews(basePath, hoisted) {
-  return useMemo(
-    () => {
-      const views = {}
-      Children.forEach(hoisted, child => {
-        const featureName = child.type.featureConfig?.name
-        const featureViews = child.type.featureConfig?.views
-        const featurePath = pathJoin(basePath, child.props.path)
+  return useMemo(() => {
+    const views = {}
+    Children.forEach(hoisted, child => {
+      const featureName = child.type.featureConfig?.name
+      const featureViews = child.type.featureConfig?.views
+      const featurePath = pathJoin(basePath, child.props.path)
 
-        if (featureName) {
-          addLinks(views, featurePath, [
-            {
-              name: featureName,
-              exact: child.props.exact,
-              path: '/',
-            },
-          ])
-        }
+      if (featureName) {
+        addLinks(views, featurePath, [
+          {
+            name: featureName,
+            exact: child.props.exact,
+            path: '/',
+          },
+        ])
+      }
 
-        if (featureViews) {
-          addLinks(views, featurePath, featureViews)
-        }
-      })
-      return views
-    },
-    [basePath, hoisted]
-  )
+      if (featureViews) {
+        addLinks(views, featurePath, featureViews)
+      }
+    })
+    return views
+  }, [basePath, hoisted])
 }
 
 function useModels(hoisted, scope) {
   const app = useApp()
 
-  // TODO: layout effect
-  useMemo(
+  useLayoutEffect(
     () =>
       Children.forEach(hoisted, child => {
         const featureModels = child.type.featureConfig?.models

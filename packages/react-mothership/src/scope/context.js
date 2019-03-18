@@ -15,9 +15,12 @@ export const context = createContext({
 })
 
 // toolkit
-export const useScope = ~useContext(context)
+export function useScope() {
+  return useContext(context)
+}
+
 // user
-export const useProvided = (...deps) => {
+export function useProvided(...deps) {
   const scope = useContext(context)
   return deps.map(path => {
     const val = get(scope.provides, path)
