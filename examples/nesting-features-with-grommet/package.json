@@ -1,6 +1,6 @@
 {
   "name": "nesting-features-with-grommet",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "private": true,
   "dependencies": {
     "grommet": "^2.5.5",
@@ -8,7 +8,7 @@
     "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-flying-saucer": "^0.0.28",
+    "react-flying-saucer": "^0.0.29",
     "styled-components": "^4.1.3"
   },
   "scripts": {
