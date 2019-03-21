@@ -6,7 +6,7 @@
 
 &nbsp;
 
-A zero-config extension to `create-react-app` for scalable single-page apps with functional react.
+A simple extension to `create-react-app` for scalable single-page apps with functional react. Giving you everything a framework would; using only next generation JavaScript features.
 
 **features:**
 
