@@ -8,6 +8,7 @@
   "main": "barrel.js",
   "files": [
     "bin/",
+    "lib/",
     "barrel.js"
   ],
   "scripts": {
