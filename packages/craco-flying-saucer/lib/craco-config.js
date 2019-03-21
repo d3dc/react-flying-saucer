@@ -49,12 +49,10 @@ const webpack = {
     /**
      * Use the top-most of these for all bundles.
      * Hooks are only recognized by their package
-     * Routes only recognize their router
      *
      * A solution for user-packages is yarn workspaces
      */
     react: path.resolve('node_modules/react'),
-    'react-router': path.resolve('node_modules/react-router'),
     '@@': 'react-flying-saucer',
     '@': path.resolve('src'),
   },
