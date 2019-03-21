@@ -25,12 +25,12 @@
   "dependencies": {
     "@rematch/core": "^1.1.0",
     "@rematch/select": "^2.0.4",
-    "history": "^4.7.2",
+    "history": "^4.9.0",
     "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-redux": "^5.1.1",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
+    "react-router": "^4.4.0",
+    "react-router-dom": "^4.4.0",
     "redux": "^4.0.1"
   },
   "devDependencies": {

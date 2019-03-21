@@ -4,7 +4,7 @@ const spawn = require('cross-spawn')
 
 const configPath = path.relative(
   process.cwd(),
-  require.resolve('craco-flying-saucer')
+  require.resolve('../lib/craco-config')
 )
 const scriptsPath = path.dirname(require.resolve('react-scripts/package.json'))
 

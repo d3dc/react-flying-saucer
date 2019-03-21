@@ -7,6 +7,14 @@ const {
 // const merge = require('lodash/merge')
 const castArray = require('lodash/castArray')
 
+/**
+ * A Craco plugin that loads the same babel config,
+ * but only merges  it into the loader that handles src
+ * - this keeps syntax plugins from breaking things
+ *
+ * Also maps an array `externalPaths` to a custom
+ * exclude pattern
+ */
 module.exports = {
   overrideWebpackConfig({ webpackConfig, cracoConfig }) {
     if (!cracoConfig.customBabel) {

@@ -13,13 +13,7 @@ export default function createRoutes(basePath, views) {
       redirect && redirectHook(redirect)
     )
     return (
-      <Route
-        key={url}
-        path={url}
-        render={render}
-        component={component}
-        {...rest}
-      />
+      <Route key={url} path={url} component={component || render} {...rest} />
     )
   })
 }
@@ -36,6 +30,7 @@ function renderHooks(...hooks) {
 
 function reduxHook(effect) {
   return () => {
+    useAppEffect(effect, [])
     return null
   }
 }
