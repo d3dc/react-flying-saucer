@@ -1,4 +1,4 @@
-import { it } from 'param.macro'
+import { _ } from 'param.macro'
 import { memo, createElement, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useApp } from '../context'
@@ -7,7 +7,7 @@ export { connect } from 'react-redux'
 
 export const withDispatch = connect(
   null,
-  it
+  _
 )
 
 export const useAppEffect = (mapDispatch, watch) => {
