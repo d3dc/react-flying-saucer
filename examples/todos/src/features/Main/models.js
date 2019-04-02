@@ -1,3 +1,4 @@
+import { lift, it } from 'param.macro'
 import { mapValues, omit, omitBy } from 'lodash/fp'
 import uuid from 'uuid/v4'
 
@@ -71,7 +72,7 @@ const reducers = {
   clearCompleted(state) {
     return {
       ...state,
-      allTodos: state.allTodos |> omitBy(_.completed),
+      allTodos: state.allTodos |> omitBy(it.completed),
     }
   },
 }
@@ -82,36 +83,36 @@ const selectors = (slice, createSelector) => ({
   },
   count() {
     return createSelector(
-      slice(_.allTodos),
+      slice(it.allTodos),
       todos => Object.keys(todos).length
     )
   },
   activeCount() {
     return createSelector(
-      slice(_.allTodos),
-      todos => Object.values(todos).filter(_.completed === false).length
+      slice(it.allTodos),
+      todos => Object.values(todos).filter(it.completed === false).length
     )
   },
   completedCount() {
     return createSelector(
       this.count,
       this.activeCount,
-      _ - _
+      lift(_ - _)
     )
   },
   list() {
     return createSelector(
-      slice(_.allTodos),
-      slice(_.filter),
+      slice(it.allTodos),
+      slice(it.filter),
       (todos, filter) =>
         Object.values(todos).filter(
           do {
             if (filter === ACTIVE_TODOS) {
-              _.completed === false
+              it.completed === false
             } else if (filter === COMPLETED_TODOS) {
-              _.completed === true
+              it.completed === true
             } else {
-              _
+              !!it
             }
           }
         )

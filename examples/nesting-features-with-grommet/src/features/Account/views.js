@@ -1,3 +1,4 @@
+import { it } from 'param.macro'
 import { lazy } from 'react'
 
 export default [
@@ -9,17 +10,17 @@ export default [
   {
     name: 'signup',
     path: '/signup',
-    component: lazy(~import('./Signup')),
+    component: lazy(() => import('./Signup')),
   },
   {
     name: 'login',
     path: '/login',
-    component: lazy(~import('./Login')),
+    component: lazy(() => import('./Login')),
   },
   {
     name: 'logout',
     path: '/logout',
-    effect: _.account.logout(),
+    effect: it.account.logout(),
     redirect: 'login',
   },
 ]

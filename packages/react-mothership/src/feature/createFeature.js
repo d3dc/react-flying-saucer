@@ -1,3 +1,4 @@
+import { it } from 'param.macro'
 import { useMemo, memo, Children } from 'react'
 import { partition } from 'lodash'
 import { withRouter, Switch, Route } from 'react-router'
@@ -76,7 +77,7 @@ function useRoutes(name, basePath, views = []) {
 }
 
 function usePartition(children) {
-  return useMemo(() => partition(Children.toArray(children), _.props.path), [
+  return useMemo(() => partition(Children.toArray(children), it.props.path), [
     children,
   ])
 }
