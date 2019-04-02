@@ -7,5 +7,5 @@ export const useNavigator = () => {
   const app = useApp()
   const { views } = useScope()
 
-  return useMemo(~app.navigate(views), [app, views])
+  return useMemo(() => app.navigate(views), [app, views])
 }

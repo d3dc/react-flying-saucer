@@ -1,3 +1,4 @@
+import { it } from 'param.macro'
 import { Route } from 'react-router'
 
 import { pathJoin } from '../path'
@@ -25,7 +26,7 @@ function renderHooks(...hooks) {
     return undefined
   }
 
-  return ~used.map(_.call())
+  return () => used.map(it.call())
 }
 
 function reduxHook(effect) {

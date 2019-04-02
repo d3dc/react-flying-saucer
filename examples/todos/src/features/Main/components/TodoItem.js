@@ -13,10 +13,10 @@ const enhance = $$(
   }),
   (dispatch, props) => ({
     save: dispatch.todos.save,
-    onCancel: ~dispatch.todos.edit({ canceled: true }),
-    onEdit: ~dispatch.todos.edit({ id: props.id }),
-    onDestroy: ~dispatch.todos.destroy({ id: props.id }),
-    onToggle: ~dispatch.todos.toggle({ id: props.id }),
+    onCancel: () => dispatch.todos.edit({ canceled: true }),
+    onEdit: () => dispatch.todos.edit({ id: props.id }),
+    onDestroy: () => dispatch.todos.destroy({ id: props.id }),
+    onToggle: () => dispatch.todos.toggle({ id: props.id }),
   })
 )
 

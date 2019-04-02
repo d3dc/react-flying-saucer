@@ -1,6 +1,6 @@
 const path = require('path')
 
-const customBabel = {
+const babel = {
   presets: [require.resolve('babel-preset-techno-babel')],
   plugins: [
     require('babel-plugin-react-require').default,
@@ -26,9 +26,6 @@ const eslint = {
       semi: ['error', 'never'],
       'no-unused-expressions': 'off',
       'react/react-in-jsx-scope': 'off',
-    },
-    globals: {
-      _: true,
     },
   },
   loaderOptions: { useEslintrc: true },
@@ -61,7 +58,6 @@ const webpack = {
 module.exports = {
   webpack,
   jest,
-  customBabel,
+  babel,
   eslint,
-  plugins: [{ plugin: require('./craco-plugin') }],
 }

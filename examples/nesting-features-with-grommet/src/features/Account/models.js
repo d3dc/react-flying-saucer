@@ -1,3 +1,5 @@
+import { it } from 'param.macro'
+
 const delay = t => new Promise(resolve => setTimeout(resolve, t))
 
 const initialAccountState = {
@@ -35,10 +37,10 @@ const account = {
   },
   selectors: slice => ({
     isLoggedIn() {
-      return slice(_.authenticated)
+      return slice(it.authenticated)
     },
     me() {
-      return slice(_.me)
+      return slice(it.me)
     },
   }),
 }
