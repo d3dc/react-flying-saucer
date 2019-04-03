@@ -4,7 +4,7 @@ const { packageJson, uninstall, install } = require('mrm-core')
 const { copySync, ensureDirSync, removeSync } = require('fs-extra')
 
 function replaceDependencies() {
-  install(['react-flying-saucer', 'lodash'], { dev: false })
+  install(['react-flying-saucer', 'lodash', 'param.macro'], { dev: false })
 }
 
 function replaceScripts() {
