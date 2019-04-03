@@ -9,7 +9,11 @@ const scriptsPath = path.relative(
   path.dirname(require.resolve('react-scripts/package.json'))
 )
 
+// Are we running bundle or watch?
+const useRollupWatch = process.argv.find(arg => arg === '--watch')
+
 process.env.NODE_ENV = 'production'
+// craco `craPaths` inspects these
 process.argv = ['--react-scripts', scriptsPath, '--config', configPath]
 
 // Makes the script crash on unhandled rejections instead of silently
@@ -31,9 +35,9 @@ const {
 } = require('@craco/craco/lib/cra')
 const { loadCracoConfig } = require('@craco/craco/lib/config')
 const { overrideWebpack } = require('@craco/craco/lib/features/webpack')
-const { bundle } = require('../lib/rollup')
+const { bundle, watch } = require('../lib/rollup')
 
-log('Override started with arguments: ', process.argv)
+log('Bundling started with arguments: ', process.argv)
 log('For environment: ', process.env.NODE_ENV)
 
 const context = {
@@ -47,4 +51,9 @@ const cracoConfig = loadCracoConfig(context)
 const craWebpackConfig = loadWebpackProdConfig()
 
 // Instead of require.resolve hacking, run rollup
-overrideWebpack(cracoConfig, craWebpackConfig, bundle(package.name), context)
+overrideWebpack(
+  cracoConfig,
+  craWebpackConfig,
+  useRollupWatch ? watch(package.name) : bundle(package.name),
+  context
+)

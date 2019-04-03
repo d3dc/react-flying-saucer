@@ -118,6 +118,39 @@ function bundle(name) {
   }
 }
 
+function watch(name) {
+  return async configProvider => {
+    const aliases = configProvider.resolve.alias
+    const babelOptions = getBabelLoaderOptions(configProvider)
+    const inputOptions = getInputOptions(babelOptions, aliases)
+
+    await del('dist/*')
+
+    const watcher = rollup.watch({
+      ...inputOptions,
+      output: [getEsmOutputOptions(), getUmdOutputOptions(name)],
+    })
+
+    watcher.on('event', event => {
+      switch (event.code) {
+        case 'START':
+          return console.log('the watcher is (re)starting')
+        case 'BUNDLE_START':
+          return console.log('building an individual bundle')
+        case 'BUNDLE_END':
+          return console.log('finished building a bundle')
+        case 'END':
+          return console.log('finished building all bundles')
+        case 'ERROR':
+          return console.log('encountered an error while bundling')
+        case 'FATAL':
+          return console.log('encountered an unrecoverable error')
+      }
+    })
+  }
+}
+
 module.exports = {
   bundle,
+  watch,
 }
