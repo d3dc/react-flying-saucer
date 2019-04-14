@@ -1,6 +1,6 @@
 {
   "name": "todos",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
@@ -9,7 +9,7 @@
     "pluralize": "^7.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-flying-saucer": "^0.0.33",
+    "react-flying-saucer": "^0.0.34",
     "todomvc-app-css": "^2.2.0",
     "uuid": "^3.3.2"
   },
