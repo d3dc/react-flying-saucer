@@ -1,7 +1,6 @@
 import { _ } from 'param.macro'
 import { memo, createElement, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { useApp } from '../context'
+import { connect, useStore, useSelector } from 'react-redux'
 
 export { connect } from 'react-redux'
 
@@ -11,17 +10,25 @@ export const withDispatch = connect(
 )
 
 export const useAppEffect = (mapDispatch, watch) => {
-  const app = useApp()
+  const store = useStore()
   useEffect(() => {
-    mapDispatch(app.store.dispatch)
+    mapDispatch(store.dispatch)
   }, watch)
+}
+
+export const useAppSelector = mapSelect => {
+  const store = useStore()
+  // setup happens in component
+  // no extra memoization
+  return useSelector(mapSelect(store.select))
 }
 
 export const sconnect = (mapSelect, mapDispatch) => Base => {
   const c = memo(props => {
-    const app = useApp()
+    const store = useStore()
+    // memoizes setup
     const enhance = connect(
-      app.store.select(mapSelect),
+      store.select(mapSelect),
       mapDispatch
     )
 

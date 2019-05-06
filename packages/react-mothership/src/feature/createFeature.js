@@ -4,7 +4,6 @@ import { partition } from 'lodash'
 import { withRouter, Switch, Route } from 'react-router'
 
 import { Scope, useScope } from '../scope'
-import { useApp } from '../context'
 import { pathJoin } from '../path'
 import createRoutes from './createRoutes'
 import Boundary from './Boundary'
