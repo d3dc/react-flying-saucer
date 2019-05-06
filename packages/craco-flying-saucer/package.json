@@ -28,14 +28,14 @@
     "url": "https://github.com/d3dc/react-flying-saucer/issues"
   },
   "dependencies": {
-    "@craco/craco": "^3.6.0",
+    "@craco/craco": "^5.0.2",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-react-require": "^3.1.1",
-    "babel-preset-react-app": "^7.0.2",
+    "babel-preset-react-app": "^8.0.0",
     "babel-preset-techno-babel": "^2.1.0",
     "eslint-config-techno-babel": "^1.0.1"
   },
   "devDependencies": {
-    "prettier": "^1.16.4"
+    "prettier": "^1.17.0"
   }
 }
