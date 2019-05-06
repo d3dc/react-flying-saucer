@@ -357,3 +357,23 @@ useAppEffect(dispatch => dispatch.storage.retrieve(props.id), [props.id])
 ```
 
 &nbsp;
+
+### `useAppSelector(mapSelect, payload, deps)`
+
+Hook to pick a selector from the current store and run it. The ref to `mapSelect` will change when `deps` changes. Mapped selectors will be passed `payload` as `ownProps`.
+
+**arguments:**
+
+```
+mapSelect: RematchSelect => any
+payload: any
+deps: [any]
+```
+
+**example:**
+
+```js
+const todos = useAppSelector(it.todos.list)
+```
+
+&nbsp;

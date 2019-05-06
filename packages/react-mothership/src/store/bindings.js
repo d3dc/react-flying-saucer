@@ -16,11 +16,12 @@ export const useAppEffect = (mapDispatch, watch) => {
   }, watch)
 }
 
-export const useAppSelector = mapSelect => {
+export const useAppSelector = (mapSelect, payload, deps) => {
   const store = useStore()
+  const selector = mapSelect(store.select)
   // setup happens in component
   // no extra memoization
-  return useSelector(mapSelect(store.select))
+  return useSelector(state => selector(state, payload), [payload, ...deps])
 }
 
 export const sconnect = (mapSelect, mapDispatch) => Base => {
