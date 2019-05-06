@@ -4,17 +4,13 @@ const configPath = path.relative(
   process.cwd(),
   require.resolve('craco-flying-saucer')
 )
-const scriptsPath = path.relative(
-  process.cwd(),
-  path.dirname(require.resolve('react-scripts/package.json'))
-)
 
 // Are we running bundle or watch?
 const useRollupWatch = process.argv.find(arg => arg === '--watch')
 
 process.env.NODE_ENV = 'production'
 // craco `craPaths` inspects these
-process.argv = ['--react-scripts', scriptsPath, '--config', configPath]
+process.argv = ['--config', configPath]
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
@@ -28,11 +24,7 @@ process.on('unhandledRejection', err => {
  * These might change in future releases
  */
 const { log } = require('@craco/craco/lib/logger')
-const {
-  craPaths,
-  loadWebpackProdConfig,
-  overrideWebpackProdConfig,
-} = require('@craco/craco/lib/cra')
+const { getCraPaths, loadWebpackProdConfig } = require('@craco/craco/lib/cra')
 const { loadCracoConfig } = require('@craco/craco/lib/config')
 const { overrideWebpack } = require('@craco/craco/lib/features/webpack')
 const { bundle, watch } = require('../lib/rollup')
@@ -42,13 +34,14 @@ log('For environment: ', process.env.NODE_ENV)
 
 const context = {
   env: process.env.NODE_ENV,
-  paths: craPaths,
 }
 
-const package = require(craPaths.appPackageJson)
-
 const cracoConfig = loadCracoConfig(context)
-const craWebpackConfig = loadWebpackProdConfig()
+const craWebpackConfig = loadWebpackProdConfig(cracoConfig)
+
+context.paths = getCraPaths(cracoConfig)
+
+const package = require(context.paths.appPackageJson)
 
 // Instead of require.resolve hacking, run rollup
 overrideWebpack(

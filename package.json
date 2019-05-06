@@ -7,7 +7,7 @@
   "dependencies": {},
   "scripts": {
     "lerna": "lerna",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap --hoist",
     "build": "lerna run build",
     "format": "lerna run format",
     "clean": "lerna clean"

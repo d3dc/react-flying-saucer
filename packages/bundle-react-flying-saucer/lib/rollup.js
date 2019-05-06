@@ -10,20 +10,6 @@ const alias = require('rollup-plugin-alias')
 const rebase = require('rollup-plugin-rebase')
 const resolve = require('rollup-plugin-node-resolve')
 
-function externalBabelHelpers() {
-  // Transforms any absolute references to node_modules into standard
-  // require statements
-  return {
-    name: 'external-babel-helpers',
-    resolveId(importee) {
-      if (/node_modules/.test(importee)) {
-        return last(importee.split(/node_modules\//))
-      }
-      return null
-    },
-  }
-}
-
 // dist is not ignored by SCM
 function getEsmOutputOptions() {
   return {
@@ -42,15 +28,15 @@ function getUmdOutputOptions(name) {
   }
 }
 
-function getBabelLoaderOptions(configProvider) {
+function getBabelLoaderOptions(webpackConfig, useESModules = true) {
   const { isFound, match } = getLoader(
-    configProvider,
+    webpackConfig,
     loaderByName('babel-loader')
   )
 
   if (!isFound) {
     throw new Error(
-      "craco: 'configProvider' does not contain a `babel-loader` configuration."
+      "craco: 'webpackConfig' does not contain a `babel-loader` configuration."
     )
   }
 
@@ -61,6 +47,24 @@ function getBabelLoaderOptions(configProvider) {
     'cacheCompression',
     'cacheIdentifier',
   ])
+
+  const craPresetIndex = options.presets.findIndex(
+    loaderByName('babel-preset-react-app')
+  )
+
+  if (craPresetIndex > -1) {
+    options.presets = options.presets.map((existing, index) =>
+      index === craPresetIndex
+        ? [
+            existing,
+            {
+              useESModules,
+              absoluteRuntime: false,
+            },
+          ]
+        : existing
+    )
+  }
 
   return options
 }
@@ -83,7 +87,6 @@ function getInputOptions(babelOptions, aliases = {}) {
       return !localImport
     },
     plugins: [
-      externalBabelHelpers(),
       alias({
         resolve: ['/index.js', ...extensions],
         ...aliases,
@@ -102,51 +105,63 @@ function getInputOptions(babelOptions, aliases = {}) {
 }
 
 function bundle(name) {
-  return async configProvider => {
-    const aliases = configProvider.resolve.alias
-    const babelOptions = getBabelLoaderOptions(configProvider)
-    const inputOptions = getInputOptions(babelOptions, aliases)
+  return async (cracoConfig, webpackConfig, context) => {
+    const aliases = webpackConfig.resolve.alias
 
-    const bundle = await rollup.rollup(inputOptions)
+    const esmBundle = await rollup.rollup(
+      getInputOptions(getBabelLoaderOptions(webpackConfig), aliases)
+    )
 
-    log(`Bundling with dependencies:`)
-    log(bundle.watchFiles) // an array of file names this bundle depends on
+    log(`Bundling ESM with dependencies:`)
+    log(esmBundle.watchFiles) // an array of file names this bundle depends on
+
+    const umdBundle = await rollup.rollup(
+      getInputOptions(getBabelLoaderOptions(webpackConfig, false), aliases)
+    )
+
+    log(`Bundling UMD with dependencies:`)
+    log(umdBundle.watchFiles) // an array of file names this bundle depends on
 
     await del('dist/*')
-    await bundle.write(getEsmOutputOptions())
-    await bundle.write(getUmdOutputOptions(name))
+    await esmBundle.write(getEsmOutputOptions())
+    await umdBundle.write(getUmdOutputOptions(name))
   }
 }
 
 function watch(name) {
-  return async configProvider => {
-    const aliases = configProvider.resolve.alias
-    const babelOptions = getBabelLoaderOptions(configProvider)
-    const inputOptions = getInputOptions(babelOptions, aliases)
+  return async (cracoConfig, webpackConfig, context) => {
+    const aliases = webpackConfig.resolve.alias
 
     await del('dist/*')
 
-    const watcher = rollup.watch({
-      ...inputOptions,
-      output: [getEsmOutputOptions(), getUmdOutputOptions(name)],
+    const esmWatcher = rollup.watch({
+      ...getInputOptions(getBabelLoaderOptions(webpackConfig), aliases),
+      output: getEsmOutputOptions(),
     })
 
-    watcher.on('event', event => {
-      switch (event.code) {
-        case 'START':
-          return console.log('the watcher is (re)starting')
-        case 'BUNDLE_START':
-          return console.log('building an individual bundle')
-        case 'BUNDLE_END':
-          return console.log('finished building a bundle')
-        case 'END':
-          return console.log('finished building all bundles')
-        case 'ERROR':
-          return console.log('encountered an error while bundling')
-        case 'FATAL':
-          return console.log('encountered an unrecoverable error')
-      }
+    const umdWatcher = rollup.watch({
+      ...getInputOptions(getBabelLoaderOptions(webpackConfig, false), aliases),
+      output: getUmdOutputOptions(),
     })
+
+    for (const watcher of [esmWatcher, umdWatcher]) {
+      watcher.on('event', event => {
+        switch (event.code) {
+          case 'START':
+            return console.log('the watcher is (re)starting')
+          case 'BUNDLE_START':
+            return console.log('building an individual bundle')
+          case 'BUNDLE_END':
+            return console.log('finished building a bundle')
+          case 'END':
+            return console.log('finished building all bundles')
+          case 'ERROR':
+            return console.log('encountered an error while bundling')
+          case 'FATAL':
+            return console.log('encountered an unrecoverable error')
+        }
+      })
+    }
   }
 }
 
