@@ -1,6 +1,6 @@
 {
   "name": "react-flying-saucer",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "A zero-config way to write functional react apps that scale.",
   "bin": {
     "react-flying-saucer": "./bin/rfs.js"
@@ -28,10 +28,10 @@
   "dependencies": {
     "@babel/core": "^7.4.4",
     "@craco/craco": "^5.0.2",
-    "craco-flying-saucer": "^0.0.34",
+    "craco-flying-saucer": "^0.0.35",
     "cross-spawn": "^6.0.5",
     "eslint": "5.16.0",
-    "react-mothership": "^0.0.34",
+    "react-mothership": "^0.0.35",
     "react-scripts": "^3.0.0",
     "webpack": "4.30.0"
   },
