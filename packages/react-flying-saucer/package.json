@@ -26,19 +26,19 @@
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
-    "@babel/core": "^7.3.4",
-    "@craco/craco": "^3.6.0",
+    "@babel/core": "^7.4.4",
+    "@craco/craco": "^5.0.2",
     "craco-flying-saucer": "^0.0.34",
     "cross-spawn": "^6.0.5",
-    "eslint": "5.12.0",
+    "eslint": "5.16.0",
     "react-mothership": "^0.0.34",
-    "react-scripts": "^2.1.8",
-    "webpack": "4.28.3"
+    "react-scripts": "^3.0.0",
+    "webpack": "4.30.0"
   },
   "peerDependencies": {
     "lodash": "^4.17.11",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "browserslist": [
     ">0.2%",
@@ -47,6 +47,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prettier": "^1.16.4"
+    "prettier": "^1.17.0"
   }
 }
