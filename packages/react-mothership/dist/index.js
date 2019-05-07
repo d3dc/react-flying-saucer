@@ -1,8 +1,8 @@
 import _objectWithoutProperties from '@babel/runtime/helpers/esm/objectWithoutProperties';
 import React, { createContext, useContext, useMemo, Children, useEffect, memo, createElement, Suspense, Component } from 'react';
 import { Router, Redirect as Redirect$1, Route, withRouter, Switch } from 'react-router';
-export { Switch, Route, withRouter } from 'react-router';
-import { connect, Provider as Provider$1 } from 'react-redux';
+export { Route, Switch, withRouter } from 'react-router';
+import { connect, useStore, useSelector, Provider as Provider$1 } from 'react-redux';
 export { connect } from 'react-redux';
 import _get from 'lodash/get';
 import _classCallCheck from '@babel/runtime/helpers/esm/classCallCheck';
@@ -16,6 +16,7 @@ import _trimEnd from 'lodash/trimEnd';
 import _mapValues from 'lodash/mapValues';
 import _objectSpread from '@babel/runtime/helpers/esm/objectSpread';
 import { createBrowserHistory } from 'history';
+import _toConsumableArray from '@babel/runtime/helpers/esm/toConsumableArray';
 import { init } from '@rematch/core';
 export { createModel } from '@rematch/core';
 import selectPlugin from '@rematch/select';
@@ -32,7 +33,7 @@ function pathJoin(){var slash='/';for(var _len=arguments.length,parts=new Array(
 
 function Scope(_ref){var basePath=_ref.basePath,hoist=_ref.hoist,children=_ref.children,rest=_objectWithoutProperties(_ref,["basePath","hoist","children"]);var parent=useScope();var views=useViews(basePath,hoist);var scope=_merge({views:views},parent,rest);useModels(hoist,scope);return React.createElement(context$1.Provider,{value:scope,children:children});}Scope.displayName='Scope';function useViews(basePath,hoisted){return useMemo(function(){var views={};Children.forEach(hoisted,function(child){var _child$type$featureCo,_child$type$featureCo2;var featureName=(_child$type$featureCo=child.type.featureConfig)===null||_child$type$featureCo===void 0?void 0:_child$type$featureCo.name;var featureViews=(_child$type$featureCo2=child.type.featureConfig)===null||_child$type$featureCo2===void 0?void 0:_child$type$featureCo2.views;var featurePath=pathJoin(basePath,child.props.path);if(featureName){addLinks(views,featurePath,[{name:featureName,exact:child.props.exact,path:'/'}]);}if(featureViews){addLinks(views,featurePath,featureViews);}});return views;},[basePath,hoisted]);}function useModels(hoisted,scope){var app=useApp();useMemo(function(){return Children.forEach(hoisted,function(child){var _child$type$featureCo3;var featureModels=(_child$type$featureCo3=child.type.featureConfig)===null||_child$type$featureCo3===void 0?void 0:_child$type$featureCo3.models;if(!featureModels){return;}app.registerModels(featureModels,scope);});},[app,hoisted]);}
 
-var withDispatch=function withDispatch(_arg){return connect(null,_arg);};var useAppEffect=function useAppEffect(mapDispatch,watch){var app=useApp();useEffect(function(){mapDispatch(app.store.dispatch);},watch);};var sconnect=function sconnect(mapSelect,mapDispatch){return function(Base){var c=memo(function(props){var app=useApp();var enhance=connect(app.store.select(mapSelect),mapDispatch);return createElement(enhance(Base),props);});c.displayName="sconnect(".concat(Base.displayName||Base.name||'Component',")");return c;};};var $$=sconnect;var _$=withDispatch;
+var withDispatch=function withDispatch(_arg){return connect(null,_arg);};var useAppEffect=function useAppEffect(mapDispatch,watch){var store=useStore();useEffect(function(){mapDispatch(store.dispatch);},watch);};var useAppSelector=function useAppSelector(mapSelect,payload,deps){var store=useStore();var selector=mapSelect(store.select);return useSelector(function(state){return selector(state,payload);},[payload].concat(_toConsumableArray(deps)));};var sconnect=function sconnect(mapSelect,mapDispatch){return function(Base){var c=memo(function(props){var store=useStore();var enhance=connect(store.select(mapSelect),mapDispatch);return createElement(enhance(Base),props);});c.displayName="sconnect(".concat(Base.displayName||Base.name||'Component',")");return c;};};var $$=sconnect;var _$=withDispatch;
 
 var preset = {plugins:[selectPlugin()]};
 
@@ -52,5 +53,5 @@ function createRoutes(basePath,views){return views.map(function(_ref){var path=_
 
 function createFeature(){var config=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};return function(Base){var _ref,_Feature;var name=config.name||Base.displayName||Base.name;function Feature(props){var provides=props.provides,path=props.path,exact=props.exact,match=props.match,children=props.children;var basePath=pathJoin(match.path,path);var routes=useRoutes(name,basePath,config.views);var _usePartition=usePartition(children),_usePartition2=_slicedToArray(_usePartition,2),withPath=_usePartition2[0],nested=_usePartition2[1];var render=function render(){return React.createElement(Boundary,{fallback:config.placeholder,recovery:config.recovery},React.createElement(Scope,{name:name,basePath:basePath,provides:_objectSpread({},config.provides,provides),hoist:children},React.createElement(Base,props,React.createElement(Switch,null,routes,withPath),nested)));};return path?React.createElement(Route,{path:basePath,exact:exact,render:render}):render();}var Wrapper=(_ref=(_Feature=Feature,memo(_Feature)),withRouter(_ref));Wrapper.displayName="Feature(".concat(name||'Component',")");Wrapper.WrappedComponent=Base;Wrapper.featureConfig=_objectSpread({},config,{name:name});return Wrapper;};}function useRoutes(name,basePath){var views=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];return useMemo(function(){return createRoutes(basePath,views);},[basePath]);}function usePartition(children){return useMemo(function(){return _partition(Children.toArray(children),function(_it){return _it.props.path;});},[children]);}
 
-export { useApp, Mothership, createApp, useNavigator, Boundary, createFeature, ViewNotFoundError, Link, NavLink, Redirect, Scope, useScope, useProvided, createStore, withDispatch, useAppEffect, sconnect, $$, _$ };
+export { $$, Boundary, Link, Mothership, NavLink, Redirect, Scope, ViewNotFoundError, _$, createApp, createFeature, createStore, sconnect, useApp, useAppEffect, useAppSelector, useNavigator, useProvided, useScope, withDispatch };
 //# sourceMappingURL=index.js.map

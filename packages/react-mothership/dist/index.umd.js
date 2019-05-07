@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@babel/runtime/helpers/esm/objectWithoutProperties'), require('react'), require('react-router'), require('react-redux'), require('lodash/get'), require('@babel/runtime/helpers/esm/classCallCheck'), require('@babel/runtime/helpers/esm/possibleConstructorReturn'), require('@babel/runtime/helpers/esm/getPrototypeOf'), require('@babel/runtime/helpers/esm/inherits'), require('@babel/runtime/helpers/esm/wrapNativeSuper'), require('lodash/merge'), require('lodash/trimStart'), require('lodash/trimEnd'), require('lodash/mapValues'), require('@babel/runtime/helpers/esm/objectSpread'), require('history'), require('@rematch/core'), require('@rematch/select'), require('@babel/runtime/helpers/esm/createClass'), require('lodash/partition'), require('@babel/runtime/helpers/esm/slicedToArray'), require('react-router-dom')) :
-  typeof define === 'function' && define.amd ? define(['exports', '@babel/runtime/helpers/esm/objectWithoutProperties', 'react', 'react-router', 'react-redux', 'lodash/get', '@babel/runtime/helpers/esm/classCallCheck', '@babel/runtime/helpers/esm/possibleConstructorReturn', '@babel/runtime/helpers/esm/getPrototypeOf', '@babel/runtime/helpers/esm/inherits', '@babel/runtime/helpers/esm/wrapNativeSuper', 'lodash/merge', 'lodash/trimStart', 'lodash/trimEnd', 'lodash/mapValues', '@babel/runtime/helpers/esm/objectSpread', 'history', '@rematch/core', '@rematch/select', '@babel/runtime/helpers/esm/createClass', 'lodash/partition', '@babel/runtime/helpers/esm/slicedToArray', 'react-router-dom'], factory) :
-  (global = global || self, factory(global['react-mothership'] = {}, global._objectWithoutProperties, global.React, global.reactRouter, global.reactRedux, global._get, global._classCallCheck, global._possibleConstructorReturn, global._getPrototypeOf, global._inherits, global._wrapNativeSuper, global._merge, global._trimStart, global._trimEnd, global._mapValues, global._objectSpread, global.history, global.core, global.selectPlugin, global._createClass, global._partition, global._slicedToArray, global.reactRouterDom));
-}(this, function (exports, _objectWithoutProperties, React, reactRouter, reactRedux, _get, _classCallCheck, _possibleConstructorReturn, _getPrototypeOf, _inherits, _wrapNativeSuper, _merge, _trimStart, _trimEnd, _mapValues, _objectSpread, history, core, selectPlugin, _createClass, _partition, _slicedToArray, reactRouterDom) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@babel/runtime/helpers/objectWithoutProperties'), require('react'), require('react-router'), require('react-redux'), require('lodash/get'), require('@babel/runtime/helpers/classCallCheck'), require('@babel/runtime/helpers/possibleConstructorReturn'), require('@babel/runtime/helpers/getPrototypeOf'), require('@babel/runtime/helpers/inherits'), require('@babel/runtime/helpers/wrapNativeSuper'), require('lodash/merge'), require('lodash/trimStart'), require('lodash/trimEnd'), require('lodash/mapValues'), require('@babel/runtime/helpers/objectSpread'), require('history'), require('@babel/runtime/helpers/toConsumableArray'), require('@rematch/core'), require('@rematch/select'), require('@babel/runtime/helpers/createClass'), require('lodash/partition'), require('@babel/runtime/helpers/slicedToArray'), require('react-router-dom')) :
+  typeof define === 'function' && define.amd ? define(['exports', '@babel/runtime/helpers/objectWithoutProperties', 'react', 'react-router', 'react-redux', 'lodash/get', '@babel/runtime/helpers/classCallCheck', '@babel/runtime/helpers/possibleConstructorReturn', '@babel/runtime/helpers/getPrototypeOf', '@babel/runtime/helpers/inherits', '@babel/runtime/helpers/wrapNativeSuper', 'lodash/merge', 'lodash/trimStart', 'lodash/trimEnd', 'lodash/mapValues', '@babel/runtime/helpers/objectSpread', 'history', '@babel/runtime/helpers/toConsumableArray', '@rematch/core', '@rematch/select', '@babel/runtime/helpers/createClass', 'lodash/partition', '@babel/runtime/helpers/slicedToArray', 'react-router-dom'], factory) :
+  (global = global || self, factory(global['react-mothership'] = {}, global._objectWithoutProperties, global.React, global.reactRouter, global.reactRedux, global._get, global._classCallCheck, global._possibleConstructorReturn, global._getPrototypeOf, global._inherits, global._wrapNativeSuper, global._merge, global._trimStart, global._trimEnd, global._mapValues, global._objectSpread, global.history, global._toConsumableArray, global.core, global.selectPlugin, global._createClass, global._partition, global._slicedToArray, global.reactRouterDom));
+}(this, function (exports, _objectWithoutProperties, React, reactRouter, reactRedux, _get, _classCallCheck, _possibleConstructorReturn, _getPrototypeOf, _inherits, _wrapNativeSuper, _merge, _trimStart, _trimEnd, _mapValues, _objectSpread, history, _toConsumableArray, core, selectPlugin, _createClass, _partition, _slicedToArray, reactRouterDom) { 'use strict';
 
   _objectWithoutProperties = _objectWithoutProperties && _objectWithoutProperties.hasOwnProperty('default') ? _objectWithoutProperties['default'] : _objectWithoutProperties;
   var React__default = 'default' in React ? React['default'] : React;
@@ -17,6 +17,7 @@
   _trimEnd = _trimEnd && _trimEnd.hasOwnProperty('default') ? _trimEnd['default'] : _trimEnd;
   _mapValues = _mapValues && _mapValues.hasOwnProperty('default') ? _mapValues['default'] : _mapValues;
   _objectSpread = _objectSpread && _objectSpread.hasOwnProperty('default') ? _objectSpread['default'] : _objectSpread;
+  _toConsumableArray = _toConsumableArray && _toConsumableArray.hasOwnProperty('default') ? _toConsumableArray['default'] : _toConsumableArray;
   selectPlugin = selectPlugin && selectPlugin.hasOwnProperty('default') ? selectPlugin['default'] : selectPlugin;
   _createClass = _createClass && _createClass.hasOwnProperty('default') ? _createClass['default'] : _createClass;
   _partition = _partition && _partition.hasOwnProperty('default') ? _partition['default'] : _partition;
@@ -30,7 +31,7 @@
 
   function Scope(_ref){var basePath=_ref.basePath,hoist=_ref.hoist,children=_ref.children,rest=_objectWithoutProperties(_ref,["basePath","hoist","children"]);var parent=useScope();var views=useViews(basePath,hoist);var scope=_merge({views:views},parent,rest);useModels(hoist,scope);return React__default.createElement(context$1.Provider,{value:scope,children:children});}Scope.displayName='Scope';function useViews(basePath,hoisted){return React.useMemo(function(){var views={};React.Children.forEach(hoisted,function(child){var _child$type$featureCo,_child$type$featureCo2;var featureName=(_child$type$featureCo=child.type.featureConfig)===null||_child$type$featureCo===void 0?void 0:_child$type$featureCo.name;var featureViews=(_child$type$featureCo2=child.type.featureConfig)===null||_child$type$featureCo2===void 0?void 0:_child$type$featureCo2.views;var featurePath=pathJoin(basePath,child.props.path);if(featureName){addLinks(views,featurePath,[{name:featureName,exact:child.props.exact,path:'/'}]);}if(featureViews){addLinks(views,featurePath,featureViews);}});return views;},[basePath,hoisted]);}function useModels(hoisted,scope){var app=useApp();React.useMemo(function(){return React.Children.forEach(hoisted,function(child){var _child$type$featureCo3;var featureModels=(_child$type$featureCo3=child.type.featureConfig)===null||_child$type$featureCo3===void 0?void 0:_child$type$featureCo3.models;if(!featureModels){return;}app.registerModels(featureModels,scope);});},[app,hoisted]);}
 
-  var withDispatch=function withDispatch(_arg){return reactRedux.connect(null,_arg);};var useAppEffect=function useAppEffect(mapDispatch,watch){var app=useApp();React.useEffect(function(){mapDispatch(app.store.dispatch);},watch);};var sconnect=function sconnect(mapSelect,mapDispatch){return function(Base){var c=React.memo(function(props){var app=useApp();var enhance=reactRedux.connect(app.store.select(mapSelect),mapDispatch);return React.createElement(enhance(Base),props);});c.displayName="sconnect(".concat(Base.displayName||Base.name||'Component',")");return c;};};var $$=sconnect;var _$=withDispatch;
+  var withDispatch=function withDispatch(_arg){return reactRedux.connect(null,_arg);};var useAppEffect=function useAppEffect(mapDispatch,watch){var store=reactRedux.useStore();React.useEffect(function(){mapDispatch(store.dispatch);},watch);};var useAppSelector=function useAppSelector(mapSelect,payload,deps){var store=reactRedux.useStore();var selector=mapSelect(store.select);return reactRedux.useSelector(function(state){return selector(state,payload);},[payload].concat(_toConsumableArray(deps)));};var sconnect=function sconnect(mapSelect,mapDispatch){return function(Base){var c=React.memo(function(props){var store=reactRedux.useStore();var enhance=reactRedux.connect(store.select(mapSelect),mapDispatch);return React.createElement(enhance(Base),props);});c.displayName="sconnect(".concat(Base.displayName||Base.name||'Component',")");return c;};};var $$=sconnect;var _$=withDispatch;
 
   var preset = {plugins:[selectPlugin()]};
 
@@ -50,30 +51,56 @@
 
   function createFeature(){var config=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{};return function(Base){var _ref,_Feature;var name=config.name||Base.displayName||Base.name;function Feature(props){var provides=props.provides,path=props.path,exact=props.exact,match=props.match,children=props.children;var basePath=pathJoin(match.path,path);var routes=useRoutes(name,basePath,config.views);var _usePartition=usePartition(children),_usePartition2=_slicedToArray(_usePartition,2),withPath=_usePartition2[0],nested=_usePartition2[1];var render=function render(){return React__default.createElement(Boundary,{fallback:config.placeholder,recovery:config.recovery},React__default.createElement(Scope,{name:name,basePath:basePath,provides:_objectSpread({},config.provides,provides),hoist:children},React__default.createElement(Base,props,React__default.createElement(reactRouter.Switch,null,routes,withPath),nested)));};return path?React__default.createElement(reactRouter.Route,{path:basePath,exact:exact,render:render}):render();}var Wrapper=(_ref=(_Feature=Feature,React.memo(_Feature)),reactRouter.withRouter(_ref));Wrapper.displayName="Feature(".concat(name||'Component',")");Wrapper.WrappedComponent=Base;Wrapper.featureConfig=_objectSpread({},config,{name:name});return Wrapper;};}function useRoutes(name,basePath){var views=arguments.length>2&&arguments[2]!==undefined?arguments[2]:[];return React.useMemo(function(){return createRoutes(basePath,views);},[basePath]);}function usePartition(children){return React.useMemo(function(){return _partition(React.Children.toArray(children),function(_it){return _it.props.path;});},[children]);}
 
-  exports.Switch = reactRouter.Switch;
-  exports.Route = reactRouter.Route;
-  exports.withRouter = reactRouter.withRouter;
-  exports.connect = reactRedux.connect;
-  exports.createModel = core.createModel;
-  exports.useApp = useApp;
-  exports.Mothership = Mothership;
-  exports.createApp = createApp;
-  exports.useNavigator = useNavigator;
+  Object.defineProperty(exports, 'Route', {
+    enumerable: true,
+    get: function () {
+      return reactRouter.Route;
+    }
+  });
+  Object.defineProperty(exports, 'Switch', {
+    enumerable: true,
+    get: function () {
+      return reactRouter.Switch;
+    }
+  });
+  Object.defineProperty(exports, 'withRouter', {
+    enumerable: true,
+    get: function () {
+      return reactRouter.withRouter;
+    }
+  });
+  Object.defineProperty(exports, 'connect', {
+    enumerable: true,
+    get: function () {
+      return reactRedux.connect;
+    }
+  });
+  Object.defineProperty(exports, 'createModel', {
+    enumerable: true,
+    get: function () {
+      return core.createModel;
+    }
+  });
+  exports.$$ = $$;
   exports.Boundary = Boundary;
-  exports.createFeature = createFeature;
-  exports.ViewNotFoundError = ViewNotFoundError;
   exports.Link = Link;
+  exports.Mothership = Mothership;
   exports.NavLink = NavLink;
   exports.Redirect = Redirect;
   exports.Scope = Scope;
-  exports.useScope = useScope;
-  exports.useProvided = useProvided;
-  exports.createStore = createStore;
-  exports.withDispatch = withDispatch;
-  exports.useAppEffect = useAppEffect;
-  exports.sconnect = sconnect;
-  exports.$$ = $$;
+  exports.ViewNotFoundError = ViewNotFoundError;
   exports._$ = _$;
+  exports.createApp = createApp;
+  exports.createFeature = createFeature;
+  exports.createStore = createStore;
+  exports.sconnect = sconnect;
+  exports.useApp = useApp;
+  exports.useAppEffect = useAppEffect;
+  exports.useAppSelector = useAppSelector;
+  exports.useNavigator = useNavigator;
+  exports.useProvided = useProvided;
+  exports.useScope = useScope;
+  exports.withDispatch = withDispatch;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
