@@ -6,9 +6,9 @@
 
 &nbsp;
 
-A simple extension to `create-react-app` for scalable single-page apps with functional react.
+A simple framework built on top of `create-react-app` for scalable single-page apps with functional react.
 
-Gives you everything a framework would; using only next generation JavaScript features and React spacedust.
+Tries to get out of the way by using only next generation JavaScript features and React spacedust.
 
 **features:**
 
@@ -23,7 +23,7 @@ Gives you everything a framework would; using only next generation JavaScript fe
   | -------------------- | ---------------------------------------------------------------------------- | ------------------------ |
   | suspense             | scoped route trees                                                           | dynamic models           |
   | error boundaries     | enhanced [routing components](https://github.com/ReactTraining/react-router) | shorthand redux bindings |
-  | contextual constants | composable view side-effects                                                 |
+  | contextual constants | composable view side-effects                                                 | automatic react import
 
 &nbsp;
 
