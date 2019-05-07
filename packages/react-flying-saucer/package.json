@@ -33,7 +33,7 @@
     "eslint": "5.16.0",
     "react-mothership": "^0.0.35",
     "react-scripts": "^3.0.0",
-    "webpack": "4.30.0"
+    "webpack": "4.29.6"
   },
   "peerDependencies": {
     "lodash": "^4.17.11",
