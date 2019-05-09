@@ -2,7 +2,7 @@ import { _ } from 'param.macro'
 import { memo, createElement, useEffect } from 'react'
 import { connect, useStore, useSelector } from 'react-redux'
 
-export { connect } from 'react-redux'
+export { connect, useSelector, useDispatch, useStore } from 'react-redux'
 
 export const withDispatch = connect(
   null,
