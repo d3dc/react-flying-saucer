@@ -43,13 +43,6 @@ const jest = config => {
 
 const webpack = {
   alias: {
-    /**
-     * Use the top-most of these for all bundles.
-     * Hooks are only recognized by their package
-     *
-     * A solution for user-packages is yarn workspaces
-     */
-    react: path.resolve('node_modules/react'),
     '@@': 'react-flying-saucer',
     '@': path.resolve('src'),
   },
