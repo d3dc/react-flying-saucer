@@ -75,6 +75,24 @@
       return reactRedux.connect;
     }
   });
+  Object.defineProperty(exports, 'useDispatch', {
+    enumerable: true,
+    get: function () {
+      return reactRedux.useDispatch;
+    }
+  });
+  Object.defineProperty(exports, 'useSelector', {
+    enumerable: true,
+    get: function () {
+      return reactRedux.useSelector;
+    }
+  });
+  Object.defineProperty(exports, 'useStore', {
+    enumerable: true,
+    get: function () {
+      return reactRedux.useStore;
+    }
+  });
   Object.defineProperty(exports, 'createModel', {
     enumerable: true,
     get: function () {

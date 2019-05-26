@@ -3,7 +3,7 @@ import React, { createContext, useContext, useMemo, Children, useEffect, memo, c
 import { Router, Redirect as Redirect$1, Route, withRouter, Switch } from 'react-router';
 export { Route, Switch, withRouter } from 'react-router';
 import { connect, useStore, useSelector, Provider as Provider$1 } from 'react-redux';
-export { connect } from 'react-redux';
+export { connect, useDispatch, useSelector, useStore } from 'react-redux';
 import _get from 'lodash/get';
 import _classCallCheck from '@babel/runtime/helpers/esm/classCallCheck';
 import _possibleConstructorReturn from '@babel/runtime/helpers/esm/possibleConstructorReturn';
