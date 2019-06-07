@@ -27,12 +27,12 @@
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
     "@babel/core": "^7.4.4",
-    "@craco/craco": "^5.0.2",
+    "@craco/craco": "^5.2.1",
     "craco-flying-saucer": "^0.0.38",
     "cross-spawn": "^6.0.5",
     "eslint": "5.16.0",
     "react-mothership": "^0.0.38",
-    "react-scripts": "^3.0.0",
+    "react-scripts": "^3.0.1",
     "webpack": "4.29.6"
   },
   "peerDependencies": {
@@ -47,6 +47,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "prettier": "^1.17.0"
+    "prettier": "^1.18.0"
   }
 }
