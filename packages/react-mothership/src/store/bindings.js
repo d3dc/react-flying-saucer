@@ -4,6 +4,8 @@ import { connect, useStore, useSelector } from 'react-redux'
 
 export { connect, useSelector, useDispatch, useStore } from 'react-redux'
 
+export const withStore = connect
+
 export const withDispatch = connect(
   null,
   _
@@ -16,12 +18,9 @@ export const useAppEffect = (mapDispatch, watch) => {
   }, watch)
 }
 
-export const useAppSelector = (mapSelect, payload, deps) => {
+export const useAppSelector = (mapSelect, payload) => {
   const store = useStore()
-  const selector = mapSelect(store.select)
-  // setup happens in component
-  // no extra memoization
-  return useSelector(state => selector(state, payload), [payload, ...deps])
+  return useSelector(state => mapSelect(store.select)(state, payload))
 }
 
 export const sconnect = (mapSelect, mapDispatch) => Base => {
@@ -40,6 +39,8 @@ export const sconnect = (mapSelect, mapDispatch) => Base => {
 
   return c
 }
+
+export const withStoreSelection = sconnect
 
 export const $$ = sconnect
 export const _$ = withDispatch
