@@ -1,6 +1,6 @@
 import { _ } from 'param.macro'
 import { memo, createElement, useEffect } from 'react'
-import { connect, useStore, useSelector } from 'react-redux'
+import { connect, useStore, useSelector, ReactReduxContext } from 'react-redux'
 
 export { connect, useSelector, useDispatch, useStore } from 'react-redux'
 
@@ -24,15 +24,20 @@ export const useAppSelector = (mapSelect, payload) => {
 }
 
 export const sconnect = (mapSelect, mapDispatch) => Base => {
+  // memoizes setup
   const c = memo(props => {
-    const store = useStore()
-    // memoizes setup
-    const enhance = connect(
-      store.select(mapSelect),
-      mapDispatch
-    )
+    return (
+      <ReactReduxContext.Consumer>
+        {store => {
+          const enhance = connect(
+            store.select(mapSelect),
+            mapDispatch
+          )
 
-    return createElement(enhance(Base), props)
+          return createElement(enhance(Base), props)
+        }}
+      </ReactReduxContext.Consumer>
+    )
   })
 
   c.displayName = `sconnect(${Base.displayName || Base.name || 'Component'})`
