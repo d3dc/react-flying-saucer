@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "bundle-react-flying-saucer": "^0.0.39",
-    "prettier": "^1.18.0"
+    "prettier": "^1.18.2"
   }
 }
