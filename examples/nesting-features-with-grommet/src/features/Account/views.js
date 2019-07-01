@@ -1,7 +1,7 @@
 import { it } from 'param.macro'
 import { lazy } from 'react'
 
-export default [
+const views = [
   {
     path: '/',
     exact: true,
@@ -24,3 +24,5 @@ export default [
     redirect: 'login',
   },
 ]
+
+export default views
