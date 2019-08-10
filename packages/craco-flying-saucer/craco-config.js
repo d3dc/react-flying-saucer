@@ -31,14 +31,12 @@ const eslint = {
   loaderOptions: { useEslintrc: true },
 }
 
-const jest = config => {
-  config.moduleNameMapper = {
-    ...config.moduleNameMapper,
-    '@@$': 'react-flying-saucer',
-    '@/(.*)$': '<rootDir>/src/$1',
-  }
-
-  return config
+const jest = {
+  configure: {
+    moduleNameMapper: {
+      '@@$': 'react-flying-saucer',
+      '@/(.*)$': '<rootDir>/src/$1',
+    },
 }
 
 const webpack = {
