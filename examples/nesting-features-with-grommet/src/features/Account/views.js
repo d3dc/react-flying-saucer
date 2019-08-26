@@ -1,4 +1,4 @@
-import { it } from 'param.macro'
+import { it } from '@@/macro'
 import { lazy } from 'react'
 
 const views = [

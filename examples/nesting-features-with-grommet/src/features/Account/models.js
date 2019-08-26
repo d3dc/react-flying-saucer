@@ -1,4 +1,4 @@
-import { it } from 'param.macro'
+import { it } from '@@/macro'
 
 const delay = t => new Promise(resolve => setTimeout(resolve, t))
 
