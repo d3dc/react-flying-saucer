@@ -5,6 +5,7 @@ const { copySync, ensureDirSync, removeSync } = require('fs-extra')
 
 function replaceDependencies() {
   install(['react-flying-saucer', 'lodash'], { dev: false })
+  install(['eslint-config-techno-babel'], { dev: true })
 }
 
 function replaceScripts() {
@@ -20,7 +21,10 @@ function replaceScripts() {
   file.setScript('test', 'react-flying-saucer test')
   file.removeScript('eject')
 
-  file.unset('eslintConfig') //TODO: Editor config
+  file.set('eslintConfig', [
+    ...file.get('eslintConfig'),
+    'eslint-config-techno-babel',
+  ])
 
   file.save()
 }

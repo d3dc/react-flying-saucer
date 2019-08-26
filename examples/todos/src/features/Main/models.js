@@ -1,4 +1,4 @@
-import { lift, _, it } from 'param.macro'
+import { lift, _, it } from '@@/macro'
 import { mapValues, omit, omitBy } from 'lodash/fp'
 import uuid from 'uuid/v4'
 

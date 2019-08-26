@@ -6,7 +6,6 @@
     "grommet": "^2.7.0",
     "grommet-icons": "^4.2.0",
     "lodash": "^4.17.11",
-    "param.macro": "^3.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-flying-saucer": "^0.0.39",
