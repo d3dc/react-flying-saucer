@@ -26,7 +26,9 @@ process.on('unhandledRejection', err => {
 const { log } = require('@craco/craco/lib/logger')
 const { getCraPaths, loadWebpackProdConfig } = require('@craco/craco/lib/cra')
 const { loadCracoConfig } = require('@craco/craco/lib/config')
-const { overrideWebpack } = require('@craco/craco/lib/features/webpack')
+const {
+  overrideWebpackProd,
+} = require('@craco/craco/lib/features/webpack/override')
 const { bundle, watch } = require('../lib/rollup')
 
 log('Bundling started with arguments: ', process.argv)
@@ -44,7 +46,7 @@ context.paths = getCraPaths(cracoConfig)
 const package = require(context.paths.appPackageJson)
 
 // Instead of require.resolve hacking, run rollup
-overrideWebpack(
+overrideWebpackProd(
   cracoConfig,
   craWebpackConfig,
   useRollupWatch ? watch(package.name) : bundle(package.name),
