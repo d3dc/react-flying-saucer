@@ -18,25 +18,13 @@ const babel = {
   },
 }
 
-// Preset was broken, here it is in full
-const eslint = {
-  configure: {
-    // extends: [require('eslint-config-techno-babel')],
-    rules: {
-      semi: ['error', 'never'],
-      'no-unused-expressions': 'off',
-      'react/react-in-jsx-scope': 'off',
-    },
-  },
-  loaderOptions: { useEslintrc: true },
-}
-
 const jest = {
   configure: {
     moduleNameMapper: {
       '@@$': 'react-flying-saucer',
       '@/(.*)$': '<rootDir>/src/$1',
     },
+  },
 }
 
 const webpack = {
@@ -50,5 +38,4 @@ module.exports = {
   webpack,
   jest,
   babel,
-  eslint,
 }
