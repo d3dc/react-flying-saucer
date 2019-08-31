@@ -1,7 +1,7 @@
 {
-  "name": "craco-flying-saucer",
+  "name": "eslint-config-react-flying-saucer",
   "version": "0.0.40",
-  "description": "craco configuration and plugins for react-flying-saucer",
+  "description": "relaxed linting rules for react-flying-saucer",
   "keywords": [
     "react",
     "flying",
@@ -11,7 +11,6 @@
   "author": "Sam Richard <sam.richard@gmail.com>",
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "license": "ISC",
-  "main": "craco-config.js",
   "files": [
     "index.js"
   ],
@@ -25,13 +24,6 @@
   },
   "bugs": {
     "url": "https://github.com/d3dc/react-flying-saucer/issues"
-  },
-  "dependencies": {
-    "@craco/craco": "^5.3.0",
-    "babel-plugin-import": "^1.12.0",
-    "babel-plugin-react-require": "^3.1.1",
-    "babel-preset-react-app": "^9.0.1",
-    "babel-preset-techno-babel": "^2.1.0"
   },
   "devDependencies": {
     "prettier": "^1.18.2"

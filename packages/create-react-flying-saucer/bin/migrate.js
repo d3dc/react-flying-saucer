@@ -7,6 +7,7 @@ function migrateExistingApp() {
 
   codemods.replaceDependencies()
   codemods.replaceScripts()
+  codemods.modifyEnv()
 
   if (addTemplate) {
     codemods.addTemplate()

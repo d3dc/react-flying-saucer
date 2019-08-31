@@ -22,6 +22,18 @@
     "url": "https://github.com/d3dc/react-flying-saucer/issues"
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-flying-saucer"
+    ],
+    "rules": {
+      "semi": [
+        "error",
+        "never"
+      ]
+    }
+  },
   "dependencies": {
     "@rematch/core": "^1.1.0",
     "@rematch/select": "^2.0.4",

@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 const path = require('path')
-const { packageJson, uninstall, install } = require('mrm-core')
+const { packageJson, lines, uninstall, install } = require('mrm-core')
 const { copySync, ensureDirSync, removeSync } = require('fs-extra')
 
 function replaceDependencies() {
-  install(['react-flying-saucer', 'lodash'], { dev: false })
-  install(['eslint-config-techno-babel'], { dev: true })
+  install(
+    ['react-flying-saucer', 'lodash', 'eslint-config-react-flying-saucer'],
+    { dev: false }
+  )
 }
 
 function replaceScripts() {
@@ -21,11 +23,21 @@ function replaceScripts() {
   file.setScript('test', 'react-flying-saucer test')
   file.removeScript('eject')
 
-  file.set('eslintConfig', [
-    ...file.get('eslintConfig'),
-    'eslint-config-techno-babel',
-  ])
+  file.merge({
+    eslintConfig: {
+      extends: ['react-flying-saucer'],
+      rules: {
+        semi: ['error', 'never'],
+      },
+    },
+  })
 
+  file.save()
+}
+
+function modifyEnv() {
+  const file = lines('.env')
+  file.add('EXTEND_ESLINT=true')
   file.save()
 }
 
@@ -44,4 +56,5 @@ module.exports = {
   replaceDependencies,
   replaceScripts,
   addTemplate,
+  modifyEnv,
 }

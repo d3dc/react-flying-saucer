@@ -28,5 +28,6 @@ function migrateFreshApp() {
   codemods.replaceDependencies()
   codemods.replaceScripts()
   codemods.addTemplate()
+  codemods.modifyEnv()
   codemods.removeOriginalFiles()
 }
