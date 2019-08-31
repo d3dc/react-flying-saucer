@@ -3,13 +3,13 @@
   "version": "0.0.40",
   "private": true,
   "dependencies": {
-    "grommet": "^2.7.0",
-    "grommet-icons": "^4.2.0",
-    "lodash": "^4.17.11",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "grommet": "^2.7.7",
+    "grommet-icons": "^4.3.0",
+    "lodash": "^4.17.15",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-flying-saucer": "^0.0.40",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-flying-saucer start",
