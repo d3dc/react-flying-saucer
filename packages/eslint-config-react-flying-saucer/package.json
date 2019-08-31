@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-react-flying-saucer",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "description": "relaxed linting rules for react-flying-saucer",
   "keywords": [
     "react",
