@@ -21,7 +21,7 @@ const babel = {
 const jest = {
   configure: {
     moduleNameMapper: {
-      '@@$': 'react-flying-saucer',
+      '@@(/.*)$': 'react-flying-saucer$1',
       '@/(.*)$': '<rootDir>/src/$1',
     },
   },
