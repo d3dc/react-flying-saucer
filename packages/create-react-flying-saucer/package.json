@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
-    "create-react-app": "^3.1.1",
+    "create-react-app": "^3.1.2",
     "fs-extra": "^8.1.0",
-    "mrm-core": "^3.3.3"
+    "mrm-core": "^3.3.4"
   },
   "devDependencies": {
     "prettier": "^1.18.2"
