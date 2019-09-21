@@ -1,3 +1,4 @@
 #!/usr/bin/env node
-require('craco-flying-saucer/bootstrap')
-require('@craco/craco/bin/craco.js') // TODO: this spawns a new child node process without the bootstrap...
+require('craco-flying-saucer/bootstrap')(() =>
+  require('@craco/craco/bin/craco.js')
+)

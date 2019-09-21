@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 productionEnv()
-require('craco-flying-saucer/bootstrap')
+require('craco-flying-saucer/bootstrap')(() => {
+  const [webpackConfig, context] = getOverriddenWebpackConfig()
+  const package = require(context.paths.appPackageJson)
 
-const [webpackConfig, context] = getOverriddenWebpackConfig()
-const package = require(context.paths.appPackageJson)
-
-bundleTask(package.name, webpackConfig)
+  bundleTask(package.name, webpackConfig)
+})
 
 /**
  * hoisted functions
