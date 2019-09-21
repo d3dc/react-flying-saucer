@@ -8,15 +8,14 @@ const configPath = path.relative(
   require.resolve('craco-flying-saucer')
 )
 
-
 module.exports = function bootstrap(guarded) {
-  const originalPackageData = fs.readFileSync(packageJsonPath(packageJsonPath)
-  const package = JSON.parse(originalPackageData)
-  
-  package.cracoConfig = configPath
-  
-  fs.writeFileSync(packageJsonPath, JSON.stringify(package))
-  
+  const originalPackageData = fs.readFileSync(packageJsonPath)
+  const packageJson = JSON.parse(originalPackageData)
+
+  packageJson.cracoConfig = configPath
+
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson))
+
   guarded()
 
   fs.writeFileSync(packageJsonPath, originalPackageData)
