@@ -13,7 +13,8 @@
   "license": "ISC",
   "main": "craco-config.js",
   "files": [
-    "index.js"
+    "craco-config.js",
+    "bootstrap.js"
   ],
   "repository": {
     "type": "git",
