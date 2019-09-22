@@ -3,10 +3,7 @@ const fs = require('fs')
 
 const projectRoot = fs.realpathSync(process.cwd())
 const packageJsonPath = path.join(projectRoot, 'package.json')
-const configPath = path.relative(
-  process.cwd(),
-  require.resolve('craco-flying-saucer')
-)
+const configPath = path.relative(process.cwd(), __dirname)
 
 module.exports = function bootstrap(guarded) {
   const originalPackageData = fs.readFileSync(packageJsonPath)
