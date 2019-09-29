@@ -1,6 +1,6 @@
 {
   "name": "craco-flying-saucer",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "description": "Hides @craco/craco inside a sleek spaceship exterior for react-flying-saucer",
   "keywords": [
     "react",
