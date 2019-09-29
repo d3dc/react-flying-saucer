@@ -45,6 +45,34 @@ Tries to get out of the way by using only next generation JavaScript features an
 
 ## Whats in the Box?
 
+`react-flying-saucer` proposes two declarative react primitives to build your app with. It abstracts outside effects (navigation) and redux state to an "app" container provided by a `Mothership`. Using React semantics, the mothership declaratively lists the `Features` that modify and listen to this context - preserving redux state scoping and feature component lazy loading.
+
+```jsx
+<Mothership>
+    <FormsProvider>
+        <Dashboard path="/dash">
+            <GlobalStats />
+            <TimerBar />
+        </Dashboard>
+        <Account
+            path="/"
+            loggedInView="Dashboard"
+        />
+    </FormsProvider>
+</Mothership>
+
+```
+
+### [Simple API](docs/api.md)
+
+- [Mothership](/docs/api.md#the-app)
+- [Features](/docs/api.md#features)
+- [`RematchModel`](/docs/api.md#rematchmodel)
+- [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
+- [enhanced routing](/docs/api.md#enhanced-routing)
+- [`context` bindings](/docs/api.md#context-bindings)
+- [`redux` bindings](/docs/api.md#redux-bindings)
+
 ### One-touch bootstrap or migrate
 
 - run the latest `create-react-app` and add `react-flying-saucer`
@@ -81,16 +109,6 @@ import Sidebar from '@/features/sidebar'
 
 `react-flying-saucer` respects any `.babelrc` and `.eslintrc` configuration files. Any additional configuration your project needs can be added directly to these files.
 
-### [exported utilities](docs/api.md)
-
-- [Mothership](/docs/api.md#the-app)
-- [Features](/docs/api.md#features)
-- [`RematchModel`](/docs/api.md#rematchmodel)
-- [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
-- [enhanced routing](/docs/api.md#enhanced-routing)
-- [`context` bindings](/docs/api.md#context-bindings)
-- [`redux` bindings](/docs/api.md#redux-bindings)
-
 &nbsp;
 
 &nbsp;
@@ -109,21 +127,14 @@ import Sidebar from '@/features/sidebar'
 - [WIP][standalone mothership](docs/standalone-mothership.md)
 
 ## Packages
-
+- [bundle-react-flying-saucer](packages/bundle-react-flying-saucer)
+  - package a flying saucer app as NPM ready CJS and ESM!
 - [create-react-flying-saucer](packages/create-react-flying-saucer)
   - create a create-react-app app and then codemod it to outerspace!
 - [react-flying-saucer](packages/react-flying-saucer)
   - npm scripts for a react experience that's out of this world!
 - [react-mothership](packages/react-mothership)
   - react primitives for building stellar apps!
-
-## Polyfills and patches
-
-Includes code that disappears when these are released:
-
-- [x] `react@16.8`
-  - ~~adds per component polyfill [`useHooks()`](https://github.com/tannerlinsley/use-react-hooks)~~
-  - ~~must import hooks from `react-mothership`~~
 
 ## Typescript when?!
 
