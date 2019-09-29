@@ -1,5 +1,7 @@
 import { mapValues } from 'lodash'
 import { createElement, useContext, useMemo } from 'react'
+import { Redirect as BaseRedirect } from 'react-router'
+import { Link as BaseLink, NavLink as BaseNavLink } from 'react-router-dom'
 import { useScope } from './scope'
 
 export class ViewNotFoundError extends Error {
@@ -9,29 +11,29 @@ export class ViewNotFoundError extends Error {
   }
 }
 
-const makeHookFn = (key, scope, all = true) => (view, params) => {
-  const config = scope?.views?.[view]
-  if (!config) {
-    throw new ViewNotFoundError(view, scope.name)
-  }
-  const props = {
-    [key]: config.resolve(params),
-  }
-  if (all) {
-    props.exact = config.exact,
-  }
-
-  return props
-}
-
-export const useAppView = () => {
+const enhance = Comp => ({ view, params, ...rest }) => {
   const scope = useScope()
-  return useMemo(() => makeHookFn('path', scope), [scope])
+  const [to, exact] = useMemo(() => {
+    if (view) {
+      const config = scope?.views?.[view]
+      if (!config) {
+        throw new ViewNotFoundError(view, scope.name)
+      }
+      return [config.resolve(params), config.exact]
+    } else {
+      return [undefined, undefined]
+    }
+  }, [scope, view, params])
+
+  return createElement(Comp, {
+    to,
+    exact,
+    ...rest,
+  })
 }
 
-export const useAppRedirect = () => {
-  export const useAppView = () => {
-    const scope = useScope()
-    return useMemo(() => [makeHookFn('to', scope, false), makeHookFn('from', scope)], [scope])
-  }
-}
+export const Link = BaseLink |> enhance
+export const NavLink = BaseNavLink |> enhance
+export const Redirect = BaseRedirect |> enhance
+export { Switch, Route } from 'react-router'
+export { withRouter } from 'react-router'
