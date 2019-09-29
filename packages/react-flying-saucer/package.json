@@ -27,7 +27,6 @@
   },
   "homepage": "https://github.com/d3dc/react-flying-saucer#readme",
   "dependencies": {
-    "@babel/core": "^7.6.0",
     "@craco/craco": "^5.5.0",
     "craco-flying-saucer": "^0.0.41",
     "eslint": "^6.4.0",
