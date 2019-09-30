@@ -67,9 +67,12 @@ Tries to get out of the way by using only next generation JavaScript features an
 
 - [Mothership](/docs/api.md#the-app)
 - [Features](/docs/api.md#features)
-- [`RematchModel`](/docs/api.md#rematchmodel)
-- [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
-- [enhanced routing](/docs/api.md#enhanced-routing)
+  - [`RematchModel`](/docs/api.md#rematchmodel)
+  - [`FlyingSaucerView`](/docs/api.md#flyingsaucerview)
+
+&nbsp;
+
+- [`history` bindings](/docs/api.md#enhanced-routing)
 - [`context` bindings](/docs/api.md#context-bindings)
 - [`redux` bindings](/docs/api.md#redux-bindings)
 
@@ -98,7 +101,7 @@ A link to the source root of your project.
 
 `@@`
 
-[re-exports](#exported-utilities) everything you need for creating and mounting a feature fleet.
+[re-exports](#simple-api) everything you need for creating and mounting a feature fleet.
 
 ```js
 import { $$ } from '@@'
